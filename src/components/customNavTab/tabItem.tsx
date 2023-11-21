@@ -68,10 +68,9 @@ const TabItem: FC<TabProps> = ({
           hitSlop={tabItemsStyles.touchAbleArea}
           onPress={onTabPress}
         >
-          {/* {iconRender(
+          {iconRender(
             activeIndex === index + 1 ? colors.navyBlue : colors.neroWithOpacity
-          )} */}
-          {/* <Icons.Home fill={colors.navyBlue} style={tabItemsStyles.icon} /> */}
+          )}
         </Pressable>
       </Animated.View>
       <Animated.View style={[labelContainerStyle, styles.labelContainer]}>
