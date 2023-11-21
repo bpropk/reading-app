@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { FC } from "react";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 
@@ -30,9 +30,9 @@ const TabItem: FC<TabProps> = ({
   onTabPress,
 }) => {
   const { curvedPaths } = usePath();
-  console.log("curvedPaths", curvedPaths);
   const iconPosition = getPathXCenterByIndex(curvedPaths, index);
   const labelPosition = getPathXCenterByIndex(curvedPaths, index);
+
   const iconRender = (color: string) => {
     switch (icon) {
       case NAVIGATION_ICON_NAME.HOME_ICON:
@@ -42,7 +42,7 @@ const TabItem: FC<TabProps> = ({
       case NAVIGATION_ICON_NAME.DISCOVER_ICON:
         return <Icons.Discover fill={color} style={tabItemsStyles.icon} />;
       default:
-        <Icons.MorePage fill={color} style={tabItemsStyles.icon} />;
+        return <Icons.MorePage fill={color} style={tabItemsStyles.icon} />;
     }
   };
   const tabStyle = useAnimatedStyle(() => {
@@ -65,13 +65,13 @@ const TabItem: FC<TabProps> = ({
       <Animated.View style={[tabStyle]}>
         <Pressable
           testID={`tab${label}`}
-          //Increasing touchable Area
           hitSlop={tabItemsStyles.touchAbleArea}
           onPress={onTabPress}
         >
-          {iconRender(
+          {/* {iconRender(
             activeIndex === index + 1 ? colors.navyBlue : colors.neroWithOpacity
-          )}
+          )} */}
+          {/* <Icons.Home fill={colors.navyBlue} style={tabItemsStyles.icon} /> */}
         </Pressable>
       </Animated.View>
       <Animated.View style={[labelContainerStyle, styles.labelContainer]}>

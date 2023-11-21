@@ -1,8 +1,8 @@
 enum NAVIGATION_TABS_NAME {
-  HOME_TAB = "bottomNav:home",
-  LIBRARY_TAB = "bottomNav:library",
-  DISCOVER_TAB = "bottomNav:discovery",
-  MORE_TAB = "buttomNav:more",
+  HOME_TAB = "Home",
+  LIBRARY_TAB = "Library",
+  DISCOVER_TAB = "Discover",
+  MORE_TAB = "More",
 }
 
 const NAVIGATION_ICON_NAME = {
