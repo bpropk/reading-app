@@ -14,6 +14,8 @@ const NAVIGATION_ICON_NAME = {
 const ICON_SIZE = 25;
 const TAB_BAR_HEIGHT = 70;
 const CIRCLE_CONTAINER_SIZE = 16;
+const NUM_TABS = 5;
+const SCALE = 0.4;
 
 export {
   NAVIGATION_TABS_NAME,
@@ -21,4 +23,6 @@ export {
   ICON_SIZE,
   TAB_BAR_HEIGHT,
   CIRCLE_CONTAINER_SIZE,
+  NUM_TABS,
+  SCALE,
 };

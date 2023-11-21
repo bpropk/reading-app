@@ -30,6 +30,7 @@ const TabItem: FC<TabProps> = ({
   onTabPress,
 }) => {
   const { curvedPaths } = usePath();
+  console.log("curvedPaths", curvedPaths);
   const iconPosition = getPathXCenterByIndex(curvedPaths, index);
   const labelPosition = getPathXCenterByIndex(curvedPaths, index);
   const iconRender = (color: string) => {

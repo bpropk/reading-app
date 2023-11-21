@@ -6,6 +6,8 @@ import {
 import CustomBottomTab from "@src/components/customNavTab/customBottomTab";
 import HomeNavigator from "./homeNavigator";
 import { NAVIGATION_TABS_NAME } from "@src/constants/bottomNavConstant";
+import LibraryNavigator from "./libraryNavigator";
+import DiscoverNavigator from "./discoverNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +29,27 @@ const AppNavigator: React.FC = memo(() => {
           }}
           name={NAVIGATION_TABS_NAME.HOME_TAB}
           component={HomeNavigator}
+        />
+        <Tab.Screen
+          options={{
+            tabBarLabel: NAVIGATION_TABS_NAME.LIBRARY_TAB,
+          }}
+          name={NAVIGATION_TABS_NAME.LIBRARY_TAB}
+          component={LibraryNavigator}
+        />
+        <Tab.Screen
+          options={{
+            tabBarLabel: NAVIGATION_TABS_NAME.DISCOVER_TAB,
+          }}
+          name={NAVIGATION_TABS_NAME.DISCOVER_TAB}
+          component={DiscoverNavigator}
+        />
+        <Tab.Screen
+          options={{
+            tabBarLabel: NAVIGATION_TABS_NAME.MORE_TAB,
+          }}
+          name={NAVIGATION_TABS_NAME.MORE_TAB}
+          component={DiscoverNavigator}
         />
       </Tab.Group>
     </Tab.Navigator>
