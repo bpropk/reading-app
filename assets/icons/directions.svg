@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #0072BC;
+        stroke-width: 1.25px;
+      }
+    </style>
+  </defs>
+  <path id="Path_66330" data-name="Path 66330" class="cls-1" d="m6.31,6.73c-.03-.7,0-2.04,0-2.04.51.29,1.11.65,1.67,1.02.37.24.73.51,1.07.79.19.15.36.32.49.51.09.23.15.46.17.7.06.39.09.86.11,1.38.03.7.02,1.43,0,2.04,0,0-1.14-.64-1.67-1.02-.37-.24-.73-.51-1.07-.79-.19-.15-.36-.32-.49-.51-.09-.23-.15-.46-.17-.7-.05-.39-.09-.86-.11-1.38Z"/>
+  <circle id="Ellipse_410" data-name="Ellipse 410" class="cls-2" cx="8.01" cy="7.95" r="7.3"/>
+</svg>
