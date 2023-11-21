@@ -78,7 +78,6 @@ const customTabStyles = StyleSheet.create({
     flex: 1,
   },
   tabBarContainer: {
-    position: "absolute",
     bottom: 0,
     zIndex: 2,
     backgroundColor: colors.white,

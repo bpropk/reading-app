@@ -8,9 +8,9 @@ const Stack = createStackNavigator<RootParamsList>();
 
 const MoreNavigator: React.FC = memo(() => {
   return (
-    <Stack.Navigator initialRouteName={RootStackElements.HOME_PAGE}>
+    <Stack.Navigator initialRouteName={RootStackElements.MORE_PAGE}>
       <Stack.Screen
-        name={RootStackElements.HOME_PAGE}
+        name={RootStackElements.MORE_PAGE}
         component={MorePage}
         options={{ headerShown: true }}
       />

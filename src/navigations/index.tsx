@@ -8,6 +8,7 @@ import HomeNavigator from "./homeNavigator";
 import { NAVIGATION_TABS_NAME } from "@src/constants/bottomNavConstant";
 import LibraryNavigator from "./libraryNavigator";
 import DiscoverNavigator from "./discoverNavigator";
+import MoreNavigator from "./moreNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +21,7 @@ const AppNavigator: React.FC = memo(() => {
     <Tab.Navigator tabBar={componentTabBar}>
       <Tab.Group
         screenOptions={{
-          headerShown: true,
+          headerShown: false,
         }}
       >
         <Tab.Screen
@@ -49,7 +50,7 @@ const AppNavigator: React.FC = memo(() => {
             tabBarLabel: NAVIGATION_TABS_NAME.MORE_TAB,
           }}
           name={NAVIGATION_TABS_NAME.MORE_TAB}
-          component={DiscoverNavigator}
+          component={MoreNavigator}
         />
       </Tab.Group>
     </Tab.Navigator>
