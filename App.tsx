@@ -12,9 +12,6 @@ export default function App() {
         <NavigationContainer>
           <AppNavigator />
         </NavigationContainer>
-        {/* <View>
-          <Text>run</Text>
-        </View> */}
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
