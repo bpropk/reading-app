@@ -1,9 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React, { FC } from "react";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
-import usePath from "@src/hooks/usePath";
-import { getPathXCenterByIndex } from "@src/utils/Path";
 import { colors, Icons } from "@src/common/theme";
 import {
   ICON_SIZE,
@@ -29,10 +27,6 @@ const TabItem: FC<TabProps> = ({
   activeIndex,
   onTabPress,
 }) => {
-  const { curvedPaths } = usePath();
-  const iconPosition = getPathXCenterByIndex(curvedPaths, index);
-  const labelPosition = getPathXCenterByIndex(curvedPaths, index);
-
   const iconRender = (color: string) => {
     switch (icon) {
       case NAVIGATION_ICON_NAME.HOME_ICON:
@@ -45,20 +39,6 @@ const TabItem: FC<TabProps> = ({
         return <Icons.MorePage fill={color} style={tabItemsStyles.icon} />;
     }
   };
-  const iconStyle = useAnimatedStyle(() => {
-    const iconPositionX = iconPosition - index * ICON_SIZE;
-    return {
-      width: ICON_SIZE,
-      height: ICON_SIZE,
-      transform: [{ translateX: iconPositionX - ICON_SIZE / 2 }],
-    };
-  });
-
-  const labelContainerStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: labelPosition - LABEL_WIDTH / 2 }],
-    };
-  });
 
   return (
     <Animated.View>
@@ -67,9 +47,12 @@ const TabItem: FC<TabProps> = ({
         onPress={onTabPress}
         style={styles.container}
       >
-        {iconRender(
-          activeIndex === index + 1 ? colors.navyBlue : colors.neroWithOpacity
-        )}
+        <View style={tabItemsStyles.container}>
+          {iconRender(
+            activeIndex === index + 1 ? colors.navyBlue : colors.neroWithOpacity
+          )}
+        </View>
+
         <Text
           style={[
             styles.label,
@@ -117,6 +100,10 @@ const styles = StyleSheet.create({
 });
 
 const tabItemsStyles = StyleSheet.create({
+  container: {
+    paddingTop: 20,
+    paddingBottom: 5,
+  },
   icon: {
     width: ICON_SIZE,
     height: ICON_SIZE,
