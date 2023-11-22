@@ -83,9 +83,9 @@ const customTabStyles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   tabItemsContainer: {
-    width: "auto",
-    position: "absolute",
+    position: "relative",
     flexDirection: "row",
+    justifyContent: "space-around",
   },
   shadowMd: {
     elevation: 5,

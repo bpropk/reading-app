@@ -45,7 +45,7 @@ const TabItem: FC<TabProps> = ({
         return <Icons.MorePage fill={color} style={tabItemsStyles.icon} />;
     }
   };
-  const tabStyle = useAnimatedStyle(() => {
+  const iconStyle = useAnimatedStyle(() => {
     const iconPositionX = iconPosition - index * ICON_SIZE;
     return {
       width: ICON_SIZE,
@@ -61,19 +61,15 @@ const TabItem: FC<TabProps> = ({
   });
 
   return (
-    <>
-      <Animated.View style={[tabStyle]}>
-        <Pressable
-          testID={`tab${label}`}
-          hitSlop={tabItemsStyles.touchAbleArea}
-          onPress={onTabPress}
-        >
-          {iconRender(
-            activeIndex === index + 1 ? colors.navyBlue : colors.neroWithOpacity
-          )}
-        </Pressable>
-      </Animated.View>
-      <Animated.View style={[labelContainerStyle, styles.labelContainer]}>
+    <Animated.View>
+      <Pressable
+        testID={`tab${label}`}
+        onPress={onTabPress}
+        style={styles.container}
+      >
+        {iconRender(
+          activeIndex === index + 1 ? colors.navyBlue : colors.neroWithOpacity
+        )}
         <Text
           style={[
             styles.label,
@@ -87,12 +83,17 @@ const TabItem: FC<TabProps> = ({
         >
           {label}
         </Text>
-      </Animated.View>
-    </>
+      </Pressable>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   labelContainer: {
     position: "absolute",
     alignItems: "center",
@@ -116,8 +117,10 @@ const styles = StyleSheet.create({
 });
 
 const tabItemsStyles = StyleSheet.create({
-  icon: { marginTop: 10 },
-  touchAbleArea: { top: 0, bottom: 200 },
+  icon: {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
+  },
 });
 
 export default TabItem;
