@@ -49,10 +49,10 @@ const TabItem: FC<TabProps> = ({
       >
         <View style={tabItemsStyles.container}>
           {iconRender(
-            activeIndex === index + 1 ? colors.navyBlue : colors.neroWithOpacity
+            activeIndex === index + 1 ? colors.darkGreen : colors.neroWithOpacity
           )}
         </View>
-
+{/* chỉnh màu text  */}
         <Text
           style={[
             styles.label,
