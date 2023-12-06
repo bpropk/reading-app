@@ -9,6 +9,7 @@ import { NAVIGATION_TABS_NAME } from "@src/constants/bottomNavConstant";
 import LibraryNavigator from "./libraryNavigator";
 import DiscoverNavigator from "./discoverNavigator";
 import MoreNavigator from "./moreNavigator";
+import AuthNavigator from "./registerNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,13 @@ const AppNavigator: React.FC = memo(() => {
           headerShown: false,
         }}
       >
+        <Tab.Screen
+          options={{
+            tabBarLabel: NAVIGATION_TABS_NAME.AUTHENCATION_TAB,
+          }}
+          name={NAVIGATION_TABS_NAME.AUTHENCATION_TAB}
+          component={AuthNavigator}
+        />
         <Tab.Screen
           options={{
             tabBarLabel: NAVIGATION_TABS_NAME.HOME_TAB,

@@ -3,6 +3,8 @@ enum NAVIGATION_TABS_NAME {
   LIBRARY_TAB = "Library",
   DISCOVER_TAB = "Discover",
   MORE_TAB = "More",
+  AUTHENCATION_TAB = "Authen",
+
 }
 
 const NAVIGATION_ICON_NAME = {
