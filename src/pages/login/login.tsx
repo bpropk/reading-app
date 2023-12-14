@@ -1,8 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import CustomBottomTab from "@src/components/customNavTab/customBottomTab";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootParamsList, RootStackElements } from "@src/navigations/root-stack";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Checkbox from "expo-checkbox";
 
 const LoginForm = () => {
   const navigation = useNavigation<NavigationProp<RootParamsList>>();
@@ -14,39 +24,66 @@ const LoginForm = () => {
     console.log("Email:", email);
     console.log("Password:", password);
   };
+  const [isSelected, setSelection] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Đăng Nhập</Text>
-      <TextInput
-        label="Email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        style={styles.input}
-        mode="outlined"
-      />
-      <TextInput
-        //label="Mật khẩu"
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        style={styles.input}
-        secureTextEntry={true}
-        //mode="outlined"
-      />
-      <Button title=" Đăng nhập " onPress={handleLogin} />
-      <Button
-        title=" Đăng ký "
-        onPress={() => navigation.navigate(RootStackElements.REGISTER_PAGE)}
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text style={styles.title}>Đăng Nhập</Text>
+      </View>
+      <View style={styles.form}>
+        <View style={styles.group}>
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            style={styles.input}
+            //mode="outlined"
+          />
+        </View>
+        <View style={styles.group}>
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={styles.input}
+            secureTextEntry={true}
+            //mode="outlined"
+          />
+        </View>
+        <View style={styles.group1}>
+          <View style={styles.checkboxContainer}>
+            <Checkbox
+              value={isSelected}
+              onValueChange={setSelection}
+              style={styles.checkbox}
+            />
+            <Text style={styles.label}>Lưu mật khẩu</Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => Alert.alert("sau này làm")}
+            >
+              <Text style={{ color: "blue" }}>Quên mật khẩu</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Button title=" Đăng nhập " onPress={handleLogin} />
+        <Button
+          title=" Đăng ký "
+          onPress={() => navigation.navigate(RootStackElements.REGISTER_PAGE)}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    padding: 16,
+    paddingHorizontal: 30,
+    backgroundColor: "#ffffff",
   },
   title: {
     fontSize: 24,
@@ -54,10 +91,32 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    marginBottom: 16,
+    borderBottomWidth: 1,
+    backgroundColor: "#fff",
+    marginBottom: 50,
+    padding: 15,
+    borderColor: "gray",
   },
-  button: {
-    marginTop: 8,
+  button: {},
+  form: {
+    margin: 20,
+  },
+  group: {},
+  checkboxContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  checkbox: {
+    alignSelf: "center",
+  },
+  label: {
+    margin: 8,
+  },
+  group1: {
+    marginBottom: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
 
