@@ -28,7 +28,7 @@ const LoginForm = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={{ marginTop: 30 }}>
         <Text style={styles.title}>Đăng Nhập</Text>
       </View>
       <View style={styles.form}>

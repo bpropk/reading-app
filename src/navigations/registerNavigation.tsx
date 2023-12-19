@@ -9,7 +9,10 @@ const Stack = createStackNavigator();
 
 const AuthNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={RootStackElements.LOGIN_PAGE}>
+    <Stack.Navigator
+      initialRouteName={RootStackElements.LOGIN_PAGE}
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name={RootStackElements.LOGIN_PAGE} component={LoginForm} />
       <Stack.Screen
         name={RootStackElements.REGISTER_PAGE}
