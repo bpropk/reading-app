@@ -13,6 +13,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootParamsList, RootStackElements } from "@src/navigations/root-stack";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Checkbox from "expo-checkbox";
+import CustomButton from "@src/components/button/button";
 
 const LoginForm = () => {
   const navigation = useNavigation<NavigationProp<RootParamsList>>();
@@ -69,9 +70,15 @@ const LoginForm = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <Button title=" Đăng nhập " onPress={handleLogin} />
+        {/* <Button title=" Đăng nhập " onPress={handleLogin} /> */}
+        <CustomButton
+          title="Đăng Nhập"
+          onPress={() => {
+            console.log(handleLogin);
+          }}
+        />
         <Button
-          title=" Đăng ký "
+          title="Đăng ký"
           onPress={() => navigation.navigate(RootStackElements.REGISTER_PAGE)}
         />
       </View>

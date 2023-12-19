@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Checkbox from "expo-checkbox";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { StretchInY, StretchOutY } from "react-native-reanimated";
+import { stackOffsetExpand } from "d3-shape";
+import CustomButton from "@src/components/button/button";
 
 const RegistrationForm = () => {
   const [username, setUsername] = useState("");
@@ -57,9 +61,15 @@ const RegistrationForm = () => {
             onValueChange={setSelection}
             style={styles.checkbox}
           />
-          <Text style={styles.label}>Lưu mật khẩu</Text>
+          <Text style={styles.label}> Tôi đồng ý với điều khoản sử dụng </Text>
         </View>
       </View>
+      <CustomButton
+        title="Dang Ky"
+        onPress={() => {
+          console.log("t lam sau ok");
+        }}
+      ></CustomButton>
     </SafeAreaView>
   );
 };
@@ -73,7 +83,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    marginBottom: 8,
+    //marginBottom: 8,
   },
   input: {
     borderBottomWidth: 1,
@@ -97,6 +107,12 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     alignSelf: "center",
+  },
+  btn: {
+    marginTop: 30,
+    backgroundColor: "1bcdff",
+    paddingVertical: 15,
+    alignItems: "center",
   },
 });
 
