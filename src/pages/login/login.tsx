@@ -34,54 +34,49 @@ const LoginForm = () => {
       });
     }
   };
-  const [isSelected, setSelection] = useState(false);
+
+  const handleRegister = () => {
+    navigation.navigate(RootStackElements.REGISTER_PAGE);
+  };
+
+  const handleForgotPassword = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ marginTop: 30 }}>
-        <Text style={styles.title}>Đăng Nhập</Text>
+        <Text style={styles.title}>Login</Text>
       </View>
-      <View style={styles.form}>
-        <View style={styles.group}>
-          <TextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
-          />
-        </View>
-        <View style={styles.group}>
-          <TextInput
-            placeholder="Password"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={styles.group1}>
-          <View style={styles.checkboxContainer}>
-            <Checkbox
-              value={isSelected}
-              onValueChange={setSelection}
-              style={styles.checkbox}
-            />
-            <Text style={styles.label}>Lưu mật khẩu</Text>
-          </View>
-          <View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("sau này làm")}
-            >
-              <Text style={{ color: "blue" }}>Quên mật khẩu</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <CustomButton title="Đăng Nhập" onPress={handleLogin} />
-        <Button
-          title="Đăng ký"
-          onPress={() => navigation.navigate(RootStackElements.REGISTER_PAGE)}
+
+      <View>
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your email"
+          value={email}
+          onChangeText={setEmail}
+          secureTextEntry={true}
         />
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter a password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+        />
+        <View style={styles.forgotPassword}>
+          <TouchableOpacity onPress={handleForgotPassword}>
+            <Text style={{ color: "blue" }}>Forgot your password?</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttons}>
+          <CustomButton title="Login" onPress={handleLogin} />
+        </View>
+        <View style={styles.register}>
+          <TouchableOpacity onPress={handleRegister}>
+            <Text style={{ color: "blue" }}>Register</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -99,32 +94,27 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    borderBottomWidth: 1,
-    backgroundColor: "#fff",
-    marginBottom: 50,
-    padding: 15,
-    borderColor: "gray",
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 18,
   },
-  button: {},
-  form: {
-    margin: 20,
+  forgotPassword: {
+    display: "flex",
+    flexDirection: "row-reverse",
+    marginTop: 20,
   },
-  group: {},
-  checkboxContainer: {
+  register: {
+    display: "flex",
+    marginTop: 20,
     alignItems: "center",
-    flexDirection: "row",
-  },
-  checkbox: {
-    alignSelf: "center",
   },
   label: {
-    margin: 8,
+    marginVertical: 10,
   },
-  group1: {
-    marginBottom: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+  buttons: {
+    marginTop: 20,
   },
 });
 
