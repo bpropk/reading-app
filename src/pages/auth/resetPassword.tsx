@@ -3,15 +3,26 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import CustomButton from "@src/components/button/button";
+import {
+  RootStackElements,
+  RootStackParamList,
+} from "@src/navigations/rootStack";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const ResetPasswordPage = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatePassword] = useState("");
 
   const handleResetPassword = () => {
     // Xử lý đăng ký ở đây, có thể gửi dữ liệu đến server hoặc thực hiện các bước cần thiết.
-    console.log(token, password, repeatPassword);
+    if (token && password && repeatPassword) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: RootStackElements.IN_APP_STACK }],
+      });
+    }
   };
 
   return (
@@ -24,7 +35,7 @@ const ResetPasswordPage = () => {
         <TextInput
           style={styles.input}
           placeholder="New Password"
-          value={password}
+          value={token}
           onChangeText={setToken}
           secureTextEntry={true}
         />
