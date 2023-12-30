@@ -46,7 +46,6 @@ const LoginForm = () => {
       <View style={{ marginTop: 30 }}>
         <Text style={styles.title}>Login</Text>
       </View>
-
       <View>
         <Text style={styles.label}>Email</Text>
         <TextInput

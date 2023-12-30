@@ -1,68 +1,62 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Checkbox from "expo-checkbox";
 
 import CustomButton from "@src/components/button/button";
 
 const RegistrationForm = () => {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatePassword] = useState("");
 
   const handleRegistration = () => {
     // Xử lý đăng ký ở đây, có thể gửi dữ liệu đến server hoặc thực hiện các bước cần thiết.
-    console.log("Username:", username);
-    console.log("Email:", email);
-    console.log("Password:", password);
+    console.log(email, name, password, repeatPassword);
   };
-  const [isSelected, setSelection] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{ marginTop: 30 }}>
+        <Text style={styles.title}>Register</Text>
+      </View>
       <View>
-        <Text style={styles.title}>Đăng ký</Text>
-      </View>
-      <View style={styles.form}>
-        <View style={styles.group}>
-          <TextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
-            //mode="outlined"
-          />
-        </View>
-        <View style={styles.group}>
-          <TextInput
-            placeholder="Password"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
-            secureTextEntry={true}
-            //mode="outlined"
-          />
-        </View>
-        <View style={styles.group}>
-          <TextInput
-            placeholder="Confirm Password"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
-            secureTextEntry={true}
-            //mode="outlined"
-          />
-        </View>
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            value={isSelected}
-            onValueChange={setSelection}
-            style={styles.checkbox}
-          />
-          <Text style={styles.label}> Tôi đồng ý với điều khoản sử dụng </Text>
+        <Text style={styles.label}>Your name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Full name"
+          value={email}
+          onChangeText={setEmail}
+          secureTextEntry={true}
+        />
+        <Text style={styles.label}>Your email</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email address"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+        />
+        <Text style={styles.label}>Create Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Create Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+        />
+        <Text style={styles.label}>Repeat Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Repeat Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+        />
+        <View style={styles.buttons}>
+          <CustomButton title="Register" onPress={handleRegistration} />
         </View>
       </View>
-      <CustomButton title="Dang Ky" onPress={() => {}}></CustomButton>
     </SafeAreaView>
   );
 };
@@ -70,42 +64,36 @@ const RegistrationForm = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //justifyContent: "center",
     paddingHorizontal: 30,
     backgroundColor: "#ffffff",
-  },
-  label: {
-    fontSize: 16,
-    //marginBottom: 8,
-  },
-  input: {
-    borderBottomWidth: 1,
-    backgroundColor: "#fff",
-    marginBottom: 50,
-    padding: 15,
-    borderColor: "gray",
   },
   title: {
     fontSize: 24,
     marginBottom: 16,
     textAlign: "center",
   },
-  form: {
-    margin: 20,
+  input: {
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 18,
   },
-  group: {},
-  checkboxContainer: {
+  forgotPassword: {
+    display: "flex",
+    flexDirection: "row-reverse",
+    marginTop: 20,
+  },
+  register: {
+    display: "flex",
+    marginTop: 20,
     alignItems: "center",
-    flexDirection: "row",
   },
-  checkbox: {
-    alignSelf: "center",
+  label: {
+    marginVertical: 10,
   },
-  btn: {
+  buttons: {
     marginTop: 30,
-    backgroundColor: "1bcdff",
-    paddingVertical: 15,
-    alignItems: "center",
   },
 });
 
