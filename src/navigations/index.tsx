@@ -7,24 +7,28 @@ import InAppNavigator from "./inAppNavigation";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const AppNavigator: React.FC = memo(() => {
+type Props = {
+  isLogin: boolean;
+};
+
+const AppNavigator: React.FC<Props> = memo(({ isLogin }) => {
   return (
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName={
-          true
+          isLogin
             ? RootStackElements.IN_APP_STACK
             : RootStackElements.AUTHENTICATION_STACK
         }
       >
         <Stack.Screen
-          name={RootStackElements.AUTHENTICATION_STACK}
-          component={AuthenticationNavigator}
+          name={RootStackElements.IN_APP_STACK}
+          component={InAppNavigator}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name={RootStackElements.IN_APP_STACK}
-          component={InAppNavigator}
+          name={RootStackElements.AUTHENTICATION_STACK}
+          component={AuthenticationNavigator}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

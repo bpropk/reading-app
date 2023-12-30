@@ -6,8 +6,6 @@ import Checkbox from "expo-checkbox";
 import CustomButton from "@src/components/button/button";
 
 const RegistrationForm = () => {
-  console.log("run RegisterForm");
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -64,12 +62,7 @@ const RegistrationForm = () => {
           <Text style={styles.label}> Tôi đồng ý với điều khoản sử dụng </Text>
         </View>
       </View>
-      <CustomButton
-        title="Dang Ky"
-        onPress={() => {
-          console.log("t lam sau ok");
-        }}
-      ></CustomButton>
+      <CustomButton title="Dang Ky" onPress={() => {}}></CustomButton>
     </SafeAreaView>
   );
 };

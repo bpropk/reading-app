@@ -8,14 +8,16 @@ const Stack = createStackNavigator();
 
 const AuthenticationNavigator = () => {
   return (
-    <Stack.Navigator
-      initialRouteName={RootStackElements.LOGIN_PAGE}
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen name={RootStackElements.LOGIN_PAGE} component={LoginForm} />
+    <Stack.Navigator initialRouteName={RootStackElements.LOGIN_PAGE}>
+      <Stack.Screen
+        name={RootStackElements.LOGIN_PAGE}
+        component={LoginForm}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name={RootStackElements.REGISTER_PAGE}
         component={RegistrationForm}
+        options={{ headerShown: true, headerBackTitle: "Back", title: "" }}
       />
     </Stack.Navigator>
   );

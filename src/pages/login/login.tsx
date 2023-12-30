@@ -19,7 +19,6 @@ import Checkbox from "expo-checkbox";
 import CustomButton from "@src/components/button/button";
 
 const LoginForm = () => {
-  console.log("run loginForm");
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

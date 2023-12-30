@@ -1,10 +1,12 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import AppNavigator from "@src/navigations";
 
 export default function App() {
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+
   return (
     // <GestureHandlerRootView style={styles.root}>
     // {/* <BottomSheetModalProvider> */}
@@ -15,7 +17,7 @@ export default function App() {
     // </GestureHandlerRootView>
 
     <View style={styles.root}>
-      <AppNavigator />
+      <AppNavigator isLogin={isLogin} />
     </View>
   );
 }
