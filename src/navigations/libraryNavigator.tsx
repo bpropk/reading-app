@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { RootStackParamList, RootStackElements } from "./rootStack";
 import { createStackNavigator } from "@react-navigation/stack";
-import LibraryPage from "@src/pages/library";
+import LibraryPage from "@src/pages/in-app/library";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
