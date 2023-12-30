@@ -24,9 +24,15 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    // Xử lý đăng nhập ở đây
     console.log("Email:", email);
     console.log("Password:", password);
+
+    if (email && password) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: RootStackElements.IN_APP_STACK }],
+      });
+    }
   };
   const [isSelected, setSelection] = useState(false);
 
@@ -42,7 +48,6 @@ const LoginForm = () => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.input}
-            //mode="outlined"
           />
         </View>
         <View style={styles.group}>
@@ -52,7 +57,6 @@ const LoginForm = () => {
             onChangeText={(text) => setPassword(text)}
             style={styles.input}
             secureTextEntry={true}
-            //mode="outlined"
           />
         </View>
         <View style={styles.group1}>
@@ -73,13 +77,7 @@ const LoginForm = () => {
             </TouchableOpacity>
           </View>
         </View>
-        {/* <Button title=" Đăng nhập " onPress={handleLogin} /> */}
-        <CustomButton
-          title="Đăng Nhập"
-          onPress={() => {
-            console.log(handleLogin);
-          }}
-        />
+        <CustomButton title="Đăng Nhập" onPress={handleLogin} />
         <Button
           title="Đăng ký"
           onPress={() => navigation.navigate(RootStackElements.REGISTER_PAGE)}
