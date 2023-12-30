@@ -10,13 +10,17 @@ import {
 } from "react-native";
 import CustomBottomTab from "@src/components/customNavTab/customBottomTab";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootParamsList, RootStackElements } from "@src/navigations/root-stack";
+import {
+  RootStackParamList,
+  RootStackElements,
+} from "@src/navigations/rootStack";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Checkbox from "expo-checkbox";
 import CustomButton from "@src/components/button/button";
 
 const LoginForm = () => {
-  const navigation = useNavigation<NavigationProp<RootParamsList>>();
+  console.log("run loginForm");
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

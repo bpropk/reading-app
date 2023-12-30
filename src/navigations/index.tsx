@@ -1,67 +1,34 @@
-import React, { memo } from "react";
-import {
-  BottomTabBarProps,
-  createBottomTabNavigator,
-} from "@react-navigation/bottom-tabs";
-import CustomBottomTab from "@src/components/customNavTab/customBottomTab";
-import HomeNavigator from "./homeNavigator";
-import { NAVIGATION_TABS_NAME } from "@src/constants/bottomNavConstant";
-import LibraryNavigator from "./libraryNavigator";
-import DiscoverNavigator from "./discoverNavigator";
-import MoreNavigator from "./moreNavigator";
-import AuthNavigator from "./registerNavigation";
+import React, { memo, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { RootStackElements, RootStackParamList } from "./rootStack";
+import AuthenticationNavigator from "./authNavigation";
+import InAppNavigator from "./inAppNavigation";
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = memo(() => {
-  const componentTabBar = (props: BottomTabBarProps) => (
-    <CustomBottomTab {...props} />
-  );
-
   return (
-    <Tab.Navigator tabBar={componentTabBar}>
-      <Tab.Group
-        screenOptions={{
-          headerShown: false,
-        }}
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName={
+          true
+            ? RootStackElements.IN_APP_STACK
+            : RootStackElements.AUTHENTICATION_STACK
+        }
       >
-        <Tab.Screen
-          options={{
-            tabBarLabel: NAVIGATION_TABS_NAME.AUTHENCATION_TAB,
-          }}
-          name={NAVIGATION_TABS_NAME.AUTHENCATION_TAB}
-          component={AuthNavigator}
+        <Stack.Screen
+          name={RootStackElements.AUTHENTICATION_STACK}
+          component={AuthenticationNavigator}
+          options={{ headerShown: false }}
         />
-        <Tab.Screen
-          options={{
-            tabBarLabel: NAVIGATION_TABS_NAME.HOME_TAB,
-          }}
-          name={NAVIGATION_TABS_NAME.HOME_TAB}
-          component={HomeNavigator}
+        <Stack.Screen
+          name={RootStackElements.IN_APP_STACK}
+          component={InAppNavigator}
+          options={{ headerShown: false }}
         />
-        <Tab.Screen
-          options={{
-            tabBarLabel: NAVIGATION_TABS_NAME.LIBRARY_TAB,
-          }}
-          name={NAVIGATION_TABS_NAME.LIBRARY_TAB}
-          component={LibraryNavigator}
-        />
-        <Tab.Screen
-          options={{
-            tabBarLabel: NAVIGATION_TABS_NAME.DISCOVER_TAB,
-          }}
-          name={NAVIGATION_TABS_NAME.DISCOVER_TAB}
-          component={DiscoverNavigator}
-        />
-        <Tab.Screen
-          options={{
-            tabBarLabel: NAVIGATION_TABS_NAME.MORE_TAB,
-          }}
-          name={NAVIGATION_TABS_NAME.MORE_TAB}
-          component={MoreNavigator}
-        />
-      </Tab.Group>
-    </Tab.Navigator>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 });
 

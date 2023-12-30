@@ -1,9 +1,9 @@
 import { memo } from "react";
-import { RootParamsList, RootStackElements } from "./root-stack";
+import { RootStackParamList, RootStackElements } from "./rootStack";
 import { createStackNavigator } from "@react-navigation/stack";
 import DiscoverPage from "@src/pages/discover";
 
-const Stack = createStackNavigator<RootParamsList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const DiscoverNavigator: React.FC = memo(() => {
   return (

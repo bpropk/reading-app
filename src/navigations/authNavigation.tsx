@@ -1,13 +1,12 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import RegistrationForm from "@src/pages/register/register";
-import { RootStackElements } from "./root-stack";
+import { RootStackElements } from "./rootStack";
 import LoginForm from "@src/pages/login/login";
 
 const Stack = createStackNavigator();
 
-const AuthNavigator = () => {
+const AuthenticationNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName={RootStackElements.LOGIN_PAGE}
@@ -18,9 +17,8 @@ const AuthNavigator = () => {
         name={RootStackElements.REGISTER_PAGE}
         component={RegistrationForm}
       />
-      {/* Thêm các màn hình khác nếu cần */}
     </Stack.Navigator>
   );
 };
 
-export default AuthNavigator;
+export default AuthenticationNavigator;

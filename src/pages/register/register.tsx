@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Checkbox from "expo-checkbox";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { StretchInY, StretchOutY } from "react-native-reanimated";
-import { stackOffsetExpand } from "d3-shape";
+
 import CustomButton from "@src/components/button/button";
 
 const RegistrationForm = () => {
+  console.log("run RegisterForm");
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

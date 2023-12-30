@@ -1,10 +1,10 @@
 import { memo } from "react";
-import { RootParamsList, RootStackElements } from "./root-stack";
+import { RootStackParamList, RootStackElements } from "./rootStack";
 import { createStackNavigator } from "@react-navigation/stack";
 import DiscoverPage from "@src/pages/discover";
 import MorePage from "@src/pages/more";
 
-const Stack = createStackNavigator<RootParamsList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const MoreNavigator: React.FC = memo(() => {
   return (
