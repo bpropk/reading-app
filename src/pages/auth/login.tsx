@@ -3,22 +3,18 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
-  Alert,
 } from "react-native";
-import CustomBottomTab from "@src/components/customNavTab/customBottomTab";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import {
   RootStackParamList,
   RootStackElements,
 } from "@src/navigations/rootStack";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Checkbox from "expo-checkbox";
 import CustomButton from "@src/components/button/button";
 
-const LoginForm = () => {
+const LoginPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,7 +35,9 @@ const LoginForm = () => {
     navigation.navigate(RootStackElements.REGISTER_PAGE);
   };
 
-  const handleForgotPassword = () => {};
+  const handleForgotPassword = () => {
+    navigation.navigate(RootStackElements.FORGOT_PASSWORD_PAGE);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -117,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginForm;
+export default LoginPage;

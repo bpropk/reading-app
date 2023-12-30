@@ -3,7 +3,8 @@ export enum RootStackElements {
   AUTHENTICATION_STACK = "AUTHENTICATION_STACK",
   REGISTER_PAGE = "REGISTER_PAGE",
   LOGIN_PAGE = "LOGIN_PAGE",
-  FORGOTPASSWORD_PAGE = "FORGOTPASSWORD_PAGE",
+  FORGOT_PASSWORD_PAGE = "FORGOT_PASSWORD_PAGE",
+  RESET_PASSWORD_PAGE = "RESET_PASSWORD_PAGE",
 
   // In App
   IN_APP_STACK = "IN_APP_STACK",
@@ -26,14 +27,21 @@ export enum RootStackElements {
 }
 
 export type RootStackParamList = {
+  // Stack
+
   [RootStackElements.AUTHENTICATION_STACK]: undefined;
   [RootStackElements.IN_APP_STACK]: undefined;
+
+  // Auth
+  [RootStackElements.LOGIN_PAGE]: undefined;
+  [RootStackElements.REGISTER_PAGE]: undefined;
+  [RootStackElements.FORGOT_PASSWORD_PAGE]: undefined;
+  [RootStackElements.RESET_PASSWORD_PAGE]: undefined;
+
+  // InApp
 
   [RootStackElements.HOME_PAGE]: undefined;
   [RootStackElements.LIBRARY_PAGE]: undefined;
   [RootStackElements.DISCOVER_PAGE]: undefined;
   [RootStackElements.MORE_PAGE]: undefined;
-  [RootStackElements.LOGIN_PAGE]: undefined;
-  [RootStackElements.REGISTER_PAGE]: undefined;
-  [RootStackElements.FORGOTPASSWORD_PAGE]: undefined;
 };

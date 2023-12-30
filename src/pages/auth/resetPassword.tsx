@@ -4,57 +4,48 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import CustomButton from "@src/components/button/button";
 
-const RegistrationForm = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+const ResetPasswordPage = () => {
+  const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatePassword] = useState("");
 
-  const handleRegistration = () => {
+  const handleResetPassword = () => {
     // Xử lý đăng ký ở đây, có thể gửi dữ liệu đến server hoặc thực hiện các bước cần thiết.
-    console.log(email, name, password, repeatPassword);
+    console.log(token, password, repeatPassword);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ marginTop: 30 }}>
-        <Text style={styles.title}>Register</Text>
+        <Text style={styles.title}>Reset Password</Text>
       </View>
       <View>
-        <Text style={styles.label}>Your name</Text>
+        <Text style={styles.label}>Token</Text>
         <TextInput
           style={styles.input}
-          placeholder="Full name"
-          value={email}
-          onChangeText={setEmail}
+          placeholder="New Password"
+          value={password}
+          onChangeText={setToken}
           secureTextEntry={true}
         />
-        <Text style={styles.label}>Your email</Text>
+        <Text style={styles.label}>New password</Text>
         <TextInput
           style={styles.input}
-          placeholder="Email address"
+          placeholder="New Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={true}
         />
-        <Text style={styles.label}>Create Password</Text>
+        <Text style={styles.label}>Repeat new password</Text>
         <TextInput
           style={styles.input}
-          placeholder="Create Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
-        <Text style={styles.label}>Repeat Password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Repeat Password"
-          value={password}
-          onChangeText={setPassword}
+          placeholder="Repeat new password"
+          value={repeatPassword}
+          onChangeText={setRepeatePassword}
           secureTextEntry={true}
         />
         <View style={styles.buttons}>
-          <CustomButton title="Register" onPress={handleRegistration} />
+          <CustomButton title="Reset Password" onPress={handleResetPassword} />
         </View>
       </View>
     </SafeAreaView>
@@ -97,4 +88,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistrationForm;
+export default ResetPasswordPage;
