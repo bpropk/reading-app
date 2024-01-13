@@ -11,7 +11,7 @@ const HomeNavigator: React.FC = memo(() => {
       <Stack.Screen
         name={RootStackElements.HOME_PAGE}
         component={HomePage}
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

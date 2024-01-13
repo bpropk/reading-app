@@ -1,12 +1,19 @@
-import React, { memo } from "react";
-import { Text, View } from "react-native";
+import SearchBar from "@src/components/searchBar/searchBar";
+import React, { memo, useState } from "react";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 const HomePage: React.FC = memo(() => {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
-    <View>
-      <Text>HomePage</Text>
-    </View>
+    <SafeAreaView>
+      <View>
+        <SearchBar getSearchValue={(value) => setSearchValue(value)} />
+      </View>
+    </SafeAreaView>
   );
 });
+
+const style = StyleSheet.create({});
 
 export default HomePage;
