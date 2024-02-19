@@ -4,136 +4,170 @@ import { colors, Icons } from "@src/common/theme";
 import { tabItemsStyles } from "@src/common/styles";
 import { ScrollView } from "react-native-gesture-handler";
 
-
 const MorePage: React.FC = memo(() => {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   return (
     <ScrollView>
       <View>
         <View style={styles.common}>
           <Text style={styles.commontext}> Common </Text>
         </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingVertical: 10,
-        }}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
+          }}
+        >
           <Icons.Globe fill={colors.black} style={styles.icon} />
-          <Text style={{
-            color: 'black',
-            fontSize: 14,
-            paddingStart: 10,
-          }}
-          >Language</Text>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 14,
+              paddingStart: 10,
+            }}
+          >
+            Language
+          </Text>
           <View style={{ flex: 1 }} />
-          <Text style={{
-            color: 'black',
-            fontSize: 14,
-            paddingEnd: 10,
-          }}
-          >English</Text>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 14,
+              paddingEnd: 10,
+            }}
+          >
+            English
+          </Text>
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingVertical: 10,
-        }}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
+          }}
+        >
           <Icons.Cloud fill={colors.black} style={styles.icon} />
-          <Text style={{
-            color: 'black',
-            fontSize: 14,
-            paddingStart: 10,
-          }}
-          >Enviroment</Text>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 14,
+              paddingStart: 10,
+            }}
+          >
+            Enviroment
+          </Text>
           <View style={{ flex: 1 }} />
-          <Text style={{
-            color: 'black',
-            fontSize: 14,
-            paddingEnd: 10,
-          }}
-          >Production</Text>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 14,
+              paddingEnd: 10,
+            }}
+          >
+            Production
+          </Text>
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
         <View style={styles.common}>
           <Text style={styles.commontext}> Account </Text>
         </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingVertical: 10,
-        }}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
+          }}
+        >
           <Icons.Phone fill={colors.black} style={styles.icon} />
-          <Text style={{
-            color: 'black',
-            fontSize: 14,
-            paddingStart: 10,
-          }}
-          >Phone Number</Text>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 14,
+              paddingStart: 10,
+            }}
+          >
+            Phone Number
+          </Text>
           <View style={{ flex: 1 }} />
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingVertical: 10,
-        }}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
+          }}
+        >
           <Icons.Email fill={colors.black} style={styles.icon} />
-          <Text style={{
-            color: 'black',
-            fontSize: 14,
-            paddingStart: 10,
-          }}
-          >Email</Text>
+          <Text
+            style={{
+              color: "black",
+              fontSize: 14,
+              paddingStart: 10,
+            }}
+          >
+            Email
+          </Text>
           <View style={{ flex: 1 }} />
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingVertical: 10,
-        }}>
-          <Icons.Logout fill={colors.black} style={styles.icon} />
-          <Text style={{
-            color: 'black',
-            fontSize: 14,
-            paddingStart: 10,
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
           }}
-          >Sign out</Text>
+        >
+          <Icons.Logout fill={colors.black} style={styles.icon} />
+          <Text
+            style={{
+              color: "black",
+              fontSize: 14,
+              paddingStart: 10,
+            }}
+          >
+            Sign out
+          </Text>
           <View style={{ flex: 1 }} />
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
         <View style={styles.common}>
           <Text style={styles.commontext}> Security </Text>
         </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingVertical: 10,
-          alignItems : 'center',
-        }}>
-          <Icons.Lock fill={colors.black} style={styles.icon} />
-          <Text style={{
-            color: 'black',
-            fontSize: 14,
-            paddingStart: 10,
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
+            alignItems: "center",
           }}
-          >Lock app in background </Text>
+        >
+          <Icons.Lock fill={colors.black} style={styles.icon} />
+          <Text
+            style={{
+              color: "black",
+              fontSize: 14,
+              paddingStart: 10,
+            }}
+          >
+            Lock app in background{" "}
+          </Text>
           <View style={{ flex: 1 }} />
           <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}
             value={isEnabled}
-            style={{marginEnd: 10, paddingEnd: 5}}
+            style={{ marginEnd: 10, paddingEnd: 5 }}
           />
         </View>
       </View>
     </ScrollView>
-
   );
 });
 const styles = StyleSheet.create({
   common: {
     height: 45,
     backgroundColor: "rgba(0,0,0,0.2)",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   commontext: {
     color: "red",
@@ -144,6 +178,6 @@ const styles = StyleSheet.create({
     paddingStart: 10,
     height: 20,
     width: 20,
-  }
+  },
 });
 export default MorePage;

@@ -106,9 +106,10 @@ const HomePage: React.FC = memo(() => {
       <View style={styles.lineBreak} />
       <View style={styles.moveCategoryContainer}>
         <Text style={{ color: colors.lightBlue }}>Move From This Category</Text>
-        <View>
-          <Icons.ChevronRight fill={colors.lightBlue} style={{ height: 15 }} />
-        </View>
+        <Icons.ChevronRight
+          fill={colors.lightBlue}
+          style={{ height: 15, width: 10 }}
+        />
       </View>
     </ScrollView>
   );
@@ -116,6 +117,7 @@ const HomePage: React.FC = memo(() => {
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
     paddingHorizontal: 10,
     backgroundColor: colors.white,
   },
@@ -160,8 +162,9 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   moveCategoryContainer: {
-    display: "flex",
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
 
