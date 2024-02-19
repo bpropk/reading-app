@@ -1,10 +1,11 @@
+import { colors } from "@src/common/theme";
+import Typography from "@src/common/typography";
 import SearchBar from "@src/components/searchBar/searchBar";
 import { SCREEN_WIDTH } from "@src/constants/screen";
 import React, { memo, useState } from "react";
 import {
   Image,
   Platform,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -41,72 +42,85 @@ const ENTRIES1 = [
   },
 ];
 
-const ENTRIES2 = ["BEST SELLER", "ROMANCE", "HISTORY", "BUSINESS"];
+const ENTRIES2 = [
+  "BEST SELLER",
+  "ROMANCE",
+  "HISTORY",
+  "BUSINESS",
+  "BIOGRAPHIES",
+  "HEALTH, MIND & BODY",
+];
 
 const HomePage: React.FC = memo(() => {
   const [searchValue, setSearchValue] = useState("");
 
   return (
-    <SafeAreaView>
-      <ScrollView style={styles.root}>
-        <SearchBar getSearchValue={(value) => setSearchValue(value)} />
-        <View style={styles.lineBreak} />
-        {/* Library */}
-        <Text style={styles.library}>From Your Library</Text>
-        <View style={{ paddingBottom: 10 }}>
-          <Carousel
-            data={ENTRIES1}
-            renderItem={({ item }) => (
-              <Image
-                style={{ width: 150, height: 180 }}
-                source={{
-                  uri: item.illustration,
-                }}
-              />
-            )}
-            sliderWidth={SCREEN_WIDTH}
-            itemWidth={155}
-            activeSlideAlignment={"start"}
-            enableSnap={false}
-            contentContainerCustomStyle={{ paddingRight: 10, paddingTop: 10 }}
-          />
-        </View>
-        {/* Discover */}
-        <View style={styles.lineBreak} />
+    <ScrollView style={styles.root}>
+      <SearchBar getSearchValue={(value) => setSearchValue(value)} />
+      <View style={styles.lineBreak} />
+      {/* Library */}
+      <Text style={styles.library}>From Your Library</Text>
+      <View style={{ paddingBottom: 10 }}>
+        <Carousel
+          data={ENTRIES1}
+          renderItem={({ item }) => (
+            <Image
+              style={{ width: 150, height: 180 }}
+              source={{
+                uri: item.illustration,
+              }}
+            />
+          )}
+          sliderWidth={SCREEN_WIDTH}
+          itemWidth={155}
+          activeSlideAlignment={"start"}
+          enableSnap={false}
+          contentContainerCustomStyle={{ paddingRight: 10, paddingTop: 10 }}
+        />
+      </View>
+      {/* Discover */}
+      <View style={styles.lineBreak} />
 
-        <View>
-          <Text>Discover Books</Text>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-            }}
-          >
-            {ENTRIES2.map((item) => (
+      <View>
+        <Text style={styles.discover}>Discover Books</Text>
+        <Text style={styles.category}>Tap on a category or cover below</Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {ENTRIES2.map((item) => (
+            <View
+              style={{
+                maxWidth: 120,
+                justifyContent: "center",
+                padding: 5,
+              }}
+            >
               <View
                 style={{
                   borderRadius: 20,
-                  padding: 20,
-                  maxWidth: 120,
-                  justifyContent: "center",
+                  backgroundColor: colors.lightBlue,
+                  paddingHorizontal: 15,
+                  paddingVertical: 10,
                 }}
               >
-                <View>
-                  <Text>{item}</Text>
-                </View>
+                <Text style={{ color: colors.white }}>{item}</Text>
               </View>
-            ))}
-          </View>
+            </View>
+          ))}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
 });
 
 const styles = StyleSheet.create({
   root: {
     paddingHorizontal: 10,
+    backgroundColor: colors.white,
   },
   lineBreak: {
     borderBottomColor: "black",
@@ -114,8 +128,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   library: {
-    fontWeight: "700",
-    fontSize: 20,
+    ...Typography.h3,
+  },
+  discover: {
+    ...Typography.h4,
+  },
+  category: {
+    ...Typography.label,
   },
   imageContainer: {
     flex: 1,
