@@ -88,8 +88,8 @@ const HomePage: React.FC = memo(() => {
           Tap on a category or cover below
         </Text>
         <View style={styles.categoryContainer}>
-          {ENTRIES2.map((item) => (
-            <View style={styles.categoryItem}>
+          {ENTRIES2.map((item, index) => (
+            <View style={styles.categoryItem} key={index}>
               <View style={styles.categoryWrapper}>
                 <Text
                   style={{ color: colors.white }}
