@@ -83,31 +83,20 @@ const HomePage: React.FC = memo(() => {
 
       <View>
         <Text style={styles.discover}>Discover Books</Text>
-        <Text style={styles.category}>Tap on a category or cover below</Text>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-          }}
-        >
+        <Text style={styles.categoryTitle}>
+          Tap on a category or cover below
+        </Text>
+        <View style={styles.categoryContainer}>
           {ENTRIES2.map((item) => (
-            <View
-              style={{
-                maxWidth: 120,
-                justifyContent: "center",
-                padding: 5,
-              }}
-            >
-              <View
-                style={{
-                  borderRadius: 20,
-                  backgroundColor: colors.lightBlue,
-                  paddingHorizontal: 15,
-                  paddingVertical: 10,
-                }}
-              >
-                <Text style={{ color: colors.white }}>{item}</Text>
+            <View style={styles.categoryItem}>
+              <View style={styles.categoryWrapper}>
+                <Text
+                  style={{ color: colors.white }}
+                  numberOfLines={2}
+                  ellipsizeMode={"clip"}
+                >
+                  {item}
+                </Text>
               </View>
             </View>
           ))}
@@ -133,8 +122,24 @@ const styles = StyleSheet.create({
   discover: {
     ...Typography.h4,
   },
-  category: {
+  categoryTitle: {
     ...Typography.label,
+  },
+  categoryContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  categoryItem: {
+    maxWidth: 120,
+    justifyContent: "center",
+    padding: 5,
+  },
+  categoryWrapper: {
+    borderRadius: 20,
+    backgroundColor: colors.lightBlue,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   imageContainer: {
     flex: 1,
