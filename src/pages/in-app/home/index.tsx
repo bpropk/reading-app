@@ -1,4 +1,4 @@
-import { colors } from "@src/common/theme";
+import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import SearchBar from "@src/components/searchBar/searchBar";
 import { SCREEN_WIDTH } from "@src/constants/screen";
@@ -62,6 +62,7 @@ const HomePage: React.FC = memo(() => {
       <Text style={styles.library}>From Your Library</Text>
       <View style={{ paddingBottom: 10 }}>
         <Carousel
+          vertical={false}
           data={ENTRIES1}
           renderItem={({ item }) => (
             <Image
@@ -81,7 +82,7 @@ const HomePage: React.FC = memo(() => {
       {/* Discover */}
       <View style={styles.lineBreak} />
 
-      <View>
+      <View style={{ paddingBottom: 10 }}>
         <Text style={styles.discover}>Discover Books</Text>
         <Text style={styles.categoryTitle}>
           Tap on a category or cover below
@@ -102,6 +103,13 @@ const HomePage: React.FC = memo(() => {
           ))}
         </View>
       </View>
+      <View style={styles.lineBreak} />
+      <View style={styles.moveCategoryContainer}>
+        <Text style={{ color: colors.lightBlue }}>Move From This Category</Text>
+        <View>
+          <Icons.ChevronRight fill={colors.lightBlue} style={{ height: 15 }} />
+        </View>
+      </View>
     </ScrollView>
   );
 });
@@ -112,7 +120,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   lineBreak: {
-    borderBottomColor: "black",
+    borderBottomColor: colors.grey,
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: 10,
   },
@@ -150,6 +158,10 @@ const styles = StyleSheet.create({
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: "cover",
+  },
+  moveCategoryContainer: {
+    display: "flex",
+    flexDirection: "row",
   },
 });
 
