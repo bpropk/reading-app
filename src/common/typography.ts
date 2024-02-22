@@ -22,6 +22,7 @@ const Typography: { [key: string]: TextStyle } = {
   h5: {
     fontSize: 14,
     lineHeight: 21,
+    fontWeight: "400",
   },
   button: {
     fontSize: 16,
