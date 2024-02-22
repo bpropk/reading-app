@@ -86,6 +86,7 @@ const HomePage: React.FC = memo(() => {
         <Text style={styles.categoryTitle}>
           Tap on a category or cover below
         </Text>
+        <View style={styles.lineBreak} />
         <View style={styles.categoryContainer}>
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
@@ -120,7 +121,6 @@ const HomePage: React.FC = memo(() => {
         />
 
         <View style={styles.lineBreak} />
-        {/* Move from */}
         <View style={styles.moveCategoryContainer}>
           <Text style={{ color: colors.lightBlue }}>
             Move From This Category
@@ -131,6 +131,35 @@ const HomePage: React.FC = memo(() => {
           />
         </View>
         <View style={styles.partbreak}></View>
+      </View>
+      {/* Recents Books */}
+      <Text style={styles.discover}>More Like Your Recent Books</Text>
+      <Text style={styles.categoryTitle}>Based your activites</Text>
+      <View style={styles.lineBreak} />
+      <Carousel
+        vertical={false}
+        data={ENTRIES1}
+        renderItem={({ item }) => (
+          <Image
+            style={{ width: 150, height: 180 }}
+            source={{
+              uri: item.illustration,
+            }}
+          />
+        )}
+        sliderWidth={SCREEN_WIDTH}
+        itemWidth={155}
+        activeSlideAlignment={"start"}
+        enableSnap={false}
+        contentContainerCustomStyle={{ paddingRight: 10, paddingVertical: 15 }}
+      />
+      <View style={styles.lineBreak} />
+      <View style={styles.moveCategoryContainer}>
+        <Text style={{ color: colors.lightBlue }}>Move From This Category</Text>
+        <Icons.ChevronRight
+          fill={colors.lightBlue}
+          style={{ height: 15, width: 10 }}
+        />
       </View>
     </ScrollView>
   );
@@ -154,12 +183,13 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     ...Typography.label,
+    paddingBottom: 10,
   },
   categoryContainer: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingBottom: 10,
+    paddingVertical: 10,
   },
   categoryItem: {
     maxWidth: 120,
