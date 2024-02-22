@@ -155,7 +155,7 @@ const HomePage: React.FC = memo(() => {
       />
       <View style={styles.lineBreak} />
       <View style={styles.moveCategoryContainer}>
-        <Text style={{ color: colors.lightBlue }}>Move From This Category</Text>
+        <Text style={{ color: colors.lightBlue }}>More</Text>
         <Icons.ChevronRight
           fill={colors.lightBlue}
           style={{ height: 15, width: 10 }}
