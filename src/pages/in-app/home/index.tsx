@@ -1,5 +1,7 @@
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
+import LineBreak from "@src/components/lineBreak/lineBreak";
+import PartBreak from "@src/components/partBreak/partBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
 import { SCREEN_WIDTH } from "@src/constants/screen";
 import React, { memo, useState } from "react";
@@ -58,7 +60,7 @@ const HomePage: React.FC = memo(() => {
     <ScrollView style={styles.root}>
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
       {/* Library */}
-      <View style={styles.partbreak}></View>
+      <PartBreak />
       <Text style={styles.library}>From Your Library</Text>
       <View style={{ paddingBottom: 20 }}>
         <Carousel
@@ -80,13 +82,13 @@ const HomePage: React.FC = memo(() => {
         />
       </View>
       {/* Discover */}
-      <View style={styles.partbreak}></View>
+      <PartBreak />
       <View>
         <Text style={styles.discover}>Discover Books</Text>
         <Text style={styles.categoryTitle}>
           Tap on a category or cover below
         </Text>
-        <View style={styles.lineBreak} />
+        <LineBreak />
         <View style={styles.categoryContainer}>
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
@@ -120,7 +122,7 @@ const HomePage: React.FC = memo(() => {
           contentContainerCustomStyle={{ paddingRight: 10, paddingBottom: 15 }}
         />
 
-        <View style={styles.lineBreak} />
+        <LineBreak />
         <View style={styles.moveCategoryContainer}>
           <Text style={{ color: colors.lightBlue }}>
             Move From This Category
@@ -130,12 +132,12 @@ const HomePage: React.FC = memo(() => {
             style={{ height: 15, width: 10 }}
           />
         </View>
-        <View style={styles.partbreak}></View>
+        <PartBreak />
       </View>
       {/* Recents Books */}
       <Text style={styles.discover}>More Like Your Recent Books</Text>
       <Text style={styles.categoryTitle}>Based your activites</Text>
-      <View style={styles.lineBreak} />
+      <LineBreak />
       <Carousel
         vertical={false}
         data={ENTRIES1}
@@ -153,7 +155,7 @@ const HomePage: React.FC = memo(() => {
         enableSnap={false}
         contentContainerCustomStyle={{ paddingRight: 10, paddingVertical: 15 }}
       />
-      <View style={styles.lineBreak} />
+      <LineBreak />
       <View style={styles.moveCategoryContainer}>
         <Text style={{ color: colors.lightBlue }}>More</Text>
         <Icons.ChevronRight
@@ -170,10 +172,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     backgroundColor: colors.white,
-  },
-  lineBreak: {
-    borderBottomColor: colors.grey,
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   library: {
     ...Typography.h3,
@@ -217,12 +215,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 15,
-  },
-  partbreak: {
-    backgroundColor: colors.lightGrey,
-    height: 15,
-    marginHorizontal: -10,
-    marginBottom: 10,
   },
 });
 

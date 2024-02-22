@@ -1,12 +1,24 @@
-import React, { memo } from "react";
-import { Text, View } from "react-native";
+import { colors } from "@src/common/theme";
+import SearchBar from "@src/components/searchBar/searchBar";
+import React, { memo, useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 const LibraryPage: React.FC = memo(() => {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
-    <View>
-      <Text>LibraryPage</Text>
-    </View>
+    <ScrollView style={styles.root}>
+      <SearchBar getSearchValue={(value) => setSearchValue(value)} />
+    </ScrollView>
   );
+});
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    paddingHorizontal: 10,
+    backgroundColor: colors.white,
+  },
 });
 
 export default LibraryPage;

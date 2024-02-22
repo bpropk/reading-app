@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
+import { colors } from "@src/common/theme";
 
 interface SearchBarProps {
   getSearchValue: (value: string) => void;
@@ -16,7 +17,7 @@ const SearchBar = ({ getSearchValue }: SearchBarProps) => {
   return (
     <View style={styles.container}>
       {/* search Icon */}
-      <Feather name="search" size={20} color="black" />
+      <Feather name="search" size={20} color={colors.grey} />
       {/* Input field */}
       <TextInput
         style={styles.input}
@@ -30,7 +31,7 @@ const SearchBar = ({ getSearchValue }: SearchBarProps) => {
         <Entypo
           name="cross"
           size={20}
-          color="black"
+          color={colors.lightGrey}
           onPress={() => {
             setSearchPhrase("");
           }}
@@ -44,12 +45,11 @@ export default SearchBar;
 // styles
 const styles = StyleSheet.create({
   container: {
-    margin: 15,
+    marginVertical: 15,
     padding: 10,
     flexDirection: "row",
     width: "auto",
-    backgroundColor: "#d9dbda",
-    borderRadius: 15,
+    backgroundColor: colors.lightGrey,
     alignItems: "center",
   },
   input: {
