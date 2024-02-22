@@ -1,7 +1,6 @@
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
-import PartBreak from "@src/components/partBreak/partBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
 import React, { memo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";

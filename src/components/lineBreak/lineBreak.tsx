@@ -2,7 +2,7 @@ import { colors } from "@src/common/theme";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 interface LineBreakProps {
-  customStyle: StyleProp<ViewStyle>;
+  customStyle?: StyleProp<ViewStyle>;
 }
 
 const LineBreak: React.FC<LineBreakProps> = ({ customStyle }) => {
