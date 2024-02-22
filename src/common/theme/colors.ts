@@ -20,7 +20,7 @@ const colors = Object.freeze({
   mint: "#E6F2EC",
   orange: "#DF5200",
   transparent: "rgba(255,0,0,0.0)",
-  lightGrey: "#F3F3F3",
+  lightGrey: "#EEEDEB",
   mediumSeaGreen: "#33AF6D",
   coolBlack: "#002E5D",
   corn: "#FFE76C",

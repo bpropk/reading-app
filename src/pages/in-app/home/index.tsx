@@ -57,10 +57,10 @@ const HomePage: React.FC = memo(() => {
   return (
     <ScrollView style={styles.root}>
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
-      <View style={styles.lineBreak} />
       {/* Library */}
+      <View style={styles.partbreak}></View>
       <Text style={styles.library}>From Your Library</Text>
-      <View style={{ paddingBottom: 10 }}>
+      <View style={{ paddingBottom: 20 }}>
         <Carousel
           vertical={false}
           data={ENTRIES1}
@@ -80,9 +80,8 @@ const HomePage: React.FC = memo(() => {
         />
       </View>
       {/* Discover */}
-      <View style={styles.lineBreak} />
-
-      <View style={{ paddingBottom: 10 }}>
+      <View style={styles.partbreak}></View>
+      <View>
         <Text style={styles.discover}>Discover Books</Text>
         <Text style={styles.categoryTitle}>
           Tap on a category or cover below
@@ -102,14 +101,36 @@ const HomePage: React.FC = memo(() => {
             </View>
           ))}
         </View>
-      </View>
-      <View style={styles.lineBreak} />
-      <View style={styles.moveCategoryContainer}>
-        <Text style={{ color: colors.lightBlue }}>Move From This Category</Text>
-        <Icons.ChevronRight
-          fill={colors.lightBlue}
-          style={{ height: 15, width: 10 }}
+        <Carousel
+          vertical={false}
+          data={ENTRIES1}
+          renderItem={({ item }) => (
+            <Image
+              style={{ width: 150, height: 180 }}
+              source={{
+                uri: item.illustration,
+              }}
+            />
+          )}
+          sliderWidth={SCREEN_WIDTH}
+          itemWidth={155}
+          activeSlideAlignment={"start"}
+          enableSnap={false}
+          contentContainerCustomStyle={{ paddingRight: 10, paddingBottom: 15 }}
         />
+
+        <View style={styles.lineBreak} />
+        {/* Move from */}
+        <View style={styles.moveCategoryContainer}>
+          <Text style={{ color: colors.lightBlue }}>
+            Move From This Category
+          </Text>
+          <Icons.ChevronRight
+            fill={colors.lightBlue}
+            style={{ height: 15, width: 10 }}
+          />
+        </View>
+        <View style={styles.partbreak}></View>
       </View>
     </ScrollView>
   );
@@ -124,7 +145,6 @@ const styles = StyleSheet.create({
   lineBreak: {
     borderBottomColor: colors.grey,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 10,
   },
   library: {
     ...Typography.h3,
@@ -139,6 +159,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
+    paddingBottom: 10,
   },
   categoryItem: {
     maxWidth: 120,
@@ -165,6 +186,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingVertical: 15,
+  },
+  partbreak: {
+    backgroundColor: colors.lightGrey,
+    height: 15,
+    marginHorizontal: -10,
+    marginBottom: 10,
   },
 });
 
