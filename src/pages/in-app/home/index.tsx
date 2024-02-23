@@ -5,6 +5,7 @@ import PartBreak from "@src/components/partBreak/partBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
 import { SCREEN_WIDTH } from "@src/constants/screen";
 import React, { memo, useState } from "react";
+import { Pressable } from "react-native";
 import {
   Image,
   Platform,
@@ -12,6 +13,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 
@@ -55,7 +57,7 @@ const ENTRIES2 = [
 
 const HomePage: React.FC = memo(() => {
   const [searchValue, setSearchValue] = useState("");
-
+  const [checked, setChecked] = useState<string>(''); 
   return (
     <ScrollView style={styles.root}>
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
@@ -92,15 +94,15 @@ const HomePage: React.FC = memo(() => {
         <View style={styles.categoryContainer}>
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
-              <View style={styles.categoryWrapper}>
-                <Text
-                  style={{ color: colors.white }}
-                  numberOfLines={2}
-                  ellipsizeMode={"clip"}
+                <Pressable 
+                  onPress={() => setChecked(item)}
                 >
-                  {item}
-                </Text>
-              </View>
+                  <View style={checked === item ? styles.categoryWrapper : styles.categoryWrapper2}>
+                    <Text style={checked === item ? styles.categoryText : styles.categoryText2}>
+                      {item}
+                    </Text>
+                  </View>
+                </Pressable>
             </View>
           ))}
         </View>
@@ -190,15 +192,43 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   categoryItem: {
-    maxWidth: 120,
-    justifyContent: "center",
+    width: 120,
+    justifyContent: "space-around",
     padding: 5,
   },
   categoryWrapper: {
-    borderRadius: 20,
+    height: 60,
+    borderRadius: 120,
     backgroundColor: colors.lightBlue,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 5,
+    textAlign: "center",
+    justifyContent: "center",
+  },
+  categoryWrapper2: {
+    height: 60,
+    borderRadius: 120,
+    borderWidth: 1,
+    borderColor: colors.lightBlue,
+    backgroundColor: colors.white,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    textAlign: "center",
+    justifyContent: "center",
+  },
+  categoryText:{
+    color: "#fff",
+    fontWeight : "700",
+    fontSize: 10,
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+  categoryText2:{
+    color: colors.lightBlue,
+    fontWeight : "700",
+    fontSize: 10,
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   imageContainer: {
     flex: 1,
