@@ -96,8 +96,8 @@ const HomePage: React.FC = memo(() => {
                 <Pressable 
                   onPress={() => setChecked(index)}
                 >
-                  <View style={[styles.categoryWrapper, checked === index && {backgroundColor: colors.white}]}>
-                    <Text style={[styles.categoryText, checked === index && {color: colors.lightBlue}]}>
+                  <View style={[styles.categoryWrapper, checked === index && styles.categoryunWrapper]}>
+                    <Text style={[styles.categoryText, checked === index && styles.categoryClickOnText]}>
                       {item}
                     </Text>
                   </View>
@@ -204,12 +204,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
   },
+  categoryunWrapper:{
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    bodrerColor: colors.lightBlue,
+  },
   categoryText:{
-    color: "#fff",
+    color: colors.white,
     fontWeight : "700",
     fontSize: 10,
     textAlign: "center",
     textAlignVertical: "center",
+  },
+  categoryClickOnText:{
+    color: colors.lightBlue,
   },
   imageContainer: {
     flex: 1,
