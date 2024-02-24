@@ -13,7 +13,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 
@@ -57,7 +56,7 @@ const ENTRIES2 = [
 
 const HomePage: React.FC = memo(() => {
   const [searchValue, setSearchValue] = useState("");
-  const [checked, setChecked] = useState<string>(''); 
+  const [checked, setChecked] = useState<number>(); 
   return (
     <ScrollView style={styles.root}>
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
@@ -95,10 +94,10 @@ const HomePage: React.FC = memo(() => {
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
                 <Pressable 
-                  onPress={() => setChecked(item)}
+                  onPress={() => setChecked(index)}
                 >
-                  <View style={checked === item ? styles.categoryWrapper : styles.categoryWrapper2}>
-                    <Text style={checked === item ? styles.categoryText : styles.categoryText2}>
+                  <View style={[styles.categoryWrapper, checked === index && {backgroundColor: colors.white}]}>
+                    <Text style={[styles.categoryText, checked === index && {color: colors.lightBlue}]}>
                       {item}
                     </Text>
                   </View>
@@ -205,26 +204,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
   },
-  categoryWrapper2: {
-    height: 60,
-    borderRadius: 120,
-    borderWidth: 1,
-    borderColor: colors.lightBlue,
-    backgroundColor: colors.white,
-    paddingHorizontal: 15,
-    paddingVertical: 5,
-    textAlign: "center",
-    justifyContent: "center",
-  },
   categoryText:{
     color: "#fff",
-    fontWeight : "700",
-    fontSize: 10,
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
-  categoryText2:{
-    color: colors.lightBlue,
     fontWeight : "700",
     fontSize: 10,
     textAlign: "center",
