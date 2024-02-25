@@ -5,6 +5,7 @@ import PartBreak from "@src/components/partBreak/partBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
 import { SCREEN_WIDTH } from "@src/constants/screen";
 import React, { memo, useState } from "react";
+import { Pressable } from "react-native";
 import {
   Image,
   Platform,
@@ -55,7 +56,7 @@ const ENTRIES2 = [
 
 const HomePage: React.FC = memo(() => {
   const [searchValue, setSearchValue] = useState("");
-
+  const [checked, setChecked] = useState<number>(); 
   return (
     <ScrollView style={styles.root}>
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
@@ -92,15 +93,15 @@ const HomePage: React.FC = memo(() => {
         <View style={styles.categoryContainer}>
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
-              <View style={styles.categoryWrapper}>
-                <Text
-                  style={{ color: colors.white }}
-                  numberOfLines={2}
-                  ellipsizeMode={"clip"}
+                <Pressable 
+                  onPress={() => setChecked(index)}
                 >
-                  {item}
-                </Text>
-              </View>
+                  <View style={[styles.categoryWrapper, checked === index && styles.categoryunWrapper]}>
+                    <Text style={[styles.categoryText, checked === index && styles.categoryClickOnText]}>
+                      {item}
+                    </Text>
+                  </View>
+                </Pressable>
             </View>
           ))}
         </View>
@@ -190,15 +191,33 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   categoryItem: {
-    maxWidth: 120,
-    justifyContent: "center",
+    width: 120,
+    justifyContent: "space-around",
     padding: 5,
   },
   categoryWrapper: {
-    borderRadius: 20,
+    height: 60,
+    borderRadius: 120,
     backgroundColor: colors.lightBlue,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 5,
+    textAlign: "center",
+    justifyContent: "center",
+  },
+  categoryunWrapper:{
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    bodrerColor: colors.lightBlue,
+  },
+  categoryText:{
+    color: colors.white,
+    fontWeight : "700",
+    fontSize: 10,
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+  categoryClickOnText:{
+    color: colors.lightBlue,
   },
   imageContainer: {
     flex: 1,
