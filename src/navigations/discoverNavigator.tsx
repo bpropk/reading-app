@@ -11,7 +11,7 @@ const DiscoverNavigator: React.FC = memo(() => {
       <Stack.Screen
         name={RootStackElements.DISCOVER_PAGE}
         component={DiscoverPage}
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

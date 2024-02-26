@@ -1,8 +1,11 @@
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
+import LineBreak from "@src/components/lineBreak/lineBreak";
+import PartBreak from "@src/components/partBreak/partBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
 import { SCREEN_WIDTH } from "@src/constants/screen";
 import React, { memo, useState } from "react";
+import { Pressable } from "react-native";
 import {
   Image,
   Platform,
@@ -53,14 +56,14 @@ const ENTRIES2 = [
 
 const HomePage: React.FC = memo(() => {
   const [searchValue, setSearchValue] = useState("");
-
+  const [checked, setChecked] = useState<number>(); 
   return (
     <ScrollView style={styles.root}>
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
-      <View style={styles.lineBreak} />
       {/* Library */}
+      <PartBreak />
       <Text style={styles.library}>From Your Library</Text>
-      <View style={{ paddingBottom: 10 }}>
+      <View style={{ paddingBottom: 20 }}>
         <Carousel
           vertical={false}
           data={ENTRIES1}
@@ -80,35 +83,86 @@ const HomePage: React.FC = memo(() => {
         />
       </View>
       {/* Discover */}
-      <View style={styles.lineBreak} />
-
-      <View style={{ paddingBottom: 10 }}>
+      <PartBreak />
+      <View>
         <Text style={styles.discover}>Discover Books</Text>
         <Text style={styles.categoryTitle}>
           Tap on a category or cover below
         </Text>
+        <LineBreak />
         <View style={styles.categoryContainer}>
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
-              <View style={styles.categoryWrapper}>
-                <Text
-                  style={{ color: colors.white }}
-                  numberOfLines={2}
-                  ellipsizeMode={"clip"}
+                <Pressable 
+                  onPress={() => setChecked(index)}
                 >
-                  {item}
-                </Text>
-              </View>
+                  <View style={[styles.categoryWrapper, checked === index && styles.categoryunWrapper]}>
+                    <Text style={[styles.categoryText, checked === index && styles.categoryClickOnText]}>
+                      {item}
+                    </Text>
+                  </View>
+                </Pressable>
             </View>
           ))}
         </View>
-      </View>
-      <View style={styles.lineBreak} />
-      <View style={styles.moveCategoryContainer}>
-        <Text style={{ color: colors.lightBlue }}>Move From This Category</Text>
-        <View>
-          <Icons.ChevronRight fill={colors.lightBlue} style={{ height: 15 }} />
+        <Carousel
+          vertical={false}
+          data={ENTRIES1}
+          renderItem={({ item }) => (
+            <Image
+              style={{ width: 150, height: 180 }}
+              source={{
+                uri: item.illustration,
+              }}
+            />
+          )}
+          sliderWidth={SCREEN_WIDTH}
+          itemWidth={155}
+          activeSlideAlignment={"start"}
+          enableSnap={false}
+          contentContainerCustomStyle={{ paddingRight: 10, paddingBottom: 15 }}
+        />
+
+        <LineBreak />
+        <View style={styles.moveCategoryContainer}>
+          <Text style={{ color: colors.lightBlue }}>
+            Move From This Category
+          </Text>
+          <Icons.ChevronRight
+            fill={colors.lightBlue}
+            style={{ height: 15, width: 10 }}
+          />
         </View>
+        <PartBreak />
+      </View>
+      {/* Recents Books */}
+      <Text style={styles.discover}>More Like Your Recent Books</Text>
+      <Text style={styles.categoryTitle}>Based your activites</Text>
+      <LineBreak />
+      <Carousel
+        vertical={false}
+        data={ENTRIES1}
+        renderItem={({ item }) => (
+          <Image
+            style={{ width: 150, height: 180 }}
+            source={{
+              uri: item.illustration,
+            }}
+          />
+        )}
+        sliderWidth={SCREEN_WIDTH}
+        itemWidth={155}
+        activeSlideAlignment={"start"}
+        enableSnap={false}
+        contentContainerCustomStyle={{ paddingRight: 10, paddingVertical: 15 }}
+      />
+      <LineBreak />
+      <View style={styles.moveCategoryContainer}>
+        <Text style={{ color: colors.lightBlue }}>More</Text>
+        <Icons.ChevronRight
+          fill={colors.lightBlue}
+          style={{ height: 15, width: 10 }}
+        />
       </View>
     </ScrollView>
   );
@@ -116,13 +170,9 @@ const HomePage: React.FC = memo(() => {
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
     paddingHorizontal: 10,
     backgroundColor: colors.white,
-  },
-  lineBreak: {
-    borderBottomColor: colors.grey,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 10,
   },
   library: {
     ...Typography.h3,
@@ -132,22 +182,42 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     ...Typography.label,
+    paddingBottom: 10,
   },
   categoryContainer: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
+    paddingVertical: 10,
   },
   categoryItem: {
-    maxWidth: 120,
-    justifyContent: "center",
+    width: 120,
+    justifyContent: "space-around",
     padding: 5,
   },
   categoryWrapper: {
-    borderRadius: 20,
+    height: 60,
+    borderRadius: 120,
     backgroundColor: colors.lightBlue,
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 5,
+    textAlign: "center",
+    justifyContent: "center",
+  },
+  categoryunWrapper:{
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    bodrerColor: colors.lightBlue,
+  },
+  categoryText:{
+    color: colors.white,
+    fontWeight : "700",
+    fontSize: 10,
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+  categoryClickOnText:{
+    color: colors.lightBlue,
   },
   imageContainer: {
     flex: 1,
@@ -160,8 +230,10 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   moveCategoryContainer: {
-    display: "flex",
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 15,
   },
 });
 

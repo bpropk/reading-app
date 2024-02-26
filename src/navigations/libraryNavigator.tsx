@@ -11,7 +11,7 @@ const LibraryNavigator: React.FC = memo(() => {
       <Stack.Screen
         name={RootStackElements.LIBRARY_PAGE}
         component={LibraryPage}
-        options={{ headerShown: true }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
