@@ -1,4 +1,5 @@
 import { colors } from "@src/common/theme";
+import React from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 interface LineBreakProps {

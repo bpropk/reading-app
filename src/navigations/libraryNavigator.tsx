@@ -1,3 +1,4 @@
+import React from "react";
 import { memo } from "react";
 import { RootStackParamList, RootStackElements } from "./rootStack";
 import { createStackNavigator } from "@react-navigation/stack";

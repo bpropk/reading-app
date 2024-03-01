@@ -20,6 +20,7 @@ export enum RootStackElements {
   // Discover
   DISCOVER_STACK = "DISCOVER_STACK",
   DISCOVER_PAGE = "DISCOVER_PAGE",
+  DISCOVER_NEW_PAGE = "DISCOVER_NEW_PAGE",
 
   // More
   MORE_STACK = "MORE_STACK",
@@ -39,11 +40,17 @@ export type RootStackParamList = {
   [RootStackElements.FORGOT_PASSWORD_PAGE]: undefined;
   [RootStackElements.RESET_PASSWORD_PAGE]: undefined;
 
-  // InApp
-
+  // home
   [RootStackElements.HOME_PAGE]: undefined;
+
+  // library
   [RootStackElements.LIBRARY_PAGE]: undefined;
+
+  // discover
   [RootStackElements.DISCOVER_PAGE]: undefined;
-  [RootStackElements.MORE_PAGE]: undefined;
+  [RootStackElements.DISCOVER_NEW_PAGE]: undefined;
+
+  // profile
   [RootStackElements.PROFILE_PAGE]: undefined;
+  [RootStackElements.MORE_PAGE]: undefined;
 };

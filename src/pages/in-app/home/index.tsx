@@ -1,9 +1,14 @@
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
 import PartBreak from "@src/components/partBreak/partBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
 import { SCREEN_WIDTH } from "@src/constants/screen";
+import {
+  RootStackElements,
+  RootStackParamList,
+} from "@src/navigations/rootStack";
 import React, { memo, useState } from "react";
 import { Pressable } from "react-native";
 import {
@@ -55,8 +60,14 @@ const ENTRIES2 = [
 ];
 
 const HomePage: React.FC = memo(() => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [searchValue, setSearchValue] = useState("");
-  const [checked, setChecked] = useState<number>(); 
+  const [checked, setChecked] = useState<number>();
+
+  const handleNavigate = () => {
+    navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE);
+  };
+
   return (
     <ScrollView style={styles.root}>
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
@@ -93,15 +104,23 @@ const HomePage: React.FC = memo(() => {
         <View style={styles.categoryContainer}>
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
-                <Pressable 
-                  onPress={() => setChecked(index)}
+              <Pressable onPress={() => setChecked(index)}>
+                <View
+                  style={[
+                    styles.categoryWrapper,
+                    checked === index && styles.categoryunWrapper,
+                  ]}
                 >
-                  <View style={[styles.categoryWrapper, checked === index && styles.categoryunWrapper]}>
-                    <Text style={[styles.categoryText, checked === index && styles.categoryClickOnText]}>
-                      {item}
-                    </Text>
-                  </View>
-                </Pressable>
+                  <Text
+                    style={[
+                      styles.categoryText,
+                      checked === index && styles.categoryClickOnText,
+                    ]}
+                  >
+                    {item}
+                  </Text>
+                </View>
+              </Pressable>
             </View>
           ))}
         </View>
@@ -109,12 +128,14 @@ const HomePage: React.FC = memo(() => {
           vertical={false}
           data={ENTRIES1}
           renderItem={({ item }) => (
-            <Image
-              style={{ width: 150, height: 180 }}
-              source={{
-                uri: item.illustration,
-              }}
-            />
+            <Pressable onPress={handleNavigate}>
+              <Image
+                style={{ width: 150, height: 180 }}
+                source={{
+                  uri: item.illustration,
+                }}
+              />
+            </Pressable>
           )}
           sliderWidth={SCREEN_WIDTH}
           itemWidth={155}
@@ -204,19 +225,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
   },
-  categoryunWrapper:{
+  categoryunWrapper: {
     backgroundColor: colors.white,
     borderWidth: 1,
     bodrerColor: colors.lightBlue,
   },
-  categoryText:{
+  categoryText: {
     color: colors.white,
-    fontWeight : "700",
+    fontWeight: "700",
     fontSize: 10,
     textAlign: "center",
     textAlignVertical: "center",
   },
-  categoryClickOnText:{
+  categoryClickOnText: {
     color: colors.lightBlue,
   },
   imageContainer: {
