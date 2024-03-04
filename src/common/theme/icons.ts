@@ -11,9 +11,11 @@ import Phone from "@assets/icons/phone.svg";
 import Logout from "@assets/icons/logout.svg";
 import Email from "@assets/icons/email.svg";
 import Lock from "@assets/icons/lock.svg";
-
-
-
+import MapLocation from "@assets/icons/mapLocation.svg";
+import Heart from "@assets/icons/heart.svg";
+import CreditCard from "@assets/icons/creditcard.svg";
+import Share from "@assets/icons/share.svg";
+import Support from "@assets/icons/support.svg";
 
 const Icons = Object.freeze({
   Home: Home,
@@ -27,6 +29,11 @@ const Icons = Object.freeze({
   Logout: Logout,
   Email: Email,
   Lock: Lock,
+  MapLocation: MapLocation,
+  Heart: Heart,
+  CreditCard: CreditCard,
+  Share: Share,
+  Support: Support,
 });
 
 export default Icons;
