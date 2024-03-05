@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Tittle from "@src/components/Content/tittle";
 import CustomButton from "@src/components/button/button";
@@ -7,98 +13,111 @@ import Avatar from "@src/components/avatar/Avatar";
 import Caption from "@src/components/Content/caption";
 import { colors, Icons } from "@src/common/theme";
 import { StretchInY } from "react-native-reanimated";
+import { TextInput } from "react-native-gesture-handler";
 
 const EditProfile = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <View style={{ flexDirection: "row", marginTop: 15 }}>
-          <View style={{ marginLeft: 20 }}>
-            <Tittle style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
-              Pham Minh Dang
-            </Tittle>
-            <Caption>@pmdang2699</Caption>
-          </View>
-        </View>
-        <View style={styles.userInfoSection}>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingVertical: 10,
-            }}
-          >
-            <Icons.MapLocation fill={colors.black} style={styles.icon} />
-            <Text style={{ marginLeft: 20 }}>Dong Nai, Viet Nam</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingVertical: 10,
-            }}
-          >
-            <Icons.Phone fill={colors.black} style={styles.icon} />
-            <Text style={{ marginLeft: 20 }}>0971066236</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingVertical: 10,
-            }}
-          >
-            <Icons.Email fill={colors.black} style={styles.icon} />
-            <Text style={{ marginLeft: 20 }}>pmdang2699@gmail.com</Text>
-          </View>
-        </View>
-
-        <View style={styles.infoBoxWrapper}>
-          <View
-            style={[
-              styles.infoBox,
-              {
-                borderRightColor: "#dddddd",
-                borderRightWidth: 1,
-              },
-            ]}
-          >
-            <Tittle>$140</Tittle>
-            <Caption>Wallet</Caption>
-          </View>
-          <View style={styles.infoBox}>
-            <Tittle>12</Tittle>
-            <Caption>Orders</Caption>
-          </View>
-        </View>
-        <View style={styles.menuWrapper}>
+    <View style={styles.container}>
+      <View style={{ margin: 20 }}>
+        <View style={{ alignItems: "center" }}>
           <TouchableOpacity onPress={() => {}}>
-            <View style={styles.menuItem}>
-              <Icons.Heart fill={colors.red} style={styles.icon} />
-              <Text style={styles.menuItemText}>My List</Text>
+            <View
+              style={{
+                height: 100,
+                width: 100,
+                borderRadius: 15,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <ImageBackground
+                source={{
+                  uri: "/Users/dangpham/Desktop/APP/reading-app/assets/images/alient.avif",
+                }}
+                style={{ height: 100, width: 100 }}
+                imageStyle={{ borderRadius: 15 }}
+              >
+                <View>
+                  <Icons.Camera
+                    fill={colors.white}
+                    style={{
+                      opacity: 0.6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderWidth: 1,
+                      borderColor: "#fff",
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+              </ImageBackground>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
-            <View style={styles.menuItem}>
-              <Icons.CreditCard fill={colors.red} style={styles.icon} />
-              <Text style={styles.menuItemText}>Payment</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
-            <View style={styles.menuItem}>
-              <Icons.Share fill={colors.red} style={styles.icon} />
-              <Text style={styles.menuItemText}>My Friends</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
-            <View style={styles.menuItem}>
-              <Icons.Support fill={colors.red} style={styles.icon} />
-              <Text style={styles.menuItemText}>Support</Text>
-            </View>
-          </TouchableOpacity>
+          <Text style={{ marginTop: 10, fontSize: 18, fontWeight: "bold" }}>
+            Pham Minh Dang
+          </Text>
         </View>
-        <View style={styles.buttons}>
-          <CustomButton title="Save" onPress={() => {}} />
+        <View style={styles.action}>
+          <Icons.User fill={colors.black} style={styles.icon} />
+          <TextInput
+            placeholder="First Name"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={styles.textInput}
+          ></TextInput>
+        </View>
+        <View style={styles.action}>
+          <Icons.User fill={colors.black} style={styles.icon} />
+          <TextInput
+            placeholder="Last Name"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={styles.textInput}
+          ></TextInput>
+        </View>
+        <View style={styles.action}>
+          <Icons.Email fill={colors.black} style={styles.icon} />
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor="#666666"
+            keyboardType="email-address"
+            autoCorrect={false}
+            style={styles.textInput}
+          ></TextInput>
+        </View>
+        <View style={styles.action}>
+          <Icons.Phone fill={colors.black} style={styles.icon} />
+          <TextInput
+            placeholder="Phone"
+            keyboardType="number-pad"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={styles.textInput}
+          ></TextInput>
+        </View>
+        <View style={styles.action}>
+          <Icons.Globe fill={colors.black} style={styles.icon} />
+          <TextInput
+            placeholder="Country"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={styles.textInput}
+          ></TextInput>
+        </View>
+        <View style={styles.action}>
+          <Icons.MapLocation fill={colors.black} style={styles.icon} />
+          <TextInput
+            placeholder="City"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            style={styles.textInput}
+          ></TextInput>
         </View>
       </View>
-    </SafeAreaView>
+      <View style={styles.buttons}>
+        <CustomButton title="Save" onPress={() => {}} />
+      </View>
+    </View>
   );
 };
 
@@ -108,59 +127,95 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     backgroundColor: "#ffffff",
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  input: {
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    fontSize: 18,
-  },
-  userInfoSection: {
-    paddingTop: 20,
-  },
-  label: {
-    marginVertical: 10,
-  },
   buttons: {
     marginTop: 30,
+  },
+  commandButton: {
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: "#FF6347",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  panel: {
+    padding: 20,
+    backgroundColor: "#FFFFFF",
+    paddingTop: 20,
+    // borderTopLeftRadius: 20,
+    // borderTopRightRadius: 20,
+    // shadowColor: '#000000',
+    // shadowOffset: {width: 0, height: 0},
+    // shadowRadius: 5,
+    // shadowOpacity: 0.4,
+  },
+  header: {
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#333333",
+    shadowOffset: { width: -1, height: -3 },
+    shadowRadius: 2,
+    shadowOpacity: 0.4,
+    // elevation: 5,
+    paddingTop: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  panelHeader: {
+    alignItems: "center",
+  },
+  panelHandle: {
+    width: 40,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#00000040",
+    marginBottom: 10,
+  },
+  panelTitle: {
+    fontSize: 27,
+    height: 35,
+  },
+  panelSubtitle: {
+    fontSize: 14,
+    color: "gray",
+    height: 30,
+    marginBottom: 10,
+  },
+  panelButton: {
+    padding: 13,
+    borderRadius: 10,
+    backgroundColor: "#FF6347",
+    alignItems: "center",
+    marginVertical: 7,
+  },
+  panelButtonTitle: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: "white",
+  },
+  action: {
+    flexDirection: "row",
+    marginTop: 10,
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f2f2f2",
+    paddingBottom: 5,
+  },
+  actionError: {
+    flexDirection: "row",
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#FF0000",
+    paddingBottom: 5,
+  },
+  textInput: {
+    flex: 1,
+    //marginTop: Platform.OS === "ios" ? 0 : -12,
+    paddingLeft: 10,
+    color: "#05375a",
   },
   icon: {
     paddingStart: 10,
     height: 20,
     width: 20,
-  },
-  infoBoxWrapper: {
-    borderBottomColor: "#dddddd",
-    borderBottomWidth: 1,
-    borderTopColor: "#dddddd",
-    borderTopWidth: 1,
-    flexDirection: "row",
-    height: 100,
-  },
-  infoBox: {
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  menuWrapper: {
-    marginTop: 10,
-  },
-  menuItem: {
-    flexDirection: "row",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: "#777777",
-    marginLeft: 20,
-    fontWeight: "600",
-    fontSize: 16,
-    lineHeight: 26,
   },
 });
 

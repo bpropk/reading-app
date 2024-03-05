@@ -16,6 +16,8 @@ import Heart from "@assets/icons/heart.svg";
 import CreditCard from "@assets/icons/creditcard.svg";
 import Share from "@assets/icons/share.svg";
 import Support from "@assets/icons/support.svg";
+import User from "@assets/icons/user.svg";
+import Camera from "@assets/icons/camera.svg";
 
 const Icons = Object.freeze({
   Home: Home,
@@ -34,6 +36,8 @@ const Icons = Object.freeze({
   CreditCard: CreditCard,
   Share: Share,
   Support: Support,
+  User: User,
+  Camera: Camera,
 });
 
 export default Icons;
