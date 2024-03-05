@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Tittle from "@src/components/Content/tittle";
@@ -7,29 +7,12 @@ import Avatar from "@src/components/avatar/Avatar";
 import Caption from "@src/components/Content/caption";
 import { colors, Icons } from "@src/common/theme";
 import { StretchInY } from "react-native-reanimated";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import {
-  RootStackElements,
-  RootStackParamList,
-} from "@src/navigations/rootStack";
-import EditProfile from "./editprofile";
 
-const ProfilePage = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const EditProfile = () => {
-    navigation.navigate(RootStackElements.EDIT_PROFILE_PAGE);
-  };
-
+const EditProfile = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
-          <Avatar
-            source={{
-              uri: "/Users/dangpham/Desktop/APP/reading-app/assets/images/alient.avif",
-            }}
-            size={100}
-          />
           <View style={{ marginLeft: 20 }}>
             <Tittle style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
               Pham Minh Dang
@@ -112,7 +95,7 @@ const ProfilePage = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.buttons}>
-          <CustomButton title="Edit Profile" onPress={EditProfile} />
+          <CustomButton title="Save" onPress={() => {}} />
         </View>
       </View>
     </SafeAreaView>
@@ -181,4 +164,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfilePage;
+export default EditProfile;

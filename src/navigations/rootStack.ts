@@ -26,6 +26,7 @@ export enum RootStackElements {
   MORE_STACK = "MORE_STACK",
   MORE_PAGE = "MORE_PAGE",
   PROFILE_PAGE = "PROFILE_PAGE",
+  EDIT_PROFILE_PAGE = "EDIT_PROFILE_PAGE",
 }
 
 export type RootStackParamList = {
@@ -53,4 +54,5 @@ export type RootStackParamList = {
   // profile
   [RootStackElements.PROFILE_PAGE]: undefined;
   [RootStackElements.MORE_PAGE]: undefined;
+  [RootStackElements.EDIT_PROFILE_PAGE]: undefined;
 };
