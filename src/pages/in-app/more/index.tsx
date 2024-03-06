@@ -19,6 +19,10 @@ const MorePage: React.FC = memo(() => {
     navigation.navigate(RootStackElements.PROFILE_PAGE);
   };
 
+  const handleLogout = () => {
+    navigation.navigate(RootStackElements.LOGIN_PAGE);
+  };
+
   return (
     <ScrollView>
       <View>
@@ -131,15 +135,17 @@ const MorePage: React.FC = memo(() => {
           }}
         >
           <Icons.Logout fill={colors.black} style={styles.icon} />
-          <Text
-            style={{
-              color: "black",
-              fontSize: 14,
-              paddingStart: 10,
-            }}
-          >
-            Sign out
-          </Text>
+          <TouchableOpacity onPress={handleLogout}>
+            <Text
+              style={{
+                color: "black",
+                fontSize: 14,
+                paddingStart: 10,
+              }}
+            >
+              Sign out
+            </Text>
+          </TouchableOpacity>
           <View style={{ flex: 1 }} />
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>

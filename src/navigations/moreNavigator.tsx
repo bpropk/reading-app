@@ -6,6 +6,7 @@ import DiscoverPage from "@src/pages/in-app/discover";
 import MorePage from "@src/pages/in-app/more";
 import ProfilePage from "@src/pages/in-app/more/profile";
 import EditProfile from "@src/pages/in-app/more/editprofile";
+import LoginPage from "@src/pages/auth/login";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -33,6 +34,14 @@ const MoreNavigator: React.FC = memo(() => {
           headerShown: true,
           headerBackTitle: "Back",
           title: " Edit Profile ",
+        }}
+      />
+      <Stack.Screen
+        name={RootStackElements.LOGIN_PAGE}
+        component={LoginPage}
+        options={{
+          headerShown: false,
+          headerBackTitle: "Back",
         }}
       />
     </Stack.Navigator>

@@ -1,19 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  TextInput,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Tittle from "@src/components/Content/tittle";
 import CustomButton from "@src/components/button/button";
-import Avatar from "@src/components/avatar/Avatar";
-import Caption from "@src/components/Content/caption";
 import { colors, Icons } from "@src/common/theme";
-import { StretchInY } from "react-native-reanimated";
-import { TextInput } from "react-native-gesture-handler";
 
 const EditProfile = () => {
   return (

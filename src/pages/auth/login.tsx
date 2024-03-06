@@ -51,7 +51,7 @@ const LoginPage = () => {
           placeholder="Enter your email"
           value={email}
           onChangeText={setEmail}
-          secureTextEntry={true}
+          secureTextEntry={false}
         />
         <Text style={styles.label}>Password</Text>
         <TextInput
