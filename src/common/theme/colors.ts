@@ -21,6 +21,7 @@ const colors = Object.freeze({
   orange: "#DF5200",
   transparent: "rgba(255,0,0,0.0)",
   lightGrey: "#EEEDEB",
+  darkGrey: "#B4B4B3",
   mediumSeaGreen: "#33AF6D",
   coolBlack: "#002E5D",
   corn: "#FFE76C",
@@ -31,7 +32,7 @@ const colors = Object.freeze({
   pastelGray: "#D1D1C7",
   apple: "#61C55A",
   pear: "#CCE227",
-  vividYellow: "#F9E812",
+  vividYellow: "#FF8400",
   princetonOrange: "#FC7F3D",
   rossoCorsa: "#D71E03",
 });

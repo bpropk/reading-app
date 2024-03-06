@@ -18,6 +18,7 @@ import Share from "@assets/icons/share.svg";
 import Support from "@assets/icons/support.svg";
 import User from "@assets/icons/user.svg";
 import Camera from "@assets/icons/camera.svg";
+import Star from "@assets/icons/star.svg";
 
 const Icons = Object.freeze({
   Home: Home,
@@ -38,6 +39,7 @@ const Icons = Object.freeze({
   Support: Support,
   User: User,
   Camera: Camera,
+  Star: Star,
 });
 
 export default Icons;
