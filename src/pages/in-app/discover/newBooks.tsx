@@ -1,13 +1,15 @@
 import { colors } from "@src/common/theme";
+import Typography from "@src/common/typography";
 import React from "react";
 import { memo } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const fakeData = {
   title:
-    "Beautiful and dramatic Antelope Canyon Lorem ipsum dolor sit amet et nuncat mergitur",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam accumsan auctor nulla, et placerat magna consectetur in. Etiam neque metus.",
   illustration: "https://i.imgur.com/QY0glKP.jpeg",
   star: 4.6,
+  numberReview: 2440,
   author: "Douglas R Brown",
   price: 64.32,
 };
@@ -27,12 +29,14 @@ const NewBookPage: React.FC = memo(() => {
         </View>
 
         <View style={styles.bookingContent}>
-          <Text>{fakeData.title}</Text>
-          <Text>{fakeData.author}</Text>
-          <View>
-            <Text>start</Text>
+          <Text style={styles.bookingTitle}>{fakeData.title}</Text>
+          <Text style={styles.bookingAuthor}>{fakeData.author}</Text>
+          <View style={styles.bookingRate}>
+            <Text>{fakeData.star}</Text>
+            <Text></Text>
+            <Text></Text>
           </View>
-          <Text>{fakeData.price}</Text>
+          <Text style={styles.bookingPrice}>{`$ ${fakeData.price}`}</Text>
         </View>
       </View>
     </ScrollView>
@@ -51,18 +55,33 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   bookingImage: {
-    width: 150,
-    height: 200,
+    width: 130,
+    height: 170,
   },
   bookingContent: {
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    flexWrap: "wrap",
+    paddingHorizontal: 15,
+    flexDirection: "column",
+    flexShrink: 1,
   },
-  bookingTitle: {},
-  bookingAuthor: {},
-  bookingRate: {},
-  bookingPrice: {},
+  bookingTitle: {
+    ...Typography.h2,
+    fontWeight: "600",
+  },
+  bookingAuthor: {
+    paddingTop: 10,
+    ...Typography.h4,
+    color: colors.navyBlue,
+  },
+  bookingRate: {
+    paddingTop: 5,
+    ...Typography.h4,
+  },
+  bookingPrice: {
+    paddingTop: 10,
+    ...Typography.h4,
+    fontWeight: "600",
+    color: colors.black,
+  },
 });
 
 export default NewBookPage;

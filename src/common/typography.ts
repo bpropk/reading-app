@@ -6,8 +6,8 @@ const Typography: { [key: string]: TextStyle } = {
     lineHeight: 58,
   },
   h2: {
-    fontSize: 26,
-    lineHeight: 48,
+    fontSize: 28,
+    lineHeight: 32,
   },
   h3: {
     fontSize: 20,
