@@ -1,14 +1,16 @@
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
+import CustomButton from "@src/components/button/button";
+import Star from "@src/components/star/star";
 import React from "react";
 import { memo } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const fakeData = {
   title:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam accumsan auctor nulla, et placerat magna consectetur in. Etiam neque metus.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam accumsan auctor null",
   illustration: "https://i.imgur.com/QY0glKP.jpeg",
-  star: 4.6,
+  star: 4,
   numberReview: 2440,
   author: "Douglas R Brown",
   price: 64.32,
@@ -32,12 +34,16 @@ const NewBookPage: React.FC = memo(() => {
           <Text style={styles.bookingTitle}>{fakeData.title}</Text>
           <Text style={styles.bookingAuthor}>{fakeData.author}</Text>
           <View style={styles.bookingRate}>
-            <Text>{fakeData.star}</Text>
-            <Text></Text>
-            <Text></Text>
+            <Star numberOfStar={fakeData.star} />
           </View>
           <Text style={styles.bookingPrice}>{`$ ${fakeData.price}`}</Text>
         </View>
+      </View>
+      <View style={{ paddingVertical: 15 }}>
+        <CustomButton title={"BUY"} onPress={() => {}} />
+      </View>
+      <View style={{ paddingBottom: 15 }}>
+        <CustomButton title={"DOWNLOAD SAMPLE"} onPress={() => {}} />
       </View>
     </ScrollView>
   );
