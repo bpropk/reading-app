@@ -219,26 +219,26 @@ const styles = StyleSheet.create({
   categoryWrapper: {
     height: 60,
     borderRadius: 120,
-    backgroundColor: colors.lightBlue,
+    backgroundColor: colors.white,
     paddingHorizontal: 15,
     paddingVertical: 5,
     textAlign: "center",
     justifyContent: "center",
+    borderColor: colors.lightBlue,
+    borderWidth: 1,
   },
   categoryunWrapper: {
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    bodrerColor: colors.lightBlue,
+    backgroundColor: colors.lightBlue,
   },
   categoryText: {
-    color: colors.white,
+    color: colors.lightBlue,
     fontWeight: "700",
     fontSize: 10,
     textAlign: "center",
     textAlignVertical: "center",
   },
   categoryClickOnText: {
-    color: colors.lightBlue,
+    color: colors.white,
   },
   imageContainer: {
     flex: 1,
