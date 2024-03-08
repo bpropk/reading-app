@@ -3,6 +3,10 @@ import { Text, View, StyleSheet, Switch, TouchableOpacity } from "react-native";
 import { colors, Icons } from "@src/common/theme";
 import { tabItemsStyles } from "@src/common/styles";
 import { ScrollView } from "react-native-gesture-handler";
+import LineBreak from "@src/components/lineBreak/lineBreak";
+import Typography from "@src/common/typography";
+
+
 import {
   RootStackElements,
   RootStackParamList,
@@ -24,11 +28,14 @@ const MorePage: React.FC = memo(() => {
   };
 
   return (
-    <ScrollView>
-      <View>
-        <View style={styles.common}>
-          <Text style={styles.commontext}> Common </Text>
-        </View>
+    <View style={styles.root}>
+      <View style={{ paddingVertical: 20 }}>
+        <Text> MORE PAGE </Text>
+      </View>
+
+      <LineBreak customStyle={{ marginHorizontal: -10 }} />
+
+      <ScrollView>
         <View
           style={{
             flexDirection: "row",
@@ -39,7 +46,7 @@ const MorePage: React.FC = memo(() => {
           <Text
             style={{
               color: "black",
-              fontSize: 14,
+              ...Typography.h4,
               paddingStart: 10,
             }}
           >
@@ -49,7 +56,7 @@ const MorePage: React.FC = memo(() => {
           <Text
             style={{
               color: "black",
-              fontSize: 14,
+              ...Typography.h4,
               paddingEnd: 10,
             }}
           >
@@ -57,6 +64,8 @@ const MorePage: React.FC = memo(() => {
           </Text>
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
+        <LineBreak customStyle={{ marginHorizontal: -10 }} />
+
         <View
           style={{
             flexDirection: "row",
@@ -67,7 +76,7 @@ const MorePage: React.FC = memo(() => {
           <Text
             style={{
               color: "black",
-              fontSize: 14,
+              ...Typography.h4,
               paddingStart: 10,
             }}
           >
@@ -77,7 +86,7 @@ const MorePage: React.FC = memo(() => {
           <Text
             style={{
               color: "black",
-              fontSize: 14,
+              ...Typography.h4,
               paddingEnd: 10,
             }}
           >
@@ -85,11 +94,31 @@ const MorePage: React.FC = memo(() => {
           </Text>
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
-        <View style={styles.common}>
+        <LineBreak customStyle={{ marginHorizontal: -10 }} />
+
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
+          }}
+        >
+          <Icons.User fill={colors.black} style={styles.icon} />
           <TouchableOpacity onPress={handleProfile}>
-            <Text style={styles.commontext}> Account </Text>
+            <Text
+              style={{
+                color: "black",
+                ...Typography.h4,
+                paddingStart: 10,
+              }}
+            >
+              My Profile
+            </Text>
           </TouchableOpacity>
+          <View style={{ flex: 1 }} />
+          <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
+        <LineBreak customStyle={{ marginHorizontal: -10 }} />
+
         <View
           style={{
             flexDirection: "row",
@@ -100,7 +129,7 @@ const MorePage: React.FC = memo(() => {
           <Text
             style={{
               color: "black",
-              fontSize: 14,
+              ...Typography.h4,
               paddingStart: 10,
             }}
           >
@@ -109,6 +138,8 @@ const MorePage: React.FC = memo(() => {
           <View style={{ flex: 1 }} />
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
+        <LineBreak customStyle={{ marginHorizontal: -10 }} />
+
         <View
           style={{
             flexDirection: "row",
@@ -119,7 +150,7 @@ const MorePage: React.FC = memo(() => {
           <Text
             style={{
               color: "black",
-              fontSize: 14,
+              ...Typography.h4,
               paddingStart: 10,
             }}
           >
@@ -128,6 +159,8 @@ const MorePage: React.FC = memo(() => {
           <View style={{ flex: 1 }} />
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
+        <LineBreak customStyle={{ marginHorizontal: -10 }} />
+
         <View
           style={{
             flexDirection: "row",
@@ -139,7 +172,7 @@ const MorePage: React.FC = memo(() => {
             <Text
               style={{
                 color: "black",
-                fontSize: 14,
+                ...Typography.h4,
                 paddingStart: 10,
               }}
             >
@@ -149,9 +182,8 @@ const MorePage: React.FC = memo(() => {
           <View style={{ flex: 1 }} />
           <Icons.ChevronRight fill={colors.black} style={styles.icon} />
         </View>
-        <View style={styles.common}>
-          <Text style={styles.commontext}> Security </Text>
-        </View>
+        <LineBreak customStyle={{ marginHorizontal: -10 }} />
+
         <View
           style={{
             flexDirection: "row",
@@ -163,7 +195,7 @@ const MorePage: React.FC = memo(() => {
           <Text
             style={{
               color: "black",
-              fontSize: 14,
+              ...Typography.h4,
               paddingStart: 10,
             }}
           >
@@ -179,11 +211,17 @@ const MorePage: React.FC = memo(() => {
             style={{ marginEnd: 10, paddingEnd: 5 }}
           />
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 });
 const styles = StyleSheet.create({
+  root: {
+    paddingTop: 20,
+    flex: 1,
+    paddingHorizontal: 10,
+    backgroundColor: colors.white,
+  },
   common: {
     height: 45,
     backgroundColor: "rgba(0,0,0,0.2)",

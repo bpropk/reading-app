@@ -16,7 +16,7 @@ const MoreNavigator: React.FC = memo(() => {
       <Stack.Screen
         name={RootStackElements.MORE_PAGE}
         component={MorePage}
-        options={{ headerShown: true, title: " More Page " }}
+        options={{ headerShown: false, title: " More Page " }}
       />
       <Stack.Screen
         name={RootStackElements.PROFILE_PAGE}
