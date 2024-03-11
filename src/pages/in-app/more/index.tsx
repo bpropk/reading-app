@@ -20,7 +20,10 @@ const MorePage: React.FC = memo(() => {
   };
 
   const handleLogout = () => {
-    navigation.navigate(RootStackElements.LOGIN_PAGE);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: RootStackElements.AUTHENTICATION_STACK }],
+    });
   };
 
   return (

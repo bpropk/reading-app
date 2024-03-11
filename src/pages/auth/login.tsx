@@ -32,18 +32,10 @@ const LoginPage = () => {
   };
 
   const handleRegister = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: RootStackElements.AUTHENTICATION_STACK }],
-    });
     navigation.navigate(RootStackElements.REGISTER_PAGE);
   };
 
   const handleForgotPassword = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: RootStackElements.AUTHENTICATION_STACK }],
-    });
     navigation.navigate(RootStackElements.FORGOT_PASSWORD_PAGE);
   };
 
