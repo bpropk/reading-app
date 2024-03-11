@@ -27,11 +27,8 @@ const MorePage: React.FC = memo(() => {
   };
 
   return (
-    <ScrollView>
-      <View>
-        <View style={styles.common}>
-          <Text style={styles.commontext}> Common </Text>
-        </View>
+    <View style={styles.root}>
+      <ScrollView>
         <View
           style={{
             flexDirection: "row",
