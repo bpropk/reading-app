@@ -6,7 +6,6 @@ import { ScrollView } from "react-native-gesture-handler";
 import LineBreak from "@src/components/lineBreak/lineBreak";
 import Typography from "@src/common/typography";
 
-
 import {
   RootStackElements,
   RootStackParamList,
@@ -29,12 +28,6 @@ const MorePage: React.FC = memo(() => {
 
   return (
     <View style={styles.root}>
-      <View style={{ paddingVertical: 20 }}>
-        <Text> MORE PAGE </Text>
-      </View>
-
-      <LineBreak customStyle={{ marginHorizontal: -10 }} />
-
       <ScrollView>
         <View
           style={{
