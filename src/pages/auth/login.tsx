@@ -16,7 +16,7 @@ import CustomButton from "@src/components/button/button";
 import { login } from "@src/api/authentication";
 import Toast from "react-native-toast-message";
 import { CustomToast, ToastType } from "@src/components/toast/toast";
-import { storeToken } from "@src/utils/storage";
+import { StoreToken } from "@src/utils/storage";
 
 const LoginPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -28,7 +28,7 @@ const LoginPage = () => {
     console.log("Password:", password);
     await login({ username, password })
       .then((result) => {
-        storeToken(result.data.accessToken);
+        StoreToken(result.data.accessToken);
         navigation.reset({
           index: 0,
           routes: [{ name: RootStackElements.IN_APP_STACK }],

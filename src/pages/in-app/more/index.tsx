@@ -11,6 +11,7 @@ import {
   RootStackParamList,
 } from "@src/navigations/rootStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RemoveAllStorage } from "@src/utils/storage";
 
 const MorePage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -23,7 +24,11 @@ const MorePage: React.FC = memo(() => {
   };
 
   const handleLogout = () => {
-    navigation.navigate(RootStackElements.LOGIN_PAGE);
+    RemoveAllStorage();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: RootStackElements.AUTHENTICATION_STACK }],
+    });
   };
 
   return (
