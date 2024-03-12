@@ -13,22 +13,33 @@ import {
 } from "@src/navigations/rootStack";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@src/components/button/button";
+import { login } from "@src/api/authentication";
+import Toast from "react-native-toast-message";
+import { CustomToast, ToastType } from "@src/components/toast/toast";
+import { storeToken } from "@src/utils/storage";
 
 const LoginPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const handleLogin = () => {
-    console.log("Email:", email);
+  const handleLogin = async () => {
+    console.log("Email:", username);
     console.log("Password:", password);
-
-    if (email && password) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: RootStackElements.IN_APP_STACK }],
+    await login({ username, password })
+      .then((result) => {
+        storeToken(result.data.accessToken);
+        navigation.reset({
+          index: 0,
+          routes: [{ name: RootStackElements.IN_APP_STACK }],
+        });
+      })
+      .catch((err) => {
+        CustomToast({
+          type: ToastType.Error,
+          message: err.response.data.message,
+        });
       });
-    }
   };
 
   const handleRegister = () => {
@@ -45,12 +56,12 @@ const LoginPage = () => {
         <Text style={styles.title}>Login</Text>
       </View>
       <View>
-        <Text style={styles.label}>Email</Text>
+        <Text style={styles.label}>Username</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your email"
-          value={email}
-          onChangeText={setEmail}
+          placeholder="Enter your username"
+          value={username}
+          onChangeText={setUsername}
           secureTextEntry={false}
         />
         <Text style={styles.label}>Password</Text>
