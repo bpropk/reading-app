@@ -5,7 +5,7 @@ import { colors } from "@src/common/theme";
 import Toast from "react-native-toast-message";
 
 export default function App() {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(true);
 
   return (
     <SafeAreaView style={styles.root}>
