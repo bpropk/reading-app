@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import {
   RootStackParamList,
@@ -14,32 +8,118 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@src/components/button/button";
 import { login } from "@src/api/authentication";
-import Toast from "react-native-toast-message";
 import { CustomToast, ToastType } from "@src/components/toast/toast";
 import { StoreToken } from "@src/utils/storage";
+import validate from "validate.js";
+import { Input } from "@src/components/input/input";
+
+type LoginFormStateValues = {
+  username?: string;
+  password?: string;
+};
+
+type LoginFormStateErrors = {
+  username?: string;
+  password?: string;
+};
+
+type LoginFromStateTouches = {
+  username?: boolean;
+  password?: boolean;
+  submit?: boolean;
+};
+
+type LoginStateFormValue = {
+  values: LoginFormStateValues;
+  errors: LoginFormStateErrors;
+  touched: LoginFromStateTouches;
+};
 
 const LoginPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+
+  const [formState, setFormState] = useState<LoginStateFormValue>({
+    values: {
+      username: "",
+      password: "",
+    },
+    touched: {
+      submit: false,
+    },
+    errors: {
+      username: "",
+      password: "",
+    },
+  });
+
+  const schema = {
+    username: {
+      presence: { allowEmpty: false, message: "Username is required" },
+    },
+    password: {
+      presence: { allowEmpty: false, message: "Password is required" },
+    },
+  };
+
+  useEffect(() => {
+    const errors =
+      validate(formState.values, schema, { fullMessages: false }) || null;
+
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      errors: errors,
+    }));
+
+    console.log(errors);
+    console.log("--------------");
+    console.log(formState.touched.submit ? formState.errors.username?.[0] : "");
+  }, [formState.values]);
+
+  const handleChangeInput = (value: any, name: string) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      values: {
+        ...formState.values,
+        [name]: value,
+      },
+    }));
+  };
+
+  const setTouched = (name: string) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      touched: {
+        ...formState.touched,
+        [name]: true,
+      },
+    }));
+  };
 
   const handleLogin = async () => {
-    console.log("Email:", username);
-    console.log("Password:", password);
-    await login({ username, password })
-      .then((result) => {
-        StoreToken(result.data.accessToken);
-        navigation.reset({
-          index: 0,
-          routes: [{ name: RootStackElements.IN_APP_STACK }],
+    const errors =
+      validate(formState.values, schema, { fullMessages: false }) || null;
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      errors: errors,
+    }));
+    setTouched("submit");
+
+    if (!errors) {
+      await login(formState.values)
+        .then((result) => {
+          StoreToken(result.data.accessToken);
+          navigation.reset({
+            index: 0,
+            routes: [{ name: RootStackElements.IN_APP_STACK }],
+          });
+        })
+        .catch((err) => {
+          CustomToast({
+            type: ToastType.Error,
+            message: err.response.data.message,
+          });
         });
-      })
-      .catch((err) => {
-        CustomToast({
-          type: ToastType.Error,
-          message: err.response.data.message,
-        });
-      });
+    }
   };
 
   const handleRegister = () => {
@@ -57,20 +137,29 @@ const LoginPage = () => {
       </View>
       <View>
         <Text style={styles.label}>Username</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your username"
-          value={username}
-          onChangeText={setUsername}
+        {/* First character always Uppercase character (Need fix) */}
+        <Input
+          value={formState.values.username}
+          onChangeText={(value) => handleChangeInput(value, "username")}
+          onSubmitEditing={() => setTouched("username")}
           secureTextEntry={false}
+          errText={
+            formState.touched.username || formState.touched.submit
+              ? formState.errors.username?.[0]
+              : undefined
+          }
         />
         <Text style={styles.label}>Password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter a password"
-          value={password}
-          onChangeText={setPassword}
+        <Input
+          value={formState.values.password}
+          onChangeText={(value: any) => handleChangeInput(value, "password")}
+          onSubmitEditing={() => setTouched("password")}
           secureTextEntry={true}
+          errText={
+            formState.touched.password || formState.touched.submit
+              ? formState.errors.password?.[0]
+              : undefined
+          }
         />
         <View style={styles.forgotPassword}>
           <TouchableOpacity onPress={handleForgotPassword}>
@@ -100,13 +189,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 16,
     textAlign: "center",
-  },
-  input: {
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    fontSize: 18,
   },
   forgotPassword: {
     display: "flex",
