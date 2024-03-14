@@ -69,10 +69,6 @@ const LoginPage = () => {
       ...prevFormState,
       errors: errors,
     }));
-
-    console.log(errors);
-    console.log("--------------");
-    console.log(formState.touched.submit ? formState.errors.username?.[0] : "");
   }, [formState.values]);
 
   const handleChangeInput = (value: any, name: string) => {
