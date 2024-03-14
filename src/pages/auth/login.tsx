@@ -145,7 +145,7 @@ const LoginPage = () => {
           secureTextEntry={false}
           errText={
             formState.touched.username || formState.touched.submit
-              ? formState.errors.username?.[0]
+              ? formState?.errors?.username?.[0]
               : undefined
           }
         />
@@ -157,7 +157,7 @@ const LoginPage = () => {
           secureTextEntry={true}
           errText={
             formState.touched.password || formState.touched.submit
-              ? formState.errors.password?.[0]
+              ? formState?.errors?.password?.[0]
               : undefined
           }
         />

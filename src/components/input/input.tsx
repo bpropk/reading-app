@@ -23,7 +23,7 @@ export const Input = forwardRef<TextInput, InputProps>(
   ) => {
     const displayContent = (errText: string | undefined) => {
       if (errText) {
-        return <Text>{errText}</Text>;
+        return <Text style={styles.errorText}>{errText}</Text>;
       }
       return "";
     };
@@ -33,7 +33,7 @@ export const Input = forwardRef<TextInput, InputProps>(
         <TextInput
           ref={ref}
           value={value}
-          style={styles.input}
+          style={[styles.input, errText ? { borderColor: colors.red } : {}]}
           onSubmitEditing={onSubmitEditing}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
