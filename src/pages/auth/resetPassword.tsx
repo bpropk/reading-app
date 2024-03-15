@@ -131,7 +131,6 @@ const ResetPasswordPage = () => {
         value={formState.values.token}
         onChangeText={(value) => handleChangeInput(value, "token")}
         onSubmitEditing={() => setTouched("token")}
-        secureTextEntry={false}
         errText={
           formState.touched.token || formState.touched.submit
             ? formState?.errors?.token?.[0]
@@ -143,7 +142,7 @@ const ResetPasswordPage = () => {
         value={formState.values.newpwd}
         onChangeText={(value) => handleChangeInput(value, "newpwd")}
         onSubmitEditing={() => setTouched("newpwd")}
-        secureTextEntry={false}
+        secureTextEntry={true}
         errText={
           formState.touched.newpwd || formState.touched.submit
             ? formState?.errors?.newpwd?.[0]
@@ -155,7 +154,7 @@ const ResetPasswordPage = () => {
         value={formState.values.repeatpwd}
         onChangeText={(value) => handleChangeInput(value, "repeatpwd")}
         onSubmitEditing={() => setTouched("repeatpwd")}
-        secureTextEntry={false}
+        secureTextEntry={true}
         errText={
           formState.touched.repeatpwd || formState.touched.submit
             ? formState?.errors?.repeatpwd?.[0]

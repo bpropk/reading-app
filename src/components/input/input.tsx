@@ -18,7 +18,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       value,
       onChangeText = () => void 0,
       onSubmitEditing,
-      secureTextEntry,
+      secureTextEntry = false,
       errText,
     },
     ref: any

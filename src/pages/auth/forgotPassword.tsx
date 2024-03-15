@@ -107,7 +107,6 @@ const ForgotPasswordPage = () => {
           value={formState.values.email}
           onChangeText={(value) => handleChangeInput(value, "email")}
           onSubmitEditing={() => setTouched("email")}
-          secureTextEntry={false}
           errText={
             formState.touched.email || formState.touched.submit
               ? formState?.errors?.email?.[0]

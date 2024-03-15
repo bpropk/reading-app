@@ -137,7 +137,6 @@ const LoginPage = () => {
           value={formState.values.username}
           onChangeText={(value) => handleChangeInput(value, "username")}
           onSubmitEditing={() => setTouched("username")}
-          secureTextEntry={false}
           errText={
             formState.touched.username || formState.touched.submit
               ? formState?.errors?.username?.[0]

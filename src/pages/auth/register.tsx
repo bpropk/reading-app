@@ -136,7 +136,6 @@ const RegistrationPage = () => {
           value={formState.values.name}
           onChangeText={(value) => handleChangeInput(value, "name")}
           onSubmitEditing={() => setTouched("name")}
-          secureTextEntry={false}
           errText={
             formState.touched.name || formState.touched.submit
               ? formState?.errors?.name?.[0]
@@ -148,7 +147,6 @@ const RegistrationPage = () => {
           value={formState.values.email}
           onChangeText={(value) => handleChangeInput(value, "email")}
           onSubmitEditing={() => setTouched("email")}
-          secureTextEntry={false}
           errText={
             formState.touched.email || formState.touched.submit
               ? formState?.errors?.email?.[0]
@@ -160,7 +158,6 @@ const RegistrationPage = () => {
           value={formState.values.username}
           onChangeText={(value) => handleChangeInput(value, "username")}
           onSubmitEditing={() => setTouched("username")}
-          secureTextEntry={false}
           errText={
             formState.touched.username || formState.touched.submit
               ? formState?.errors?.username?.[0]
@@ -172,7 +169,7 @@ const RegistrationPage = () => {
           value={formState.values.password}
           onChangeText={(value) => handleChangeInput(value, "password")}
           onSubmitEditing={() => setTouched("password")}
-          secureTextEntry={false}
+          secureTextEntry={true}
           errText={
             formState.touched.password || formState.touched.submit
               ? formState?.errors?.password?.[0]
@@ -184,7 +181,7 @@ const RegistrationPage = () => {
           value={formState.values.repeatPassword}
           onChangeText={(value) => handleChangeInput(value, "repeatPassword")}
           onSubmitEditing={() => setTouched("repeatPassword")}
-          secureTextEntry={false}
+          secureTextEntry={true}
           errText={
             formState.touched.repeatPassword || formState.touched.submit
               ? formState?.errors?.repeatPassword?.[0]
