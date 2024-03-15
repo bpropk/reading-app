@@ -1,18 +1,124 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import CustomButton from "@src/components/button/button";
+import validate from "validate.js";
+import { Input } from "@src/components/input/input";
+
+type RegisterFormStateValues = {
+  name?: string;
+  email?: string;
+  username?: string;
+  password?: string;
+  repeatPassword?: string;
+};
+
+type RegisterFormStateErrors = {
+  name?: string;
+  email?: string;
+  username?: string;
+  password?: string;
+  repeatPassword?: string;
+};
+
+type RegisterFromStateTouches = {
+  name?: boolean;
+  email?: boolean;
+  username?: boolean;
+  password?: boolean;
+  repeatPassword?: boolean;
+  submit?: boolean;
+};
+
+type RegisterStateFormValue = {
+  values: RegisterFormStateValues;
+  errors: RegisterFormStateErrors;
+  touched: RegisterFromStateTouches;
+};
 
 const RegistrationPage = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatePassword] = useState("");
+  const [formState, setFormState] = useState<RegisterStateFormValue>({
+    values: {
+      name: "",
+      email: "",
+      username: "",
+      password: "",
+      repeatPassword: "",
+    },
+    touched: {
+      submit: false,
+    },
+    errors: {
+      name: "",
+      email: "",
+      username: "",
+      password: "",
+      repeatPassword: "",
+    },
+  });
+
+  const schema = {
+    name: {
+      presence: { allowEmpty: false, message: "Name is required" },
+    },
+    email: {
+      presence: { allowEmpty: false, message: "Email is required" },
+    },
+    username: {
+      presence: { allowEmpty: false, message: "Username is required" },
+    },
+    password: {
+      presence: { allowEmpty: false, message: "Password is required" },
+    },
+    repeatPassword: {
+      presence: { allowEmpty: false, message: "Repeat password is required" },
+    },
+  };
+
+  useEffect(() => {
+    const errors =
+      validate(formState.values, schema, { fullMessages: false }) || null;
+
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      errors: errors,
+    }));
+  }, [formState.values]);
+
+  const handleChangeInput = (value: any, name: string) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      values: {
+        ...formState.values,
+        [name]: value,
+      },
+    }));
+  };
+
+  const setTouched = (name: string) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      touched: {
+        ...formState.touched,
+        [name]: true,
+      },
+    }));
+  };
 
   const handleRegistration = () => {
-    // Xử lý đăng ký ở đây, có thể gửi dữ liệu đến server hoặc thực hiện các bước cần thiết.
-    console.log(email, name, password, repeatPassword);
+    const errors =
+      validate(formState.values, schema, { fullMessages: false }) || null;
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      errors: errors,
+    }));
+    setTouched("submit");
+
+    if (!errors) {
+      // TO DO match API
+      console.log("reset ");
+    }
   };
 
   return (
@@ -21,37 +127,65 @@ const RegistrationPage = () => {
         <Text style={styles.title}>Register</Text>
       </View>
       <View>
-        <Text style={styles.label}>Your name</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Full name"
-          value={name}
-          onChangeText={setEmail}
-          secureTextEntry={true}
+        <Input
+          label="Name"
+          value={formState.values.name}
+          onChangeText={(value) => handleChangeInput(value, "name")}
+          onSubmitEditing={() => setTouched("name")}
+          secureTextEntry={false}
+          errText={
+            formState.touched.name || formState.touched.submit
+              ? formState?.errors?.name?.[0]
+              : undefined
+          }
         />
-        <Text style={styles.label}>Your email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email address"
-          value={email}
-          onChangeText={setEmail}
-          secureTextEntry={true}
+        <Input
+          label="Email"
+          value={formState.values.email}
+          onChangeText={(value) => handleChangeInput(value, "email")}
+          onSubmitEditing={() => setTouched("email")}
+          secureTextEntry={false}
+          errText={
+            formState.touched.email || formState.touched.submit
+              ? formState?.errors?.email?.[0]
+              : undefined
+          }
         />
-        <Text style={styles.label}>Create Password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Create Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
+        <Input
+          label="Username"
+          value={formState.values.username}
+          onChangeText={(value) => handleChangeInput(value, "username")}
+          onSubmitEditing={() => setTouched("username")}
+          secureTextEntry={false}
+          errText={
+            formState.touched.username || formState.touched.submit
+              ? formState?.errors?.username?.[0]
+              : undefined
+          }
         />
-        <Text style={styles.label}>Repeat Password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Repeat Password"
-          value={repeatPassword}
-          onChangeText={setRepeatePassword}
-          secureTextEntry={true}
+        <Input
+          label="Password"
+          value={formState.values.password}
+          onChangeText={(value) => handleChangeInput(value, "password")}
+          onSubmitEditing={() => setTouched("password")}
+          secureTextEntry={false}
+          errText={
+            formState.touched.password || formState.touched.submit
+              ? formState?.errors?.password?.[0]
+              : undefined
+          }
+        />
+        <Input
+          label="Repeat Password"
+          value={formState.values.repeatPassword}
+          onChangeText={(value) => handleChangeInput(value, "repeatPassword")}
+          onSubmitEditing={() => setTouched("repeatPassword")}
+          secureTextEntry={false}
+          errText={
+            formState.touched.repeatPassword || formState.touched.submit
+              ? formState?.errors?.repeatPassword?.[0]
+              : undefined
+          }
         />
         <View style={styles.buttons}>
           <CustomButton title="Register" onPress={handleRegistration} />
