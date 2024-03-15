@@ -10,6 +10,8 @@ import {
 } from "@src/navigations/rootStack";
 import validate from "validate.js";
 import { Input } from "@src/components/input/input";
+import { forgotPassword } from "@src/api/authentication";
+import { CustomToast, ToastType } from "@src/components/toast/toast";
 
 type ForgotPasswordStateValues = {
   email?: string;
@@ -91,8 +93,21 @@ const ForgotPasswordPage = () => {
     }));
     setTouched("submit");
     if (!errors) {
-      // TO DO API
-      navigation.navigate(RootStackElements.RESET_PASSWORD_PAGE);
+      forgotPassword(formState.values)
+        .then((result) => {
+          CustomToast({
+            type: ToastType.Success,
+            message: result.data.message,
+          });
+          navigation.navigate(RootStackElements.RESET_PASSWORD_PAGE);
+          console.log(result);
+        })
+        .catch((err) => {
+          CustomToast({
+            type: ToastType.Error,
+            message: err.response.data.message,
+          });
+        });
     }
   };
 

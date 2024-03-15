@@ -1,26 +1,26 @@
 import axios from "axios";
 
 interface loginDto {
-  username: string;
-  password: string;
+  username?: string;
+  password?: string;
 }
 
 interface registerDto {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
-  username: string;
-  password: string;
+  name?: string;
+  email?: string;
+  phoneNumber?: string;
+  address?: string;
+  username?: string;
+  password?: string;
 }
 
 interface forgotPasswordDto {
-  email: string;
+  email?: string;
 }
 
 interface changePasswordDto {
-  token: string;
-  newPassword: string;
+  token?: string;
+  newPassword?: string;
 }
 
 export const login = async (body: loginDto) => {
