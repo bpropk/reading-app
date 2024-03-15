@@ -39,7 +39,9 @@ export type RootStackParamList = {
   [RootStackElements.LOGIN_PAGE]: undefined;
   [RootStackElements.REGISTER_PAGE]: undefined;
   [RootStackElements.FORGOT_PASSWORD_PAGE]: undefined;
-  [RootStackElements.RESET_PASSWORD_PAGE]: undefined;
+  [RootStackElements.RESET_PASSWORD_PAGE]: {
+    email?: string;
+  };
 
   // home
   [RootStackElements.HOME_PAGE]: undefined;

@@ -18,8 +18,9 @@ interface forgotPasswordDto {
   email?: string;
 }
 
-interface changePasswordDto {
-  token?: string;
+interface VerifyForgotPasswordDto {
+  otp?: string;
+  email?: string;
   newPassword?: string;
 }
 
@@ -35,6 +36,6 @@ export const forgotPassword = async (body: forgotPasswordDto) => {
   return axios.post(`${process.env.API_URL}/auth/forgot-password`, body);
 };
 
-export const changePassword = async (body: changePasswordDto) => {
-  return axios.post(`${process.env.API_URL}/auth/change-password`, body);
+export const verifyForgotPassword = async (body: VerifyForgotPasswordDto) => {
+  return axios.post(`${process.env.API_URL}/auth/verify-forgot-password`, body);
 };

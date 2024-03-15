@@ -99,8 +99,9 @@ const ForgotPasswordPage = () => {
             type: ToastType.Success,
             message: result.data.message,
           });
-          navigation.navigate(RootStackElements.RESET_PASSWORD_PAGE);
-          console.log(result);
+          navigation.navigate(RootStackElements.RESET_PASSWORD_PAGE, {
+            email: formState.values.email,
+          });
         })
         .catch((err) => {
           CustomToast({

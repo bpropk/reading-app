@@ -7,9 +7,17 @@ import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import validate from "validate.js";
 import { Input } from "@src/components/input/input";
+import { verifyForgotPassword } from "@src/api/authentication";
+import { StoreToken } from "@src/utils/storage";
+import { CustomToast, ToastType } from "@src/components/toast/toast";
 
 type ResetPasswordStateValues = {
   token?: string;
@@ -38,6 +46,10 @@ type ResetPasswordFormValue = {
 
 const ResetPasswordPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const route =
+    useRoute<
+      RouteProp<RootStackParamList, RootStackElements.RESET_PASSWORD_PAGE>
+    >();
 
   const [formState, setFormState] = useState<ResetPasswordFormValue>({
     values: {
@@ -104,7 +116,7 @@ const ResetPasswordPage = () => {
     }));
   };
 
-  const handleResetPassword = () => {
+  const handleResetPassword = async () => {
     const errors =
       validate(formState.values, schema, { fullMessages: false }) || null;
     setFormState((prevFormState) => ({
@@ -113,10 +125,30 @@ const ResetPasswordPage = () => {
     }));
     setTouched("submit");
     if (!errors) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: RootStackElements.IN_APP_STACK }],
-      });
+      await verifyForgotPassword({
+        otp: formState.values.token,
+        newPassword: formState.values.newpwd,
+        email: route.params.email,
+      })
+        .then((result) => {
+          console.log(result);
+          CustomToast({
+            type: ToastType.Success,
+            message: result.data.message,
+          });
+          StoreToken(result.data.accessToken);
+
+          navigation.reset({
+            index: 0,
+            routes: [{ name: RootStackElements.IN_APP_STACK }],
+          });
+        })
+        .catch((err) => {
+          CustomToast({
+            type: ToastType.Error,
+            message: err.response.data.message,
+          });
+        });
     }
   };
 
