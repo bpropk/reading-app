@@ -92,7 +92,7 @@ const ForgotPasswordPage = () => {
     setTouched("submit");
     if (!errors) {
       // TO DO API
-      console.log("run");
+      navigation.navigate(RootStackElements.RESET_PASSWORD_PAGE);
     }
   };
 

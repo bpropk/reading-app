@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import CustomButton from "@src/components/button/button";
@@ -8,16 +8,111 @@ import {
   RootStackParamList,
 } from "@src/navigations/rootStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import validate from "validate.js";
+import { Input } from "@src/components/input/input";
+
+type ResetPasswordStateValues = {
+  token?: string;
+  newpwd?: string;
+  repeatpwd?: string;
+};
+
+type ResetPasswordStateErrors = {
+  token?: string;
+  newpwd?: string;
+  repeatpwd?: string;
+};
+
+type ResetPasswordStateTouches = {
+  token?: boolean;
+  newpwd?: boolean;
+  repeatpwd?: boolean;
+  submit?: boolean;
+};
+
+type ResetPasswordFormValue = {
+  values: ResetPasswordStateValues;
+  errors: ResetPasswordStateErrors;
+  touched: ResetPasswordStateTouches;
+};
 
 const ResetPasswordPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [token, setToken] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatePassword] = useState("");
+
+  const [formState, setFormState] = useState<ResetPasswordFormValue>({
+    values: {
+      token: "",
+      newpwd: "",
+      repeatpwd: "",
+    },
+    touched: {
+      submit: false,
+    },
+    errors: {
+      token: "",
+      newpwd: "",
+      repeatpwd: "",
+    },
+  });
+
+  const schema = {
+    token: {
+      presence: { allowEmpty: false, message: "Token is required" },
+    },
+    newpwd: {
+      presence: { allowEmpty: false, message: "New Password is required" },
+    },
+    repeatpwd: {
+      presence: {
+        allowEmpty: false,
+        message: "Repeat new password is required",
+      },
+      equality: {
+        attribute: "newpwd",
+        message: "Repeat password is not equal to new password",
+      },
+    },
+  };
+
+  useEffect(() => {
+    const errors =
+      validate(formState.values, schema, { fullMessages: false }) || null;
+
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      errors: errors,
+    }));
+  }, [formState.values]);
+
+  const handleChangeInput = (value: any, name: string) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      values: {
+        ...formState.values,
+        [name]: value,
+      },
+    }));
+  };
+
+  const setTouched = (name: string) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      touched: {
+        ...formState.touched,
+        [name]: true,
+      },
+    }));
+  };
 
   const handleResetPassword = () => {
-    // Xử lý đăng ký ở đây, có thể gửi dữ liệu đến server hoặc thực hiện các bước cần thiết.
-    if (token && password && repeatPassword) {
+    const errors =
+      validate(formState.values, schema, { fullMessages: false }) || null;
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      errors: errors,
+    }));
+    setTouched("submit");
+    if (!errors) {
       navigation.reset({
         index: 0,
         routes: [{ name: RootStackElements.IN_APP_STACK }],
@@ -30,34 +125,46 @@ const ResetPasswordPage = () => {
       <View style={{ marginTop: 30 }}>
         <Text style={styles.title}>Reset Password</Text>
       </View>
-      <View>
-        <Text style={styles.label}>Token</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="New Password"
-          value={token}
-          onChangeText={setToken}
-          secureTextEntry={true}
-        />
-        <Text style={styles.label}>New password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="New Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
-        <Text style={styles.label}>Repeat new password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Repeat new password"
-          value={repeatPassword}
-          onChangeText={setRepeatePassword}
-          secureTextEntry={true}
-        />
-        <View style={styles.buttons}>
-          <CustomButton title="Reset Password" onPress={handleResetPassword} />
-        </View>
+
+      <Input
+        label="Token"
+        value={formState.values.token}
+        onChangeText={(value) => handleChangeInput(value, "token")}
+        onSubmitEditing={() => setTouched("token")}
+        secureTextEntry={false}
+        errText={
+          formState.touched.token || formState.touched.submit
+            ? formState?.errors?.token?.[0]
+            : undefined
+        }
+      />
+      <Input
+        label="New password"
+        value={formState.values.newpwd}
+        onChangeText={(value) => handleChangeInput(value, "newpwd")}
+        onSubmitEditing={() => setTouched("newpwd")}
+        secureTextEntry={false}
+        errText={
+          formState.touched.newpwd || formState.touched.submit
+            ? formState?.errors?.newpwd?.[0]
+            : undefined
+        }
+      />
+      <Input
+        label="Repeat password"
+        value={formState.values.repeatpwd}
+        onChangeText={(value) => handleChangeInput(value, "repeatpwd")}
+        onSubmitEditing={() => setTouched("repeatpwd")}
+        secureTextEntry={false}
+        errText={
+          formState.touched.repeatpwd || formState.touched.submit
+            ? formState?.errors?.repeatpwd?.[0]
+            : undefined
+        }
+      />
+
+      <View style={styles.buttons}>
+        <CustomButton title="Reset Password" onPress={handleResetPassword} />
       </View>
     </SafeAreaView>
   );
