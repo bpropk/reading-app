@@ -132,9 +132,8 @@ const LoginPage = () => {
         <Text style={styles.title}>Login</Text>
       </View>
       <View>
-        <Text style={styles.label}>Username</Text>
-        {/* First character always Uppercase character (Need fix) */}
         <Input
+          label="Username"
           value={formState.values.username}
           onChangeText={(value) => handleChangeInput(value, "username")}
           onSubmitEditing={() => setTouched("username")}
@@ -145,8 +144,8 @@ const LoginPage = () => {
               : undefined
           }
         />
-        <Text style={styles.label}>Password</Text>
         <Input
+          label="Password"
           value={formState.values.password}
           onChangeText={(value: any) => handleChangeInput(value, "password")}
           onSubmitEditing={() => setTouched("password")}

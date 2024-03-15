@@ -3,6 +3,7 @@ import React, { forwardRef } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 interface InputProps {
+  label?: string;
   onSubmitEditing?: () => void;
   onChangeText?: (text: string) => void;
   secureTextEntry?: boolean;
@@ -13,6 +14,7 @@ interface InputProps {
 export const Input = forwardRef<TextInput, InputProps>(
   (
     {
+      label,
       value,
       onChangeText = () => void 0,
       onSubmitEditing,
@@ -30,6 +32,7 @@ export const Input = forwardRef<TextInput, InputProps>(
 
     return (
       <View>
+        <Text style={styles.label}>{label}</Text>
         <TextInput
           ref={ref}
           value={value}
@@ -56,5 +59,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     fontSize: 18,
+  },
+  label: {
+    marginVertical: 10,
   },
 });
