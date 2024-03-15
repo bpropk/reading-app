@@ -5,10 +5,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@src/components/button/button";
 import validate from "validate.js";
 import { Input } from "@src/components/input/input";
+import { ScrollView } from "react-native-gesture-handler";
 
 type RegisterFormStateValues = {
   name?: string;
   email?: string;
+  phoneNumber?: string;
+  address?: string;
   username?: string;
   password?: string;
   repeatPassword?: string;
@@ -17,6 +20,8 @@ type RegisterFormStateValues = {
 type RegisterFormStateErrors = {
   name?: string;
   email?: string;
+  phoneNumber?: string;
+  address?: string;
   username?: string;
   password?: string;
   repeatPassword?: string;
@@ -25,6 +30,8 @@ type RegisterFormStateErrors = {
 type RegisterFromStateTouches = {
   name?: boolean;
   email?: boolean;
+  phoneNumber?: boolean;
+  address?: boolean;
   username?: boolean;
   password?: boolean;
   repeatPassword?: boolean;
@@ -42,6 +49,8 @@ const RegistrationPage = () => {
     values: {
       name: "",
       email: "",
+      phoneNumber: "",
+      address: "",
       username: "",
       password: "",
       repeatPassword: "",
@@ -52,6 +61,8 @@ const RegistrationPage = () => {
     errors: {
       name: "",
       email: "",
+      phoneNumber: "",
+      address: "",
       username: "",
       password: "",
       repeatPassword: "",
@@ -64,6 +75,17 @@ const RegistrationPage = () => {
     },
     email: {
       presence: { allowEmpty: false, message: "Email is required" },
+    },
+    phoneNumber: {
+      presence: { allowEmpty: false, message: "Phone number is required" },
+      format: {
+        pattern: "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$",
+        flags: "i",
+        message: "Phone number is wrong format",
+      },
+    },
+    address: {
+      presence: { allowEmpty: false, message: "Address is required" },
     },
     username: {
       presence: { allowEmpty: false, message: "Username is required" },
@@ -127,10 +149,10 @@ const RegistrationPage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ marginTop: 30 }}>
-        <Text style={styles.title}>Register</Text>
-      </View>
-      <View>
+      <ScrollView>
+        <View style={{ marginTop: 30 }}>
+          <Text style={styles.title}>Register</Text>
+        </View>
         <Input
           label="Name"
           value={formState.values.name}
@@ -165,6 +187,29 @@ const RegistrationPage = () => {
           }
         />
         <Input
+          label="Phone number"
+          value={formState.values.phoneNumber}
+          onChangeText={(value) => handleChangeInput(value, "phoneNumber")}
+          onSubmitEditing={() => setTouched("phoneNumber")}
+          errText={
+            formState.touched.phoneNumber || formState.touched.submit
+              ? formState?.errors?.phoneNumber?.[0]
+              : undefined
+          }
+        />
+        <Input
+          label="Address"
+          value={formState.values.address}
+          onChangeText={(value) => handleChangeInput(value, "address")}
+          onSubmitEditing={() => setTouched("address")}
+          errText={
+            formState.touched.address || formState.touched.submit
+              ? formState?.errors?.address?.[0]
+              : undefined
+          }
+        />
+
+        <Input
           label="Password"
           value={formState.values.password}
           onChangeText={(value) => handleChangeInput(value, "password")}
@@ -191,7 +236,7 @@ const RegistrationPage = () => {
         <View style={styles.buttons}>
           <CustomButton title="Register" onPress={handleRegistration} />
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
