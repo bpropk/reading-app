@@ -73,6 +73,10 @@ const RegistrationPage = () => {
     },
     repeatPassword: {
       presence: { allowEmpty: false, message: "Repeat password is required" },
+      equality: {
+        attribute: "password",
+        message: "Confirm password is not equal to password",
+      },
     },
   };
 
