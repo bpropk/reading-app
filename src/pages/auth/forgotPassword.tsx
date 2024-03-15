@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -8,15 +8,91 @@ import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
+import validate from "validate.js";
+import { Input } from "@src/components/input/input";
+
+type ForgotPasswordStateValues = {
+  email?: string;
+};
+
+type ForgotPasswordStateErrors = {
+  email?: string;
+};
+
+type ForgotPasswordStateTouches = {
+  email?: boolean;
+  submit?: boolean;
+};
+
+type ForgotPasswordFormValue = {
+  values: ForgotPasswordStateValues;
+  errors: ForgotPasswordStateErrors;
+  touched: ForgotPasswordStateTouches;
+};
 
 const ForgotPasswordPage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [email, setEmail] = useState("");
+
+  const [formState, setFormState] = useState<ForgotPasswordFormValue>({
+    values: {
+      email: "",
+    },
+    touched: {
+      submit: false,
+    },
+    errors: {
+      email: "",
+    },
+  });
+
+  const schema = {
+    email: {
+      presence: { allowEmpty: false, message: "Email is required" },
+    },
+  };
+
+  useEffect(() => {
+    const errors =
+      validate(formState.values, schema, { fullMessages: false }) || null;
+
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      errors: errors,
+    }));
+  }, [formState.values]);
+
+  const handleChangeInput = (value: any, name: string) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      values: {
+        ...formState.values,
+        [name]: value,
+      },
+    }));
+  };
+
+  const setTouched = (name: string) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      touched: {
+        ...formState.touched,
+        [name]: true,
+      },
+    }));
+  };
 
   const handleForgotPassword = () => {
     // Xử lý đăng ký ở đây, có thể gửi dữ liệu đến server hoặc thực hiện các bước cần thiết.
-    if (email) {
-      navigation.navigate(RootStackElements.RESET_PASSWORD_PAGE);
+    const errors =
+      validate(formState.values, schema, { fullMessages: false }) || null;
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      errors: errors,
+    }));
+    setTouched("submit");
+    if (!errors) {
+      // TO DO API
+      console.log("run");
     }
   };
 
@@ -26,13 +102,17 @@ const ForgotPasswordPage = () => {
         <Text style={styles.title}>Reset your password</Text>
       </View>
       <View>
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email address"
-          value={email}
-          onChangeText={setEmail}
-          secureTextEntry={true}
+        <Input
+          label="Email"
+          value={formState.values.email}
+          onChangeText={(value) => handleChangeInput(value, "email")}
+          onSubmitEditing={() => setTouched("email")}
+          secureTextEntry={false}
+          errText={
+            formState.touched.email || formState.touched.submit
+              ? formState?.errors?.email?.[0]
+              : undefined
+          }
         />
         <View style={styles.buttons}>
           <CustomButton
