@@ -8,7 +8,12 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import { Reader, ReaderProvider, useReader } from "@epubjs-react-native/core";
+import {
+  Location,
+  Reader,
+  ReaderProvider,
+  useReader,
+} from "@epubjs-react-native/core";
 import { useFileSystem } from "@epubjs-react-native/expo-file-system";
 import { colors, Icons } from "@src/common/theme";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -20,6 +25,9 @@ function Inner() {
 
   const { width, height } = useWindowDimensions();
   const [heightBtn, setHeightBtn] = useState<number>(0);
+  const [currentLocation, setCurrentLocation] = useState(0);
+  const [totalLocation, setTotalLocation] = useState(0);
+
   const { goNext, goPrevious } = useReader();
 
   const handleBack = () => {
@@ -42,6 +50,20 @@ function Inner() {
           width={width}
           height={heightBtn}
           fileSystem={useFileSystem}
+          onLocationChange={(
+            totalLocations: number,
+            currentLocation: Location,
+            progress: number
+          ) => {
+            console.log(
+              "totalLocations",
+              totalLocations,
+              "currentLocation",
+              currentLocation.end.location
+            );
+            setTotalLocation(totalLocations);
+            setCurrentLocation(currentLocation.end.location);
+          }}
         />
       </View>
 
@@ -51,6 +73,11 @@ function Inner() {
           title={"Go Previous"}
           onPress={goPrevious}
         />
+        <View style={{ marginHorizontal: 10 }}>
+          <Text>
+            {currentLocation}&#47;{totalLocation}
+          </Text>
+        </View>
         <CustomButton
           style={{ marginHorizontal: 10 }}
           title={"Go Next"}
@@ -76,6 +103,7 @@ export const styles = StyleSheet.create({
     marginBottom: 70,
   },
   options: {
+    alignItems: "center",
     paddingTop: 10,
     flexDirection: "row",
     flexShrink: 0,
