@@ -1,10 +1,22 @@
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
 import PartBreak from "@src/components/partBreak/partBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
+import {
+  RootStackElements,
+  RootStackParamList,
+} from "@src/navigations/rootStack";
 import React, { memo, useState } from "react";
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 enum TabSelect {
   all = "ALL",
@@ -31,8 +43,14 @@ const ENTRIES1 = [
 ];
 
 const LibraryPage: React.FC = memo(() => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const [searchValue, setSearchValue] = useState("");
   const [tab, setTab] = useState<string>(TabSelect.all);
+
+  const handleNavigateDisplayBook = () => {
+    navigation.navigate(RootStackElements.DISPLAY_BOOK);
+  };
 
   return (
     <ScrollView style={styles.root}>
@@ -42,7 +60,7 @@ const LibraryPage: React.FC = memo(() => {
         <Pressable
           style={[styles.tab, tab === TabSelect.all && styles.tabSelected]}
           onPress={() => setTab(TabSelect.all)}
-        > 
+        >
           <Text style={tab === TabSelect.all && { color: colors.lightBlue }}>
             {TabSelect.all}
           </Text>
@@ -61,15 +79,19 @@ const LibraryPage: React.FC = memo(() => {
       <LineBreak customStyle={{ marginHorizontal: -10 }} />
       <View style={styles.bookDisplay}>
         {ENTRIES1.map((item, index) => (
-            <View style={styles.bookDisplay} key={index}>
-                <Image
-                  style={{ width: 150, height: 180 }}
-                  source={{
-                  uri: item.illustration,
+          <Pressable
+            style={styles.bookDisplay}
+            key={index}
+            onPress={handleNavigateDisplayBook}
+          >
+            <Image
+              style={{ width: 150, height: 180 }}
+              source={{
+                uri: item.illustration,
               }}
             />
-            </View>
-          ))}
+          </Pressable>
+        ))}
       </View>
     </ScrollView>
   );

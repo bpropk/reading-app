@@ -16,6 +16,7 @@ export enum RootStackElements {
   // Library
   LIBRARY_STACK = "LIBRARY_STACK",
   LIBRARY_PAGE = "LIBRARY_PAGE",
+  DISPLAY_BOOK = "DISPLAY_BOOK",
 
   // Discover
   DISCOVER_STACK = "DISCOVER_STACK",
@@ -48,6 +49,7 @@ export type RootStackParamList = {
 
   // library
   [RootStackElements.LIBRARY_PAGE]: undefined;
+  [RootStackElements.DISPLAY_BOOK]: undefined;
 
   // discover
   [RootStackElements.DISCOVER_PAGE]: undefined;
