@@ -19,6 +19,7 @@ import Support from "@assets/icons/support.svg";
 import User from "@assets/icons/user.svg";
 import Camera from "@assets/icons/camera.svg";
 import Star from "@assets/icons/star.svg";
+import ChevronLeft from "@assets/icons/chevronleft.svg";
 
 const Icons = Object.freeze({
   Home: Home,
@@ -27,6 +28,7 @@ const Icons = Object.freeze({
   MorePage: MorePage,
   Globe: Globe,
   ChevronRight: ChevronRight,
+  ChevronLeft: ChevronLeft,
   Cloud: Cloud,
   Phone: Phone,
   Logout: Logout,
