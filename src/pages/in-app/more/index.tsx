@@ -159,27 +159,27 @@ const MorePage: React.FC = memo(() => {
         </View>
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: 10,
-          }}
-        >
-          <Icons.Logout fill={colors.black} style={styles.icon} />
-          <TouchableOpacity onPress={handleLogout}>
-            <Text
-              style={{
-                color: "black",
-                ...Typography.h4,
-                paddingStart: 10,
-              }}
-            >
-              Sign out
-            </Text>
-          </TouchableOpacity>
-          <View style={{ flex: 1 }} />
-          <Icons.ChevronRight fill={colors.black} style={styles.icon} />
-        </View>
+        <TouchableOpacity onPress={handleLogout}>
+          <View
+            style={{
+              flexDirection: "row",
+              paddingVertical: 10,
+            }}
+          >
+            <Icons.Logout fill={colors.black} style={styles.icon} />
+              <Text
+                style={{
+                  color: "black",
+                  ...Typography.h4,
+                  paddingStart: 10,
+                }}
+              >
+                Sign out
+              </Text>
+            <View style={{ flex: 1 }} />
+            <Icons.ChevronRight fill={colors.black} style={styles.icon} />
+          </View>
+        </TouchableOpacity>
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
         <View
