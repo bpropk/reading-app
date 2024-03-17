@@ -23,7 +23,7 @@ import CustomButton from "@src/components/button/button";
 function Inner() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [heightBtn, setHeightBtn] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState(0);
   const [totalLocation, setTotalLocation] = useState(0);
@@ -55,12 +55,6 @@ function Inner() {
             currentLocation: Location,
             progress: number
           ) => {
-            console.log(
-              "totalLocations",
-              totalLocations,
-              "currentLocation",
-              currentLocation.end.location
-            );
             setTotalLocation(totalLocations);
             setCurrentLocation(currentLocation.end.location);
           }}
