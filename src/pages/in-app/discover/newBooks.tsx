@@ -74,7 +74,7 @@ const NewBookPage: React.FC = memo(() => {
               <CustomButton title={"BUY"} onPress={() => {}} />
             </View>
             <View style={{ paddingBottom: 15 }}>
-              <CustomButton title={"DOWNLOAD SAMPLE"} onPress={() => {}} />
+              <CustomButton title={"ADD TO LIBRARY"} onPress={() => {}} />
             </View>
             <View style={{ paddingTop: 5 }}>
               <Text style={styles.bookOverview}>BOOK OVERVIEW</Text>

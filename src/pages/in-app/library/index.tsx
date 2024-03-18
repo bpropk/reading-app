@@ -1,4 +1,5 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { userLibrary } from "@src/api/user";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
@@ -8,7 +9,7 @@ import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import {
   Image,
   Pressable,
@@ -47,10 +48,50 @@ const LibraryPage: React.FC = memo(() => {
 
   const [searchValue, setSearchValue] = useState("");
   const [tab, setTab] = useState<string>(TabSelect.all);
+  const [library, setLibrary] = useState<any>();
 
-  const handleNavigateDisplayBook = () => {
-    navigation.navigate(RootStackElements.DISPLAY_BOOK);
+  const handleNavigateDisplayBook = (id: string) => {
+    navigation.navigate(RootStackElements.DISPLAY_BOOK, {
+      _id: id,
+    });
   };
+
+  const getData = async () => {
+    await userLibrary()
+      .then((result) => {
+        setLibrary(result.data.books);
+      })
+      .catch((err) => {
+        console.log("-----err----");
+        console.log(err.response);
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const renderLibray = useMemo(() => {
+    return (
+      <View style={styles.bookDisplay}>
+        {library &&
+          library.map((item: any, index: number) => (
+            <Pressable
+              style={styles.bookDisplay}
+              key={index}
+              onPress={() => handleNavigateDisplayBook(item._id)}
+            >
+              <Image
+                style={{ width: 150, height: 180 }}
+                source={{
+                  uri: item.illustration,
+                }}
+              />
+            </Pressable>
+          ))}
+      </View>
+    );
+  }, [library]);
 
   return (
     <ScrollView style={styles.root}>
@@ -77,22 +118,7 @@ const LibraryPage: React.FC = memo(() => {
         </Pressable>
       </View>
       <LineBreak customStyle={{ marginHorizontal: -10 }} />
-      <View style={styles.bookDisplay}>
-        {ENTRIES1.map((item, index) => (
-          <Pressable
-            style={styles.bookDisplay}
-            key={index}
-            onPress={handleNavigateDisplayBook}
-          >
-            <Image
-              style={{ width: 150, height: 180 }}
-              source={{
-                uri: item.illustration,
-              }}
-            />
-          </Pressable>
-        ))}
-      </View>
+      {renderLibray}
     </ScrollView>
   );
 });

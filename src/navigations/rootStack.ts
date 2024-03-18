@@ -49,7 +49,9 @@ export type RootStackParamList = {
 
   // library
   [RootStackElements.LIBRARY_PAGE]: undefined;
-  [RootStackElements.DISPLAY_BOOK]: undefined;
+  [RootStackElements.DISPLAY_BOOK]: {
+    _id?: string;
+  };
 
   // discover
   [RootStackElements.DISCOVER_PAGE]: undefined;

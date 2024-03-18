@@ -15,8 +15,16 @@ import {
 } from "@epubjs-react-native/core";
 import { useFileSystem } from "@epubjs-react-native/expo-file-system";
 import { colors, Icons } from "@src/common/theme";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "@src/navigations/rootStack";
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
+import {
+  RootStackElements,
+  RootStackParamList,
+} from "@src/navigations/rootStack";
 import CustomButton from "@src/components/button/button";
 
 function Inner() {
@@ -26,12 +34,20 @@ function Inner() {
   const [heightBtn, setHeightBtn] = useState<number>(0);
   const [currentLocation, setCurrentLocation] = useState(0);
   const [totalLocation, setTotalLocation] = useState(0);
+  const [src, setSrc] = useState<any>("");
 
   const { goNext, goPrevious } = useReader();
+
+  const route =
+    useRoute<RouteProp<RootStackParamList, RootStackElements.DISPLAY_BOOK>>();
 
   const handleBack = () => {
     navigation.goBack();
   };
+
+  useEffect(() => {
+    setSrc(`http://localhost:3200/book/detail.epub?id=${route?.params?._id}`);
+  }, [route]);
 
   const getLayout = (event: any) => {
     const { height } = event.nativeEvent.layout;
@@ -45,7 +61,7 @@ function Inner() {
       </Pressable>
       <View style={{ height: "100%" }} onLayout={getLayout}>
         <Reader
-          src="http://localhost:3200/book/detail.epub"
+          src={src}
           width={width}
           height={heightBtn}
           fileSystem={useFileSystem}
