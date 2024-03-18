@@ -10,7 +10,7 @@ import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { Pressable } from "react-native";
 import {
   Image,
@@ -55,35 +55,76 @@ const ENTRIES2 = [
   "BEST SELLER",
   "ROMANCE",
   "HISTORY",
-  "BUSINESS",
-  "BIOGRAPHIES",
-  "HEALTH, MIND & BODY",
+  "ADVENTURE",
+  "BIOGRAPHY",
+  "FANTASY",
 ];
 
 const HomePage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [searchValue, setSearchValue] = useState("");
-  const [checked, setChecked] = useState<number>();
+  const [checked, setChecked] = useState<number>(1);
   const [discoverBook, setDiscoverBook] = useState();
 
   const handleNavigate = () => {
     navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE);
   };
 
-  const getBooksInfo = async (subject: string) => {
+  const getBooksInfo = async (subject?: string) => {
+    console.log(subject);
     await listBooks(subject)
       .then((result) => {
         setDiscoverBook(result.data.books);
+        console.log(result.data.books.length);
+        // console.log(result.data.books);
       })
       .catch((err) => {
         console.log("------err-------");
-        console.log(err.response);
+        // console.log(err.response);
       });
   };
 
   useEffect(() => {
-    getBooksInfo("history");
+    getBooksInfo("ROMANCE");
   }, []);
+
+  const changeDiscorverCategory = async (item: string, index: number) => {
+    setChecked(index);
+    if (item !== "BEST SELLER") {
+      await getBooksInfo(item);
+    } else {
+      await getBooksInfo();
+    }
+  };
+
+  const listCategory = useMemo(() => {
+    return (
+      <Carousel
+        vertical={false}
+        data={discoverBook as any}
+        renderItem={({ item }: any) => {
+          return (
+            <Pressable onPress={handleNavigate}>
+              <Image
+                style={{ width: 150, height: 180 }}
+                source={{
+                  uri: item.illustration,
+                }}
+              />
+            </Pressable>
+          );
+        }}
+        sliderWidth={SCREEN_WIDTH}
+        itemWidth={155}
+        activeSlideAlignment={"start"}
+        enableSnap={false}
+        contentContainerCustomStyle={{
+          paddingRight: 10,
+          paddingBottom: 15,
+        }}
+      />
+    );
+  }, [discoverBook]);
 
   return (
     <ScrollView style={styles.root}>
@@ -121,7 +162,7 @@ const HomePage: React.FC = memo(() => {
         <View style={styles.categoryContainer}>
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
-              <Pressable onPress={() => setChecked(index)}>
+              <Pressable onPress={() => changeDiscorverCategory(item, index)}>
                 <View
                   style={[
                     styles.categoryWrapper,
@@ -141,33 +182,7 @@ const HomePage: React.FC = memo(() => {
             </View>
           ))}
         </View>
-        {discoverBook && (
-          <Carousel
-            vertical={false}
-            data={discoverBook}
-            renderItem={({ item }: any) => {
-              console.log(item.illustration);
-              return (
-                <Pressable onPress={handleNavigate}>
-                  <Image
-                    style={{ width: 150, height: 180 }}
-                    source={{
-                      uri: "https://i.imgur.com/sFrO0LE.jpeg",
-                    }}
-                  />
-                </Pressable>
-              );
-            }}
-            sliderWidth={SCREEN_WIDTH}
-            itemWidth={155}
-            activeSlideAlignment={"start"}
-            enableSnap={false}
-            contentContainerCustomStyle={{
-              paddingRight: 10,
-              paddingBottom: 15,
-            }}
-          />
-        )}
+        {discoverBook && listCategory}
 
         <LineBreak />
         <View style={styles.moveCategoryContainer}>
