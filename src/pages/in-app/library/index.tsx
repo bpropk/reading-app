@@ -1,5 +1,5 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { userLibrary } from "@src/api/user";
+import { BookUserLibraryAPI } from "@src/api/user";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
@@ -38,8 +38,8 @@ const LibraryPage: React.FC = memo(() => {
     });
   };
 
-  const getData = async () => {
-    await userLibrary()
+  const getBooksBookUserLibraryAPI = async () => {
+    await BookUserLibraryAPI()
       .then((result) => {
         setLibrary(result.data.books);
       })
@@ -51,13 +51,13 @@ const LibraryPage: React.FC = memo(() => {
 
   useEffect(() => {
     if (focusCount === 1 && isFocused) {
-      getData();
+      getBooksBookUserLibraryAPI();
     }
   });
 
   useEffect(() => {
     if (focusCount > 1 && isFocused) {
-      getData();
+      getBooksBookUserLibraryAPI();
     }
   });
 

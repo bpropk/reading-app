@@ -15,9 +15,9 @@ import {
 } from "@react-navigation/native";
 import validate from "validate.js";
 import { Input } from "@src/components/input/input";
-import { verifyForgotPassword } from "@src/api/authentication";
 import { StoreToken } from "@src/utils/storage";
 import { CustomToast, ToastType } from "@src/components/toast/toast";
+import { VerifyForgotPasswordAPI } from "@src/api/authentication";
 
 type ResetPasswordStateValues = {
   token?: string;
@@ -125,7 +125,7 @@ const ResetPasswordPage = () => {
     }));
     setTouched("submit");
     if (!errors) {
-      await verifyForgotPassword({
+      await VerifyForgotPasswordAPI({
         otp: formState.values.token,
         newPassword: formState.values.newpwd,
         email: route.params.email,

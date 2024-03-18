@@ -7,11 +7,11 @@ import {
 } from "@src/navigations/rootStack";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@src/components/button/button";
-import { login } from "@src/api/authentication";
 import { CustomToast, ToastType } from "@src/components/toast/toast";
 import { StoreToken } from "@src/utils/storage";
 import validate from "validate.js";
 import { Input } from "@src/components/input/input";
+import { LoginAPI } from "@src/api/authentication";
 
 type LoginFormStateValues = {
   username?: string;
@@ -101,7 +101,7 @@ const LoginPage = () => {
     setTouched("submit");
 
     if (!errors) {
-      await login(formState.values)
+      await LoginAPI(formState.values)
         .then((result) => {
           StoreToken(result.data.accessToken);
           navigation.reset({

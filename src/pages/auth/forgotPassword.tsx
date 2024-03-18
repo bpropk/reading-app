@@ -10,8 +10,8 @@ import {
 } from "@src/navigations/rootStack";
 import validate from "validate.js";
 import { Input } from "@src/components/input/input";
-import { forgotPassword } from "@src/api/authentication";
 import { CustomToast, ToastType } from "@src/components/toast/toast";
+import { ForgotPasswordAPI } from "@src/api/authentication";
 
 type ForgotPasswordStateValues = {
   email?: string;
@@ -93,7 +93,7 @@ const ForgotPasswordPage = () => {
     }));
     setTouched("submit");
     if (!errors) {
-      forgotPassword(formState.values)
+      ForgotPasswordAPI(formState.values)
         .then((result) => {
           CustomToast({
             type: ToastType.Success,

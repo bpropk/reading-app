@@ -141,6 +141,8 @@ const RegistrationPage = () => {
     }));
     setTouched("submit");
 
+    // Match API
+
     if (!errors) {
       // TO DO match API
       console.log("reset ");

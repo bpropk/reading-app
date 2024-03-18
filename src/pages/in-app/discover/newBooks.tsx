@@ -1,5 +1,5 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { addLibrary, bookDetail } from "@src/api/book";
+import { AddLibraryAPI, BookDetailAPI } from "@src/api/book";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import CustomButton from "@src/components/button/button";
@@ -32,7 +32,7 @@ const NewBookPage: React.FC = memo(() => {
     >();
 
   const getBookInfo = async (id?: string) => {
-    await bookDetail(id)
+    await BookDetailAPI(id)
       .then((result) => {
         setData(result.data.book);
       })
@@ -40,7 +40,7 @@ const NewBookPage: React.FC = memo(() => {
   };
 
   const handleLibrary = async (id: string) => {
-    await addLibrary({
+    await AddLibraryAPI({
       id,
     })
       .then((result) => {

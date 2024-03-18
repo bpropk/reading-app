@@ -24,18 +24,20 @@ interface VerifyForgotPasswordDto {
   newPassword?: string;
 }
 
-export const login = async (body: loginDto) => {
+export const LoginAPI = async (body: loginDto) => {
   return axios.post(`${process.env.API_URL}/auth/login`, body);
 };
 
-export const register = async (body: registerDto) => {
+export const RegisterAPI = async (body: registerDto) => {
   return axios.post(`${process.env.API_URL}/auth/register`, body);
 };
 
-export const forgotPassword = async (body: forgotPasswordDto) => {
+export const ForgotPasswordAPI = async (body: forgotPasswordDto) => {
   return axios.post(`${process.env.API_URL}/auth/forgot-password`, body);
 };
 
-export const verifyForgotPassword = async (body: VerifyForgotPasswordDto) => {
+export const VerifyForgotPasswordAPI = async (
+  body: VerifyForgotPasswordDto
+) => {
   return axios.post(`${process.env.API_URL}/auth/verify-forgot-password`, body);
 };

@@ -1,5 +1,5 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { listBooks } from "@src/api/book";
+import { ListBooksAPI } from "@src/api/book";
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
@@ -73,7 +73,7 @@ const HomePage: React.FC = memo(() => {
   };
 
   const getBooksInfo = async (subject?: string) => {
-    await listBooks(subject)
+    await ListBooksAPI(subject)
       .then((result) => {
         setDiscoverBook(result.data.books);
       })

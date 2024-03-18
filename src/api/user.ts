@@ -1,7 +1,7 @@
 import { GetToken } from "@src/utils/storage";
 import axios from "axios";
 
-export const userLibrary = async () => {
+export const BookUserLibraryAPI = async () => {
   const config = {
     headers: { Authorization: `Bearer ${await GetToken()}` },
   };
