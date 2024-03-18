@@ -75,12 +75,10 @@ const HomePage: React.FC = memo(() => {
     await listBooks(subject)
       .then((result) => {
         setDiscoverBook(result.data.books);
-        console.log(result.data.books.length);
-        // console.log(result.data.books);
       })
       .catch((err) => {
         console.log("------err-------");
-        // console.log(err.response);
+        console.log(err.response);
       });
   };
 
