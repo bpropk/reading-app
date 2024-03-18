@@ -1,4 +1,8 @@
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 import { BookUserLibraryAPI } from "@src/api/user";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
@@ -8,7 +12,6 @@ import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
-import { useFocus } from "@src/utils";
 import React, { memo, useEffect, useMemo, useState } from "react";
 import {
   Image,
@@ -26,11 +29,11 @@ enum TabSelect {
 
 const LibraryPage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { focusCount, isFocused } = useFocus();
+  const isFocused = useIsFocused();
 
   const [searchValue, setSearchValue] = useState("");
   const [tab, setTab] = useState<string>(TabSelect.all);
-  const [library, setLibrary] = useState<any>();
+  const [userLibray, setUserLibrary] = useState<any>();
 
   const handleNavigateDisplayBook = (id: string) => {
     navigation.navigate(RootStackElements.DISPLAY_BOOK, {
@@ -41,7 +44,7 @@ const LibraryPage: React.FC = memo(() => {
   const getBooksBookUserLibraryAPI = async () => {
     await BookUserLibraryAPI()
       .then((result) => {
-        setLibrary(result.data.books);
+        setUserLibrary(result.data.books);
       })
       .catch((err) => {
         console.log("-----err----");
@@ -50,22 +53,18 @@ const LibraryPage: React.FC = memo(() => {
   };
 
   useEffect(() => {
-    if (focusCount === 1 && isFocused) {
+    if (isFocused) {
+      // Perform actions you want when the screen is focused.
+      // This could be fetching data, re-rendering components, or any other refresh logic.
       getBooksBookUserLibraryAPI();
     }
-  });
-
-  useEffect(() => {
-    if (focusCount > 1 && isFocused) {
-      getBooksBookUserLibraryAPI();
-    }
-  });
+  }, [isFocused]);
 
   const renderLibray = useMemo(() => {
     return (
       <View style={styles.bookDisplay}>
-        {library &&
-          library.map((item: any, index: number) => (
+        {userLibray &&
+          userLibray.map((item: any, index: number) => (
             <Pressable
               style={styles.bookDisplay}
               key={index}
@@ -81,7 +80,7 @@ const LibraryPage: React.FC = memo(() => {
           ))}
       </View>
     );
-  }, [library]);
+  }, [userLibray]);
 
   return (
     <ScrollView style={styles.root}>

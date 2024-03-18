@@ -1,5 +1,10 @@
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 import { ListBooksAPI } from "@src/api/book";
+import { BookUserLibraryAPI } from "@src/api/user";
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
@@ -65,6 +70,8 @@ const HomePage: React.FC = memo(() => {
   const [searchValue, setSearchValue] = useState("");
   const [checked, setChecked] = useState<number>(1);
   const [discoverBook, setDiscoverBook] = useState();
+  const [userLibray, setUserLibrary] = useState<any>();
+  const isFocused = useIsFocused();
 
   const handleNavigate = (id: string) => {
     navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE, {
@@ -83,9 +90,16 @@ const HomePage: React.FC = memo(() => {
       });
   };
 
-  useEffect(() => {
-    getBooksInfo("ROMANCE");
-  }, []);
+  const getBooksBookUserLibraryAPI = async () => {
+    await BookUserLibraryAPI()
+      .then((result) => {
+        setUserLibrary(result.data.books);
+      })
+      .catch((err) => {
+        console.log("-----err----");
+        console.log(err.response);
+      });
+  };
 
   const changeDiscorverCategory = async (item: string, index: number) => {
     setChecked(index);
@@ -96,7 +110,54 @@ const HomePage: React.FC = memo(() => {
     }
   };
 
-  const listCategory = useMemo(() => {
+  const renderCurrentLibrary = useMemo(() => {
+    return (
+      <>
+        {userLibray && (
+          <View>
+            <PartBreak />
+            <Text style={styles.library}>From Your Library</Text>
+            <View style={{ paddingBottom: 20 }}>
+              <Carousel
+                vertical={false}
+                data={userLibray as any}
+                renderItem={({ item }: any) => (
+                  <Image
+                    style={{ width: 150, height: 180 }}
+                    source={{
+                      uri: item?.illustration,
+                    }}
+                  />
+                )}
+                sliderWidth={SCREEN_WIDTH}
+                itemWidth={155}
+                activeSlideAlignment={"start"}
+                enableSnap={false}
+                contentContainerCustomStyle={{
+                  paddingRight: 10,
+                  paddingTop: 10,
+                }}
+              />
+            </View>
+          </View>
+        )}
+      </>
+    );
+  }, [userLibray]);
+
+  useEffect(() => {
+    getBooksInfo("ROMANCE");
+  }, []);
+
+  useEffect(() => {
+    if (isFocused) {
+      // Perform actions you want when the screen is focused.
+      // This could be fetching data, re-rendering components, or any other refresh logic.
+      getBooksBookUserLibraryAPI();
+    }
+  }, [isFocused]);
+
+  const renderListCategory = useMemo(() => {
     return (
       <Carousel
         vertical={false}
@@ -129,27 +190,7 @@ const HomePage: React.FC = memo(() => {
     <ScrollView style={styles.root}>
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
       {/* Library */}
-      <PartBreak />
-      <Text style={styles.library}>From Your Library</Text>
-      <View style={{ paddingBottom: 20 }}>
-        <Carousel
-          vertical={false}
-          data={ENTRIES1}
-          renderItem={({ item }) => (
-            <Image
-              style={{ width: 150, height: 180 }}
-              source={{
-                uri: item.illustration,
-              }}
-            />
-          )}
-          sliderWidth={SCREEN_WIDTH}
-          itemWidth={155}
-          activeSlideAlignment={"start"}
-          enableSnap={false}
-          contentContainerCustomStyle={{ paddingRight: 10, paddingTop: 10 }}
-        />
-      </View>
+      {renderCurrentLibrary}
       {/* Discover */}
       <PartBreak />
       <View>
@@ -181,7 +222,7 @@ const HomePage: React.FC = memo(() => {
             </View>
           ))}
         </View>
-        {discoverBook && listCategory}
+        {discoverBook && renderListCategory}
 
         <LineBreak />
         <View style={styles.moveCategoryContainer}>
