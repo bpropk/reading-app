@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -46,7 +45,7 @@ function Inner() {
       </Pressable>
       <View style={{ height: "100%" }} onLayout={getLayout}>
         <Reader
-          src="https://s3.amazonaws.com/moby-dick/OPS/package.opf"
+          src="http://localhost:3200/book/detail.epub"
           width={width}
           height={heightBtn}
           fileSystem={useFileSystem}
@@ -57,6 +56,15 @@ function Inner() {
           ) => {
             setTotalLocation(totalLocations);
             setCurrentLocation(currentLocation.end.location);
+          }}
+          onDisplayError={(reason) => {
+            console.log("reason", reason);
+          }}
+          onStarted={() => {
+            console.log("start");
+          }}
+          onReady={() => {
+            console.log("ready");
           }}
         />
       </View>
