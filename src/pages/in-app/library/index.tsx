@@ -3,12 +3,12 @@ import { userLibrary } from "@src/api/user";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
-import PartBreak from "@src/components/partBreak/partBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
 import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
+import { useFocus } from "@src/utils";
 import React, { memo, useEffect, useMemo, useState } from "react";
 import {
   Image,
@@ -24,27 +24,9 @@ enum TabSelect {
   download = "DOWNLOAD",
 }
 
-const ENTRIES1 = [
-  {
-    illustration: "https://i.imgur.com/QY0glKP.jpeg",
-  },
-  {
-    illustration:
-      "https://i.imgur.com/bU4ipng_d.webp?maxwidth=1520&fidelity=grand",
-  },
-  {
-    illustration: "https://i.imgur.com/9sayMDx.png",
-  },
-  {
-    illustration: "https://i.imgur.com/LGqx90D.jpeg",
-  },
-  {
-    illustration: "https://i.imgur.com/sFrO0LE.jpeg",
-  },
-];
-
 const LibraryPage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { focusCount, isFocused } = useFocus();
 
   const [searchValue, setSearchValue] = useState("");
   const [tab, setTab] = useState<string>(TabSelect.all);
@@ -68,8 +50,16 @@ const LibraryPage: React.FC = memo(() => {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (focusCount === 1 && isFocused) {
+      getData();
+    }
+  });
+
+  useEffect(() => {
+    if (focusCount > 1 && isFocused) {
+      getData();
+    }
+  });
 
   const renderLibray = useMemo(() => {
     return (

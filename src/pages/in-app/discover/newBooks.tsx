@@ -1,9 +1,10 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { bookDetail } from "@src/api/book";
+import { addLibrary, bookDetail } from "@src/api/book";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import CustomButton from "@src/components/button/button";
 import Star from "@src/components/star/star";
+import { CustomToast, ToastType } from "@src/components/toast/toast";
 import {
   RootStackElements,
   RootStackParamList,
@@ -33,12 +34,26 @@ const NewBookPage: React.FC = memo(() => {
   const getBookInfo = async (id?: string) => {
     await bookDetail(id)
       .then((result) => {
-        // console.log("-----success----");
         setData(result.data.book);
       })
+      .catch((err) => {});
+  };
+
+  const handleLibrary = async (id: string) => {
+    await addLibrary({
+      id,
+    })
+      .then((result) => {
+        CustomToast({
+          type: ToastType.Success,
+          message: result.data.message,
+        });
+      })
       .catch((err) => {
-        console.log("-----err----");
-        // console.log(err.response);
+        CustomToast({
+          type: ToastType.Error,
+          message: err.response.data.message,
+        });
       });
   };
 
@@ -74,7 +89,12 @@ const NewBookPage: React.FC = memo(() => {
               <CustomButton title={"BUY"} onPress={() => {}} />
             </View>
             <View style={{ paddingBottom: 15 }}>
-              <CustomButton title={"ADD TO LIBRARY"} onPress={() => {}} />
+              <CustomButton
+                title={"ADD TO LIBRARY"}
+                onPress={() => {
+                  handleLibrary(data._id);
+                }}
+              />
             </View>
             <View style={{ paddingTop: 5 }}>
               <Text style={styles.bookOverview}>BOOK OVERVIEW</Text>
