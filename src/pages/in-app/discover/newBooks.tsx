@@ -1,8 +1,14 @@
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { bookDetail } from "@src/api/book";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import CustomButton from "@src/components/button/button";
 import Star from "@src/components/star/star";
-import React from "react";
+import {
+  RootStackElements,
+  RootStackParamList,
+} from "@src/navigations/rootStack";
+import React, { useEffect, useMemo, useState } from "react";
 import { memo } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -17,34 +23,73 @@ const fakeData = {
 };
 
 const NewBookPage: React.FC = memo(() => {
+  const [data, setData] = useState<any>();
+
+  const route =
+    useRoute<
+      RouteProp<RootStackParamList, RootStackElements.DISCOVER_NEW_PAGE>
+    >();
+
+  const getBookInfo = async (id?: string) => {
+    await bookDetail(id)
+      .then((result) => {
+        // console.log("-----success----");
+        setData(result.data.book);
+      })
+      .catch((err) => {
+        console.log("-----err----");
+        // console.log(err.response);
+      });
+  };
+
+  useEffect(() => {
+    getBookInfo(route?.params?._id);
+  }, []);
+
+  const Info = useMemo(() => {
+    return (
+      <View>
+        {data && (
+          <>
+            <View style={styles.bookingInfoContainer}>
+              <View style={{ paddingLeft: 15, flexShrink: 0 }}>
+                <Image
+                  style={styles.bookingImage}
+                  source={{
+                    uri: data.illustration,
+                  }}
+                />
+              </View>
+
+              <View style={styles.bookingContent}>
+                <Text style={styles.bookingTitle}>{data.title}</Text>
+                <Text style={styles.bookingAuthor}>{data.author}</Text>
+                <View style={styles.bookingRate}>
+                  <Star numberOfStar={data.star} />
+                </View>
+                <Text style={styles.bookingPrice}>{`$ ${data.price}`}</Text>
+              </View>
+            </View>
+            <View style={{ paddingVertical: 15 }}>
+              <CustomButton title={"BUY"} onPress={() => {}} />
+            </View>
+            <View style={{ paddingBottom: 15 }}>
+              <CustomButton title={"DOWNLOAD SAMPLE"} onPress={() => {}} />
+            </View>
+            <View style={{ paddingTop: 5 }}>
+              <Text style={styles.bookOverview}>BOOK OVERVIEW</Text>
+              <Text style={styles.bookDescription}>{data.description}</Text>
+            </View>
+          </>
+        )}
+      </View>
+    );
+  }, [data]);
+
   return (
     <ScrollView style={styles.root}>
       {/* Book Information */}
-      <View style={styles.bookingInfoContainer}>
-        <View style={{ paddingLeft: 15, flexShrink: 0 }}>
-          <Image
-            style={styles.bookingImage}
-            source={{
-              uri: fakeData.illustration,
-            }}
-          />
-        </View>
-
-        <View style={styles.bookingContent}>
-          <Text style={styles.bookingTitle}>{fakeData.title}</Text>
-          <Text style={styles.bookingAuthor}>{fakeData.author}</Text>
-          <View style={styles.bookingRate}>
-            <Star numberOfStar={fakeData.star} />
-          </View>
-          <Text style={styles.bookingPrice}>{`$ ${fakeData.price}`}</Text>
-        </View>
-      </View>
-      <View style={{ paddingVertical: 15 }}>
-        <CustomButton title={"BUY"} onPress={() => {}} />
-      </View>
-      <View style={{ paddingBottom: 15 }}>
-        <CustomButton title={"DOWNLOAD SAMPLE"} onPress={() => {}} />
-      </View>
+      {data && Info}
     </ScrollView>
   );
 });
@@ -87,6 +132,16 @@ const styles = StyleSheet.create({
     ...Typography.h4,
     fontWeight: "600",
     color: colors.black,
+  },
+  bookOverview: {
+    ...Typography.h2,
+    fontWeight: "700",
+  },
+  bookDescription: {
+    ...Typography.h4,
+    paddingTop: 5,
+    fontWeight: "normal",
+    lineHeight: 20,
   },
 });
 

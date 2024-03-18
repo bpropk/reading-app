@@ -11,3 +11,10 @@ export const listBooks = async (subject?: string) => {
 
   return axios.get(`${process.env.API_URL}/book/list/`, config);
 };
+
+export const bookDetail = async (id?: string) => {
+  const config = {
+    headers: { Authorization: `Bearer ${await GetToken()}` },
+  };
+  return axios.get(`${process.env.API_URL}/book/detail/${id}`, config);
+};

@@ -66,12 +66,13 @@ const HomePage: React.FC = memo(() => {
   const [checked, setChecked] = useState<number>(1);
   const [discoverBook, setDiscoverBook] = useState();
 
-  const handleNavigate = () => {
-    navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE);
+  const handleNavigate = (id: string) => {
+    navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE, {
+      _id: id,
+    });
   };
 
   const getBooksInfo = async (subject?: string) => {
-    console.log(subject);
     await listBooks(subject)
       .then((result) => {
         setDiscoverBook(result.data.books);
@@ -102,7 +103,7 @@ const HomePage: React.FC = memo(() => {
         data={discoverBook as any}
         renderItem={({ item }: any) => {
           return (
-            <Pressable onPress={handleNavigate}>
+            <Pressable onPress={() => handleNavigate(item._id)}>
               <Image
                 style={{ width: 150, height: 180 }}
                 source={{

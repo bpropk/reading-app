@@ -53,7 +53,9 @@ export type RootStackParamList = {
 
   // discover
   [RootStackElements.DISCOVER_PAGE]: undefined;
-  [RootStackElements.DISCOVER_NEW_PAGE]: undefined;
+  [RootStackElements.DISCOVER_NEW_PAGE]: {
+    _id?: string;
+  };
 
   // profile
   [RootStackElements.PROFILE_PAGE]: undefined;
