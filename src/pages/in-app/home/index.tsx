@@ -1,4 +1,5 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { listBooks } from "@src/api/book";
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
@@ -9,7 +10,7 @@ import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Pressable } from "react-native";
 import {
   Image,
@@ -63,10 +64,26 @@ const HomePage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [searchValue, setSearchValue] = useState("");
   const [checked, setChecked] = useState<number>();
+  const [discoverBook, setDiscoverBook] = useState();
 
   const handleNavigate = () => {
     navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE);
   };
+
+  const getBooksInfo = async (subject: string) => {
+    await listBooks(subject)
+      .then((result) => {
+        setDiscoverBook(result.data.books);
+      })
+      .catch((err) => {
+        console.log("------err-------");
+        console.log(err.response);
+      });
+  };
+
+  useEffect(() => {
+    getBooksInfo("history");
+  }, []);
 
   return (
     <ScrollView style={styles.root}>
@@ -124,25 +141,33 @@ const HomePage: React.FC = memo(() => {
             </View>
           ))}
         </View>
-        <Carousel
-          vertical={false}
-          data={ENTRIES1}
-          renderItem={({ item }) => (
-            <Pressable onPress={handleNavigate}>
-              <Image
-                style={{ width: 150, height: 180 }}
-                source={{
-                  uri: item.illustration,
-                }}
-              />
-            </Pressable>
-          )}
-          sliderWidth={SCREEN_WIDTH}
-          itemWidth={155}
-          activeSlideAlignment={"start"}
-          enableSnap={false}
-          contentContainerCustomStyle={{ paddingRight: 10, paddingBottom: 15 }}
-        />
+        {discoverBook && (
+          <Carousel
+            vertical={false}
+            data={discoverBook}
+            renderItem={({ item }: any) => {
+              console.log(item.illustration);
+              return (
+                <Pressable onPress={handleNavigate}>
+                  <Image
+                    style={{ width: 150, height: 180 }}
+                    source={{
+                      uri: "https://i.imgur.com/sFrO0LE.jpeg",
+                    }}
+                  />
+                </Pressable>
+              );
+            }}
+            sliderWidth={SCREEN_WIDTH}
+            itemWidth={155}
+            activeSlideAlignment={"start"}
+            enableSnap={false}
+            contentContainerCustomStyle={{
+              paddingRight: 10,
+              paddingBottom: 15,
+            }}
+          />
+        )}
 
         <LineBreak />
         <View style={styles.moveCategoryContainer}>
