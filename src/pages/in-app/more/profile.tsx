@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -20,9 +20,11 @@ import {
 
 const ProfilePage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const EditProfile = () => {
+  const handleNavigateProfile = () => {
     navigation.navigate(RootStackElements.EDIT_PROFILE_PAGE);
   };
+
+  const handleNavigateLibrary = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -75,7 +77,7 @@ const ProfilePage = () => {
           </View>
         </View>
         <View style={styles.menuWrapper}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={handleNavigateLibrary}>
             <View style={styles.menuItem}>
               <Icons.Heart fill={colors.red} style={styles.icon} />
               <Text style={styles.menuItemText}>My List</Text>
@@ -89,7 +91,7 @@ const ProfilePage = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.buttons}>
-          <CustomButton title="Edit Profile" onPress={EditProfile} />
+          <CustomButton title="Edit Profile" onPress={handleNavigateProfile} />
         </View>
       </ScrollView>
     </SafeAreaView>

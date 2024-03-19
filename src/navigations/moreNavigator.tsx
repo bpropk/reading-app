@@ -7,12 +7,13 @@ import MorePage from "@src/pages/in-app/more";
 import ProfilePage from "@src/pages/in-app/more/profile";
 import EditProfile from "@src/pages/in-app/more/editprofile";
 import LoginPage from "@src/pages/auth/login";
+import LibraryNavigator, { LibraryStackNavigator } from "./libraryNavigator";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-const MoreNavigator: React.FC = memo(() => {
+export const MoreStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={RootStackElements.MORE_PAGE}>
+    <>
       <Stack.Screen
         name={RootStackElements.MORE_PAGE}
         component={MorePage}
@@ -44,6 +45,14 @@ const MoreNavigator: React.FC = memo(() => {
           headerBackTitle: "Back",
         }}
       />
+    </>
+  );
+};
+
+const MoreNavigator: React.FC = memo(() => {
+  return (
+    <Stack.Navigator initialRouteName={RootStackElements.MORE_PAGE}>
+      {MoreStackNavigator()}
     </Stack.Navigator>
   );
 });
