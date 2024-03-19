@@ -73,7 +73,7 @@ const HomePage: React.FC = memo(() => {
   const [userLibray, setUserLibrary] = useState<any>();
   const isFocused = useIsFocused();
 
-  const handleNavigate = (id: string) => {
+  const handleNavigateNewBook = (id: string) => {
     navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE, {
       _id: id,
     });
@@ -155,18 +155,6 @@ const HomePage: React.FC = memo(() => {
     );
   }, [userLibray]);
 
-  useEffect(() => {
-    getBooksInfo("ROMANCE");
-  }, []);
-
-  useEffect(() => {
-    if (isFocused) {
-      // Perform actions you want when the screen is focused.
-      // This could be fetching data, re-rendering components, or any other refresh logic.
-      getBooksBookUserLibraryAPI();
-    }
-  }, [isFocused]);
-
   const renderListCategory = useMemo(() => {
     return (
       <Carousel
@@ -174,7 +162,7 @@ const HomePage: React.FC = memo(() => {
         data={discoverBook as any}
         renderItem={({ item }: any) => {
           return (
-            <Pressable onPress={() => handleNavigate(item._id)}>
+            <Pressable onPress={() => handleNavigateNewBook(item._id)}>
               <Image
                 style={{ width: 150, height: 180 }}
                 source={{
@@ -195,6 +183,18 @@ const HomePage: React.FC = memo(() => {
       />
     );
   }, [discoverBook]);
+
+  useEffect(() => {
+    getBooksInfo("ROMANCE");
+  }, []);
+
+  useEffect(() => {
+    if (isFocused) {
+      // Perform actions you want when the screen is focused.
+      // This could be fetching data, re-rendering components, or any other refresh logic.
+      getBooksBookUserLibraryAPI();
+    }
+  }, [isFocused]);
 
   return (
     <ScrollView style={styles.root}>

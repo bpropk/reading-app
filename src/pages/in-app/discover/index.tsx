@@ -1,10 +1,23 @@
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { ListBooksAPI } from "@src/api/book";
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import LineBreak from "@src/components/lineBreak/lineBreak";
 import SearchBar from "@src/components/searchBar/searchBar";
 import Star from "@src/components/star/star";
-import React, { memo, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  RootStackElements,
+  RootStackParamList,
+} from "@src/navigations/rootStack";
+import React, { memo, useEffect, useMemo, useState } from "react";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 const ENTRIES1 = [
   {
@@ -51,7 +64,72 @@ const ENTRIES1 = [
 ];
 
 const DiscoverPage: React.FC = memo(() => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const [searchValue, setSearchValue] = useState("");
+  const [discoverBook, setDiscoverBook] = useState<any>();
+
+  const handleNavigateNewBook = (id: string) => {
+    navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE, {
+      _id: id,
+    });
+  };
+
+  const getBooksInfo = async (subject?: string) => {
+    await ListBooksAPI(subject)
+      .then((result) => {
+        setDiscoverBook(result.data.books);
+      })
+      .catch((err) => {
+        console.log("------err-------");
+        console.log(err.response);
+      });
+  };
+
+  const renderDiscover = useMemo(() => {
+    {
+      return (
+        <>
+          {discoverBook &&
+            discoverBook.map((item: any, index: number) => (
+              <Pressable
+                style={styles.bookContainer}
+                key={index}
+                onPress={() => handleNavigateNewBook(item._id)}
+              >
+                <View style={styles.bookDisplay}>
+                  <Image
+                    style={{ width: 100, height: 120 }}
+                    source={{
+                      uri: item.illustration,
+                    }}
+                  />
+                </View>
+                <View style={styles.bookDetail}>
+                  <Text ellipsizeMode="clip" style={styles.bookTitle}>
+                    {item.title}
+                  </Text>
+                  <Text ellipsizeMode="clip" style={styles.bookAuthor}>
+                    {item.author}
+                  </Text>
+                  <View style={styles.bookReview}>
+                    <Star numberOfStar={item.star} />
+                    <Text style={styles.numberReview}>
+                      &#40;{item.numberReview}&#41;
+                    </Text>
+                  </View>
+                  <Text style={styles.bookPrice}>&#36;{item.price}</Text>
+                </View>
+              </Pressable>
+            ))}
+        </>
+      );
+    }
+  }, [discoverBook]);
+
+  useEffect(() => {
+    getBooksInfo();
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -61,37 +139,7 @@ const DiscoverPage: React.FC = memo(() => {
 
       <LineBreak customStyle={{ marginHorizontal: -10 }} />
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
-      <ScrollView>
-        <View>
-          {ENTRIES1.map((item, index) => (
-            <View style={styles.bookContainer} key={index}>
-              <View style={styles.bookDisplay}>
-                <Image
-                  style={{ width: 100, height: 120 }}
-                  source={{
-                    uri: item.illustration,
-                  }}
-                />
-              </View>
-              <View style={styles.bookDetail}>
-                <Text ellipsizeMode="clip" style={styles.bookTitle}>
-                  {item.title}
-                </Text>
-                <Text ellipsizeMode="clip" style={styles.bookAuthor}>
-                  {item.author}
-                </Text>
-                <View style={styles.bookReview}>
-                  <Star numberOfStar={item.star} />
-                  <Text style={styles.numberReview}>
-                    &#40;{item.review}&#41;
-                  </Text>
-                </View>
-                <Text style={styles.bookPrice}>&#36;{item.price}</Text>
-              </View>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
+      <ScrollView>{discoverBook && renderDiscover}</ScrollView>
     </View>
   );
 });
