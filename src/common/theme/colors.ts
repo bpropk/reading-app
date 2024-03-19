@@ -2,6 +2,7 @@ const colors = Object.freeze({
   lightBlue: "#0766AD",
   white: "#ffff",
   grey: "#B4B4B8",
+  darkgrey: "#B0A695",
   black: "#000",
   shadow40: "rgba(0, 0, 0, 0.4)",
   shadow10: "rgba(0, 0, 0, 0.1)",

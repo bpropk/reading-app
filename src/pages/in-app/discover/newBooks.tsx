@@ -13,6 +13,33 @@ import React, { useEffect, useMemo, useState } from "react";
 import { memo } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
+const fakeData = [
+  {
+    name: "Teisha",
+    title: "Not a perfect book, but at good 1",
+    comment:
+      "All together they were the best books I've read in a while. Separately, they were not perfect but I'm okay with that. I read alot and tend to dislike books that show no character growth",
+    numberOfStart: 4,
+    numberOfLike: 2,
+  },
+  {
+    name: "Teisha",
+    title: "Not a perfect book, but at good 1",
+    comment:
+      "All together they were the best books I've read in a while. Separately, they were not perfect but I'm okay with that. I read alot and tend to dislike books that show no character growth",
+    numberOfStart: 4,
+    numberOfLike: 2,
+  },
+  {
+    name: "Teisha",
+    title: "Not a perfect book, but at good 1",
+    comment:
+      "All together they were the best books I've read in a while. Separately, they were not perfect but I'm okay with that. I read alot and tend to dislike books that show no character growth",
+    numberOfStart: 4,
+    numberOfLike: 2,
+  },
+];
+
 const NewBookPage: React.FC = memo(() => {
   const [data, setData] = useState<any>();
 
@@ -100,6 +127,37 @@ const NewBookPage: React.FC = memo(() => {
     <ScrollView style={styles.root}>
       {/* Book Information */}
       {data && Info}
+      <View style={{ paddingTop: 10 }}>
+        <Text style={styles.bookOverview}>CUSTOMER REVIEW</Text>
+      </View>
+
+      {/* Comment & Reviews */}
+      {fakeData &&
+        fakeData.map((item, index) => {
+          return (
+            <View key={index}>
+              <Text style={styles.commentName}>{item.name}</Text>
+              <Star numberOfStar={item.numberOfStart} />
+              <Text style={styles.commentTitle}>{item.title}</Text>
+              <Text style={styles.commentDetail}>{item.comment}</Text>
+              <Text
+                style={styles.commentLike}
+              >{`${item.numberOfLike} people found this helpful`}</Text>
+              <View style={{ paddingBottom: 20 }}>
+                <CustomButton
+                  title="HELPFUL"
+                  onPress={() => {}}
+                  style={{
+                    backgroundColor: colors.grey,
+                    width: 120,
+                  }}
+                />
+              </View>
+            </View>
+          );
+        })}
+
+      {/* <View style={{ paddingBottom: 50 }}></View> */}
     </ScrollView>
   );
 });
@@ -152,6 +210,25 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     fontWeight: "normal",
     lineHeight: 20,
+  },
+  commentName: {
+    ...Typography.h3,
+    fontWeight: "normal",
+  },
+  commentTitle: {
+    paddingTop: 5,
+    ...Typography.h4,
+  },
+  commentDetail: {
+    ...Typography.h4,
+    fontWeight: "normal",
+    lineHeight: 20,
+    paddingBottom: 5,
+  },
+  commentLike: {
+    ...Typography.h5,
+    paddingBottom: 5,
+    color: colors.darkgrey,
   },
 });
 
