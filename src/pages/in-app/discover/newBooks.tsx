@@ -4,7 +4,12 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import { AddLibraryAPI, AllReviewAPI, BookDetailAPI } from "@src/api/book";
+import {
+  AddLibraryAPI,
+  AllReviewAPI,
+  BookDetailAPI,
+  LikeReviewAPI,
+} from "@src/api/book";
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import CustomButton from "@src/components/button/button";
@@ -93,6 +98,25 @@ const NewBookPage: React.FC = memo(() => {
       });
   };
 
+  const handleLike = async (id: string) => {
+    await LikeReviewAPI({
+      reviewId: id,
+    })
+      .then(async (result) => {
+        await CustomToast({
+          type: ToastType.Success,
+          message: result.data.message,
+        });
+        await getBookReview(route?.params?._id);
+      })
+      .catch((err) => {
+        CustomToast({
+          type: ToastType.Error,
+          message: err.response.data.message,
+        });
+      });
+  };
+
   const handleNavigationReview = () => {
     navigation.navigate(RootStackElements.DISCOVER_REVIEW_PAGE);
   };
@@ -169,7 +193,7 @@ const NewBookPage: React.FC = memo(() => {
             ) : (
               <CustomButton
                 title="HELPFUL"
-                onPress={() => {}}
+                onPress={() => handleLike(item._id)}
                 style={{
                   backgroundColor: colors.grey,
                   width: 120,

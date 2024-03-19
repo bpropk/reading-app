@@ -54,7 +54,7 @@ export const LikeReviewAPI = async (body: likeReviewDto) => {
     headers: { Authorization: `Bearer ${await GetToken()}` },
   };
 
-  return axios.post(`${process.env.API_URL}/book/review/like}`, body, config);
+  return axios.post(`${process.env.API_URL}/book/review/like`, body, config);
 };
 
 export const AllReviewAPI = async (bookId?: string) => {
