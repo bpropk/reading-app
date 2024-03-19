@@ -55,27 +55,41 @@ const ENTRIES1 = [
     illustration: "https://i.imgur.com/sFrO0LE.jpeg",
   },
 ];
+enum EnumCategory {
+  BEST_SELLER = "BEST SELLER",
+  ROMANCE = "ROMANCE",
+  HISTORY = "HISTORY",
+  ADVENTURE = "ADVENTURE",
+  BIOGRAPHY = "BIOGRAPHY",
+  FANTASY = "FANTASY",
+}
 
 const ENTRIES2 = [
-  "BEST SELLER",
-  "ROMANCE",
-  "HISTORY",
-  "ADVENTURE",
-  "BIOGRAPHY",
-  "FANTASY",
+  EnumCategory.BEST_SELLER,
+  EnumCategory.ROMANCE,
+  EnumCategory.HISTORY,
+  EnumCategory.ADVENTURE,
+  EnumCategory.BIOGRAPHY,
+  EnumCategory.FANTASY,
 ];
 
 const HomePage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [searchValue, setSearchValue] = useState("");
-  const [checked, setChecked] = useState<number>(1);
+  const [checked, setChecked] = useState<EnumCategory>(EnumCategory.ROMANCE);
   const [discoverBook, setDiscoverBook] = useState();
   const [userLibray, setUserLibrary] = useState<any>();
   const isFocused = useIsFocused();
 
-  const handleNavigateNewBook = (id: string) => {
+  const handleNavigateDiscoverNewBook = (id: string) => {
     navigation.navigate(RootStackElements.DISCOVER_NEW_PAGE, {
       _id: id,
+    });
+  };
+
+  const handleNavigateDiscoverCategory = () => {
+    navigation.navigate(RootStackElements.DISCOVER_PAGE, {
+      discover: checked,
     });
   };
 
@@ -107,9 +121,9 @@ const HomePage: React.FC = memo(() => {
       });
   };
 
-  const changeDiscorverCategory = async (item: string, index: number) => {
-    setChecked(index);
-    if (item !== "BEST SELLER") {
+  const changeDiscorverCategory = async (item: EnumCategory) => {
+    setChecked(item);
+    if (item !== EnumCategory.BEST_SELLER) {
       await getBooksInfo(item);
     } else {
       await getBooksInfo();
@@ -162,7 +176,7 @@ const HomePage: React.FC = memo(() => {
         data={discoverBook as any}
         renderItem={({ item }: any) => {
           return (
-            <Pressable onPress={() => handleNavigateNewBook(item._id)}>
+            <Pressable onPress={() => handleNavigateDiscoverNewBook(item._id)}>
               <Image
                 style={{ width: 150, height: 180 }}
                 source={{
@@ -185,7 +199,7 @@ const HomePage: React.FC = memo(() => {
   }, [discoverBook]);
 
   useEffect(() => {
-    getBooksInfo("ROMANCE");
+    getBooksInfo(EnumCategory.ROMANCE);
   }, []);
 
   useEffect(() => {
@@ -212,17 +226,17 @@ const HomePage: React.FC = memo(() => {
         <View style={styles.categoryContainer}>
           {ENTRIES2.map((item, index) => (
             <View style={styles.categoryItem} key={index}>
-              <Pressable onPress={() => changeDiscorverCategory(item, index)}>
+              <Pressable onPress={() => changeDiscorverCategory(item)}>
                 <View
                   style={[
                     styles.categoryWrapper,
-                    checked === index && styles.categoryunWrapper,
+                    checked === item && styles.categoryunWrapper,
                   ]}
                 >
                   <Text
                     style={[
                       styles.categoryText,
-                      checked === index && styles.categoryClickOnText,
+                      checked === item && styles.categoryClickOnText,
                     ]}
                   >
                     {item}
@@ -235,7 +249,10 @@ const HomePage: React.FC = memo(() => {
         {discoverBook && renderListCategory}
 
         <LineBreak />
-        <View style={styles.moveCategoryContainer}>
+        <Pressable
+          style={styles.moveCategoryContainer}
+          onPress={handleNavigateDiscoverCategory}
+        >
           <Text style={{ color: colors.lightBlue }}>
             Move From This Category
           </Text>
@@ -243,7 +260,7 @@ const HomePage: React.FC = memo(() => {
             fill={colors.lightBlue}
             style={{ height: 15, width: 10 }}
           />
-        </View>
+        </Pressable>
         <PartBreak />
       </View>
       {/* Recents Books */}

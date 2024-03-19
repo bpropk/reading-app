@@ -1,4 +1,9 @@
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { ListBooksAPI } from "@src/api/book";
 import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
@@ -19,52 +24,11 @@ import {
   View,
 } from "react-native";
 
-const ENTRIES1 = [
-  {
-    title: "Beautiful and dramatic Antelope Canyon",
-    illustration: "https://i.imgur.com/QY0glKP.jpeg",
-    author: "Alexandre Potter",
-    star: 4,
-    review: 5121,
-    price: "2.99",
-  },
-  {
-    title: "Earlier this morning, NYC",
-    illustration:
-      "https://i.imgur.com/bU4ipng_d.webp?maxwidth=1520&fidelity=grand",
-    author: "Alexandre",
-    star: 4,
-    review: 5121,
-    price: "3.99",
-  },
-  {
-    title: "White Pocket Sunset",
-    illustration: "https://i.imgur.com/9sayMDx.png",
-    author: "Alexandre",
-    star: 1,
-    review: 5121,
-    price: "1.99",
-  },
-  {
-    title: "Acrocorinth, Greece",
-    illustration: "https://i.imgur.com/LGqx90D.jpeg",
-    author: "Alexandre",
-    star: 2,
-    review: 5121,
-    price: "4.99",
-  },
-  {
-    title: "The lone tree, majestic landscape of New Zealand",
-    illustration: "https://i.imgur.com/sFrO0LE.jpeg",
-    author: "Alexandre",
-    star: 3,
-    review: 5121,
-    price: "3.99",
-  },
-];
-
 const DiscoverPage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const route =
+    useRoute<RouteProp<RootStackParamList, RootStackElements.DISCOVER_PAGE>>();
 
   const [searchValue, setSearchValue] = useState("");
   const [discoverBook, setDiscoverBook] = useState<any>();
@@ -84,6 +48,10 @@ const DiscoverPage: React.FC = memo(() => {
         console.log("------err-------");
         console.log(err.response);
       });
+  };
+
+  const handleBack = () => {
+    navigation.goBack();
   };
 
   const renderDiscover = useMemo(() => {
@@ -128,13 +96,24 @@ const DiscoverPage: React.FC = memo(() => {
   }, [discoverBook]);
 
   useEffect(() => {
-    getBooksInfo();
+    getBooksInfo(route?.params?.discover);
   }, []);
 
   return (
     <View style={styles.root}>
       <View style={{ paddingVertical: 20 }}>
-        <Text>DISCOVER NEW BOOK</Text>
+        {route?.params?.discover ? (
+          <View style={styles.routeParamContainer}>
+            <Pressable style={styles.wrapperIcon} onPress={handleBack}>
+              <Icons.ChevronLeft fill={colors.navyBlue} style={styles.icon} />
+            </Pressable>
+            <Text>{route?.params?.discover}</Text>
+          </View>
+        ) : (
+          <View>
+            <Text>DISCOVER NEW BOOK</Text>
+          </View>
+        )}
       </View>
 
       <LineBreak customStyle={{ marginHorizontal: -10 }} />
@@ -189,6 +168,18 @@ const styles = StyleSheet.create({
   numberReview: {
     color: colors.grey,
     ...Typography.h4,
+  },
+  routeParamContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    height: 20,
+    width: 20,
+  },
+  wrapperIcon: {
+    left: 10,
+    paddingRight: 15,
   },
 });
 

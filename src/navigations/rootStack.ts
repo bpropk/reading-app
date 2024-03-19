@@ -54,7 +54,9 @@ export type RootStackParamList = {
   };
 
   // discover
-  [RootStackElements.DISCOVER_PAGE]: undefined;
+  [RootStackElements.DISCOVER_PAGE]: {
+    discover?: string;
+  };
   [RootStackElements.DISCOVER_NEW_PAGE]: {
     _id?: string;
   };
