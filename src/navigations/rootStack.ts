@@ -61,7 +61,9 @@ export type RootStackParamList = {
   [RootStackElements.DISCOVER_NEW_PAGE]: {
     _id?: string;
   };
-  [RootStackElements.DISCOVER_REVIEW_PAGE]: undefined;
+  [RootStackElements.DISCOVER_REVIEW_PAGE]: {
+    bookId?: string;
+  };
 
   // profile
   [RootStackElements.PROFILE_PAGE]: undefined;

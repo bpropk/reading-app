@@ -1,6 +1,7 @@
 import {
   NavigationProp,
   RouteProp,
+  useIsFocused,
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
@@ -54,14 +55,15 @@ const NewBookPage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [data, setData] = useState<any>();
   const [reviews, setReviews] = useState<any>();
+  const isFocused = useIsFocused();
 
   const route =
     useRoute<
       RouteProp<RootStackParamList, RootStackElements.DISCOVER_NEW_PAGE>
     >();
 
-  const getBookInfo = async (id?: string) => {
-    await BookDetailAPI(id)
+  const getBookInfo = async (bookId?: string) => {
+    await BookDetailAPI(bookId)
       .then((result) => {
         setData(result.data.book);
       })
@@ -70,8 +72,8 @@ const NewBookPage: React.FC = memo(() => {
       });
   };
 
-  const getBookReview = async (id?: string) => {
-    await AllReviewAPI(id)
+  const getBookReview = async (bookId?: string) => {
+    await AllReviewAPI(bookId)
       .then((result) => {
         setReviews(result.data.reviews);
       })
@@ -80,9 +82,9 @@ const NewBookPage: React.FC = memo(() => {
       });
   };
 
-  const handleLibrary = async (id: string) => {
+  const handleLibrary = async (bookId: string) => {
     await AddLibraryAPI({
-      id,
+      id: bookId,
     })
       .then((result) => {
         CustomToast({
@@ -98,9 +100,9 @@ const NewBookPage: React.FC = memo(() => {
       });
   };
 
-  const handleLike = async (id: string) => {
+  const handleLike = async (reviewId: string) => {
     await LikeReviewAPI({
-      reviewId: id,
+      reviewId: reviewId,
     })
       .then(async (result) => {
         await CustomToast({
@@ -118,13 +120,19 @@ const NewBookPage: React.FC = memo(() => {
   };
 
   const handleNavigationReview = () => {
-    navigation.navigate(RootStackElements.DISCOVER_REVIEW_PAGE);
+    navigation.navigate(RootStackElements.DISCOVER_REVIEW_PAGE, {
+      bookId: route?.params?._id,
+    });
   };
 
   useEffect(() => {
-    getBookInfo(route?.params?._id);
-    getBookReview(route?.params?._id);
-  }, []);
+    if (isFocused) {
+      // Perform actions you want when the screen is focused.
+      // This could be fetching data, re-rendering components, or any other refresh logic.
+      getBookInfo(route?.params?._id);
+      getBookReview(route?.params?._id);
+    }
+  }, [isFocused]);
 
   const renderInfo = useMemo(() => {
     return (

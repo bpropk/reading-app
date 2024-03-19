@@ -1,7 +1,17 @@
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
+import { AddReviewAPI } from "@src/api/book";
 import { Icons, colors } from "@src/common/theme";
 import CustomButton from "@src/components/button/button";
-import { RootStackParamList } from "@src/navigations/rootStack";
+import { CustomToast, ToastType } from "@src/components/toast/toast";
+import {
+  RootStackElements,
+  RootStackParamList,
+} from "@src/navigations/rootStack";
 import React, { useState } from "react";
 import { memo } from "react";
 import {
@@ -14,6 +24,10 @@ import {
 
 const WriteReviewPage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const route =
+    useRoute<
+      RouteProp<RootStackParamList, RootStackElements.DISCOVER_REVIEW_PAGE>
+    >();
 
   const [star, setStar] = useState(0);
   const [comment, setComment] = useState("");
@@ -22,8 +36,21 @@ const WriteReviewPage: React.FC = memo(() => {
     setComment(comment);
   };
 
-  const addReview = () => {
-    navigation.goBack();
+  const addReview = async () => {
+    if (star === 0 || !comment) {
+      return;
+    }
+    await AddReviewAPI({
+      comment: comment,
+      star: star,
+      bookId: route?.params?.bookId,
+    }).then(async (result) => {
+      await CustomToast({
+        type: ToastType.Success,
+        message: result.data.message,
+      });
+      navigation.goBack();
+    });
   };
 
   return (

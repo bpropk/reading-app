@@ -6,9 +6,9 @@ interface addLibraryDto {
 }
 
 interface addReviewDto {
-  comment: string;
-  star: number;
-  bookId: string;
+  comment?: string;
+  star?: number;
+  bookId?: string;
 }
 
 interface likeReviewDto {
