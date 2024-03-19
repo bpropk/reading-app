@@ -6,13 +6,11 @@ import CustomButton from "@src/components/button/button";
 import Avatar from "@src/components/avatar/Avatar";
 import Caption from "@src/components/Content/caption";
 import { colors, Icons } from "@src/common/theme";
-import { StretchInY } from "react-native-reanimated";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
-import EditProfile from "./editprofile";
 
 const ProfilePage = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();

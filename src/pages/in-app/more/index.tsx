@@ -12,6 +12,7 @@ import {
 } from "@src/navigations/rootStack";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RemoveAllStorage } from "@src/utils/storage";
+import SettingCard from "@src/components/settingCard";
 
 const MorePage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -94,92 +95,30 @@ const MorePage: React.FC = memo(() => {
         </View>
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: 10,
-          }}
-        >
-          <Icons.User fill={colors.black} style={styles.icon} />
-          <TouchableOpacity onPress={handleProfile}>
-            <Text
-              style={{
-                color: "black",
-                ...Typography.h4,
-                paddingStart: 10,
-              }}
-            >
-              My Profile
-            </Text>
-          </TouchableOpacity>
-          <View style={{ flex: 1 }} />
-          <Icons.ChevronRight fill={colors.black} style={styles.icon} />
-        </View>
+        <SettingCard
+          content="My Profile"
+          onPress={handleProfile}
+          icon={<Icons.User fill={colors.black} style={styles.icon} />}
+        />
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: 10,
-          }}
-        >
-          <Icons.Phone fill={colors.black} style={styles.icon} />
-          <Text
-            style={{
-              color: "black",
-              ...Typography.h4,
-              paddingStart: 10,
-            }}
-          >
-            Phone Number
-          </Text>
-          <View style={{ flex: 1 }} />
-          <Icons.ChevronRight fill={colors.black} style={styles.icon} />
-        </View>
+        <SettingCard
+          content="Phone Number"
+          icon={<Icons.Phone fill={colors.black} style={styles.icon} />}
+        />
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: 10,
-          }}
-        >
-          <Icons.Email fill={colors.black} style={styles.icon} />
-          <Text
-            style={{
-              color: "black",
-              ...Typography.h4,
-              paddingStart: 10,
-            }}
-          >
-            Email
-          </Text>
-          <View style={{ flex: 1 }} />
-          <Icons.ChevronRight fill={colors.black} style={styles.icon} />
-        </View>
+        <SettingCard
+          content="Email"
+          icon={<Icons.Email fill={colors.black} style={styles.icon} />}
+        />
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
-        <TouchableOpacity onPress={handleLogout}>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingVertical: 10,
-            }}
-          >
-            <Icons.Logout fill={colors.black} style={styles.icon} />
-              <Text
-                style={{
-                  color: "black",
-                  ...Typography.h4,
-                  paddingStart: 10,
-                }}
-              >
-                Sign out
-              </Text>
-            <View style={{ flex: 1 }} />
-            <Icons.ChevronRight fill={colors.black} style={styles.icon} />
-          </View>
-        </TouchableOpacity>
+        <SettingCard
+          onPress={handleLogout}
+          content="Sign out"
+          icon={<Icons.Logout fill={colors.black} style={styles.icon} />}
+        />
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
         <View
