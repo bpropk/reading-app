@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import DiscoverPage from "@src/pages/in-app/discover";
 import NewBookPage from "@src/pages/in-app/discover/newBooks";
 import { HomeStackNavigator } from "./homeNavigator";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import WriteReviewPage from "@src/pages/in-app/discover/writeReview";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -25,6 +25,14 @@ export const DiscoverStackNavigator = () => {
         options={{
           headerShown: true,
           title: "DISCOVER NEW BOOKS",
+        }}
+      />
+      <Stack.Screen
+        name={RootStackElements.DISCOVER_REVIEW_PAGE}
+        component={WriteReviewPage}
+        options={{
+          headerShown: true,
+          headerTitle: "ADD REVIEW",
         }}
       />
     </>

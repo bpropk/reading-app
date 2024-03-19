@@ -22,6 +22,7 @@ export enum RootStackElements {
   DISCOVER_STACK = "DISCOVER_STACK",
   DISCOVER_PAGE = "DISCOVER_PAGE",
   DISCOVER_NEW_PAGE = "DISCOVER_NEW_PAGE",
+  DISCOVER_REVIEW_PAGE = "DISCOVER_REVIEW_PAGE",
 
   // More
   MORE_STACK = "MORE_STACK",
@@ -60,6 +61,7 @@ export type RootStackParamList = {
   [RootStackElements.DISCOVER_NEW_PAGE]: {
     _id?: string;
   };
+  [RootStackElements.DISCOVER_REVIEW_PAGE]: undefined;
 
   // profile
   [RootStackElements.PROFILE_PAGE]: undefined;

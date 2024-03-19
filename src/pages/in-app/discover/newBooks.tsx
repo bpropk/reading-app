@@ -1,4 +1,9 @@
-import { RouteProp, useRoute } from "@react-navigation/native";
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { AddLibraryAPI, BookDetailAPI } from "@src/api/book";
 import { colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
@@ -41,6 +46,7 @@ const fakeData = [
 ];
 
 const NewBookPage: React.FC = memo(() => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [data, setData] = useState<any>();
 
   const route =
@@ -72,6 +78,10 @@ const NewBookPage: React.FC = memo(() => {
           message: err.response.data.message,
         });
       });
+  };
+
+  const handleNavigationReview = () => {
+    navigation.navigate(RootStackElements.DISCOVER_REVIEW_PAGE);
   };
 
   useEffect(() => {
@@ -138,7 +148,6 @@ const NewBookPage: React.FC = memo(() => {
             <View key={index}>
               <Text style={styles.commentName}>{item.name}</Text>
               <Star numberOfStar={item.numberOfStart} />
-              <Text style={styles.commentTitle}>{item.title}</Text>
               <Text style={styles.commentDetail}>{item.comment}</Text>
               <Text
                 style={styles.commentLike}
@@ -158,7 +167,7 @@ const NewBookPage: React.FC = memo(() => {
         })}
       <CustomButton
         title="WRITE A REVIEW"
-        onPress={() => {}}
+        onPress={handleNavigationReview}
         style={{
           backgroundColor: colors.grey,
           marginBottom: 50,
@@ -230,6 +239,7 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     lineHeight: 20,
     paddingBottom: 5,
+    paddingTop: 5,
   },
   commentLike: {
     ...Typography.h5,
