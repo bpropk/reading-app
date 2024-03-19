@@ -13,16 +13,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { memo } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
-const fakeData = {
-  title:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam accumsan auctor null",
-  illustration: "https://i.imgur.com/QY0glKP.jpeg",
-  star: 4,
-  numberReview: 2440,
-  author: "Douglas R Brown",
-  price: 64.32,
-};
-
 const NewBookPage: React.FC = memo(() => {
   const [data, setData] = useState<any>();
 

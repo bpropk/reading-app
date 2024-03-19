@@ -7,9 +7,9 @@ import { DisplayBookPage } from "@src/pages/in-app/library/displayBook";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-const LibraryNavigator: React.FC = memo(() => {
+export const LibraryStackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={RootStackElements.LIBRARY_PAGE}>
+    <>
       <Stack.Screen
         name={RootStackElements.LIBRARY_PAGE}
         component={LibraryPage}
@@ -20,6 +20,14 @@ const LibraryNavigator: React.FC = memo(() => {
         component={DisplayBookPage}
         options={{ headerShown: false }}
       />
+    </>
+  );
+};
+
+const LibraryNavigator: React.FC = memo(() => {
+  return (
+    <Stack.Navigator initialRouteName={RootStackElements.LIBRARY_PAGE}>
+      {LibraryStackNavigator()}
     </Stack.Navigator>
   );
 });

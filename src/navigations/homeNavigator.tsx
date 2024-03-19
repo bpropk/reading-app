@@ -3,8 +3,8 @@ import { memo } from "react";
 import { RootStackParamList, RootStackElements } from "./rootStack";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomePage from "@src/pages/in-app/home";
-import NewBookPage from "@src/pages/in-app/discover/newBooks";
 import { DiscoverStackNavigator } from "./discoverNavigator";
+import { LibraryStackNavigator } from "./libraryNavigator";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -25,6 +25,7 @@ const HomeNavigator: React.FC = memo(() => {
     <Stack.Navigator initialRouteName={RootStackElements.HOME_PAGE}>
       {HomeStackNavigator()}
       {DiscoverStackNavigator()}
+      {LibraryStackNavigator()}
     </Stack.Navigator>
   );
 });

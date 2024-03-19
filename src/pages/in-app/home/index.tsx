@@ -79,6 +79,12 @@ const HomePage: React.FC = memo(() => {
     });
   };
 
+  const handleNavigateDisplayBook = (id: string) => {
+    navigation.navigate(RootStackElements.DISPLAY_BOOK, {
+      _id: id,
+    });
+  };
+
   const getBooksInfo = async (subject?: string) => {
     await ListBooksAPI(subject)
       .then((result) => {
@@ -122,12 +128,16 @@ const HomePage: React.FC = memo(() => {
                 vertical={false}
                 data={userLibray as any}
                 renderItem={({ item }: any) => (
-                  <Image
-                    style={{ width: 150, height: 180 }}
-                    source={{
-                      uri: item?.illustration,
-                    }}
-                  />
+                  <Pressable
+                    onPress={() => handleNavigateDisplayBook(item?._id)}
+                  >
+                    <Image
+                      style={{ width: 150, height: 180 }}
+                      source={{
+                        uri: item?.illustration,
+                      }}
+                    />
+                  </Pressable>
                 )}
                 sliderWidth={SCREEN_WIDTH}
                 itemWidth={155}
