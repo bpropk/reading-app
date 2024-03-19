@@ -20,6 +20,7 @@ import User from "@assets/icons/user.svg";
 import Camera from "@assets/icons/camera.svg";
 import Star from "@assets/icons/star.svg";
 import ChevronLeft from "@assets/icons/chevronleft.svg";
+import CircleCheck from "@assets/icons/circleCheck.svg";
 
 const Icons = Object.freeze({
   Home: Home,
@@ -42,6 +43,7 @@ const Icons = Object.freeze({
   User: User,
   Camera: Camera,
   Star: Star,
+  CircleCheck: CircleCheck,
 });
 
 export default Icons;

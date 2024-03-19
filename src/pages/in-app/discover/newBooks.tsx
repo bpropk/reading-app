@@ -4,8 +4,8 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-import { AddLibraryAPI, BookDetailAPI } from "@src/api/book";
-import { colors } from "@src/common/theme";
+import { AddLibraryAPI, AllReviewAPI, BookDetailAPI } from "@src/api/book";
+import { Icons, colors } from "@src/common/theme";
 import Typography from "@src/common/typography";
 import CustomButton from "@src/components/button/button";
 import Star from "@src/components/star/star";
@@ -48,6 +48,7 @@ const fakeData = [
 const NewBookPage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [data, setData] = useState<any>();
+  const [reviews, setReviews] = useState<any>();
 
   const route =
     useRoute<
@@ -59,7 +60,19 @@ const NewBookPage: React.FC = memo(() => {
       .then((result) => {
         setData(result.data.book);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log("BookDetailAPI", err);
+      });
+  };
+
+  const getBookReview = async (id?: string) => {
+    await AllReviewAPI(id)
+      .then((result) => {
+        setReviews(result.data.reviews);
+      })
+      .catch((err) => {
+        console.log("AllReviewAPI", err);
+      });
   };
 
   const handleLibrary = async (id: string) => {
@@ -86,9 +99,10 @@ const NewBookPage: React.FC = memo(() => {
 
   useEffect(() => {
     getBookInfo(route?.params?._id);
+    getBookReview(route?.params?._id);
   }, []);
 
-  const Info = useMemo(() => {
+  const renderInfo = useMemo(() => {
     return (
       <View>
         {data && (
@@ -133,38 +147,51 @@ const NewBookPage: React.FC = memo(() => {
     );
   }, [data]);
 
+  const renderReviews = useMemo(() => {
+    return (
+      reviews &&
+      reviews.map((item: any, index: number) => (
+        <View key={index}>
+          <Text style={styles.commentName}>{item.user}</Text>
+          <Star numberOfStar={item.star} />
+          <Text style={styles.commentDetail}>{item.review}</Text>
+          <Text
+            style={styles.commentLike}
+          >{`${item.like} people found this helpful`}</Text>
+          <View style={{ paddingBottom: 20 }}>
+            {item.isAlreadyLike ? (
+              <View style={styles.feedbackContainer}>
+                <Icons.CircleCheck style={styles.icon} fill={colors.green} />
+                <Text style={styles.commentFeedback}>
+                  Thank you for your feedback.
+                </Text>
+              </View>
+            ) : (
+              <CustomButton
+                title="HELPFUL"
+                onPress={() => {}}
+                style={{
+                  backgroundColor: colors.grey,
+                  width: 120,
+                }}
+              />
+            )}
+          </View>
+        </View>
+      ))
+    );
+  }, [reviews]);
+
   return (
     <ScrollView style={styles.root}>
       {/* Book Information */}
-      {data && Info}
+      {data && renderInfo}
       <View style={{ paddingTop: 10 }}>
         <Text style={styles.bookOverview}>CUSTOMER REVIEW</Text>
       </View>
 
       {/* Comment & Reviews */}
-      {fakeData &&
-        fakeData.map((item, index) => {
-          return (
-            <View key={index}>
-              <Text style={styles.commentName}>{item.name}</Text>
-              <Star numberOfStar={item.numberOfStart} />
-              <Text style={styles.commentDetail}>{item.comment}</Text>
-              <Text
-                style={styles.commentLike}
-              >{`${item.numberOfLike} people found this helpful`}</Text>
-              <View style={{ paddingBottom: 20 }}>
-                <CustomButton
-                  title="HELPFUL"
-                  onPress={() => {}}
-                  style={{
-                    backgroundColor: colors.grey,
-                    width: 120,
-                  }}
-                />
-              </View>
-            </View>
-          );
-        })}
+      {reviews && renderReviews}
       <CustomButton
         title="WRITE A REVIEW"
         onPress={handleNavigationReview}
@@ -245,6 +272,19 @@ const styles = StyleSheet.create({
     ...Typography.h5,
     paddingBottom: 5,
     color: colors.darkgrey,
+  },
+  feedbackContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  commentFeedback: {
+    ...Typography.h5,
+    color: colors.green,
+    paddingLeft: 5,
+  },
+  icon: {
+    height: 20,
+    width: 20,
   },
 });
 
