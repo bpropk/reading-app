@@ -97,25 +97,16 @@ const DiscoverPage: React.FC = memo(() => {
 
   useEffect(() => {
     getBooksInfo(route?.params?.discover);
+    navigation.setOptions({
+      title: route?.params?.discover
+        ? route?.params?.discover
+        : "DISCOVER NEW BOOK",
+      headerBackTitle: "Back",
+    });
   }, []);
 
   return (
     <View style={styles.root}>
-      <View style={{ paddingVertical: 20 }}>
-        {route?.params?.discover ? (
-          <View style={styles.routeParamContainer}>
-            <Pressable style={styles.wrapperIcon} onPress={handleBack}>
-              <Icons.ChevronLeft fill={colors.navyBlue} style={styles.icon} />
-            </Pressable>
-            <Text>{route?.params?.discover}</Text>
-          </View>
-        ) : (
-          <View>
-            <Text>DISCOVER NEW BOOK</Text>
-          </View>
-        )}
-      </View>
-
       <LineBreak customStyle={{ marginHorizontal: -10 }} />
       <SearchBar getSearchValue={(value) => setSearchValue(value)} />
       <ScrollView>{discoverBook && renderDiscover}</ScrollView>

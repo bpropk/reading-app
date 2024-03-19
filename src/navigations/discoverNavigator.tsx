@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import DiscoverPage from "@src/pages/in-app/discover";
 import NewBookPage from "@src/pages/in-app/discover/newBooks";
 import { HomeStackNavigator } from "./homeNavigator";
+import { RouteProp, useRoute } from "@react-navigation/native";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -14,7 +15,9 @@ export const DiscoverStackNavigator = () => {
       <Stack.Screen
         name={RootStackElements.DISCOVER_PAGE}
         component={DiscoverPage}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: true,
+        }}
       />
       <Stack.Screen
         name={RootStackElements.DISCOVER_NEW_PAGE}

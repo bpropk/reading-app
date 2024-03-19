@@ -156,8 +156,14 @@ const NewBookPage: React.FC = memo(() => {
             </View>
           );
         })}
-
-      {/* <View style={{ paddingBottom: 50 }}></View> */}
+      <CustomButton
+        title="WRITE A REVIEW"
+        onPress={() => {}}
+        style={{
+          backgroundColor: colors.grey,
+          marginBottom: 50,
+        }}
+      />
     </ScrollView>
   );
 });
