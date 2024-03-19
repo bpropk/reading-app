@@ -1,5 +1,11 @@
 import React, { useState, memo } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Tittle from "@src/components/Content/tittle";
 import CustomButton from "@src/components/button/button";
@@ -20,7 +26,7 @@ const ProfilePage = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
+      <ScrollView>
         <View style={{ flexDirection: "row", marginTop: 15 }}>
           <Avatar
             source={{
@@ -36,30 +42,15 @@ const ProfilePage = () => {
           </View>
         </View>
         <View style={styles.userInfoSection}>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingVertical: 10,
-            }}
-          >
+          <View style={styles.userInFoContainer}>
             <Icons.MapLocation fill={colors.black} style={styles.icon} />
             <Text style={{ marginLeft: 20 }}>Dong Nai, Viet Nam</Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingVertical: 10,
-            }}
-          >
+          <View style={styles.userInFoContainer}>
             <Icons.Phone fill={colors.black} style={styles.icon} />
             <Text style={{ marginLeft: 20 }}>0971066236</Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              paddingVertical: 10,
-            }}
-          >
+          <View style={styles.userInFoContainer}>
             <Icons.Email fill={colors.black} style={styles.icon} />
             <Text style={{ marginLeft: 20 }}>pmdang2699@gmail.com</Text>
           </View>
@@ -96,23 +87,11 @@ const ProfilePage = () => {
               <Text style={styles.menuItemText}>Payment</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
-            <View style={styles.menuItem}>
-              <Icons.Share fill={colors.red} style={styles.icon} />
-              <Text style={styles.menuItemText}>My Friends</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
-            <View style={styles.menuItem}>
-              <Icons.Support fill={colors.red} style={styles.icon} />
-              <Text style={styles.menuItemText}>Support</Text>
-            </View>
-          </TouchableOpacity>
         </View>
         <View style={styles.buttons}>
           <CustomButton title="Edit Profile" onPress={EditProfile} />
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -122,6 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 30,
     backgroundColor: "#ffffff",
+    paddingBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -135,9 +115,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
   },
-  userInfoSection: {
-    paddingTop: 20,
-  },
+  userInfoSection: {},
   label: {
     marginVertical: 10,
   },
@@ -176,6 +154,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
     lineHeight: 26,
+  },
+  userInFoContainer: {
+    flexDirection: "row",
+    paddingVertical: 10,
   },
 });
 
