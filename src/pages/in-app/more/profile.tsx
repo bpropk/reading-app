@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -17,14 +17,27 @@ import {
   RootStackElements,
   RootStackParamList,
 } from "@src/navigations/rootStack";
+import { UserInfoAPI } from "@src/api/user";
 
-const ProfilePage = () => {
+const ProfilePage: React.FC = memo(() => {
+  const [profile, setProfile] = useState<any>();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const handleNavigateProfile = () => {
     navigation.navigate(RootStackElements.EDIT_PROFILE_PAGE);
   };
 
   const handleNavigateLibrary = () => {};
+
+  const getProfile = async () => {
+    await UserInfoAPI().then((result) => {
+      // console.log(result.data);
+      setProfile(result.data);
+    });
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -38,23 +51,23 @@ const ProfilePage = () => {
           />
           <View style={{ marginLeft: 20 }}>
             <Tittle style={[styles.title, { marginTop: 15, marginBottom: 5 }]}>
-              Pham Minh Dang
+              {profile?.name}
             </Tittle>
-            <Caption>@pmdang2699</Caption>
+            {/* <Caption>@pmdang2699</Caption> */}
           </View>
         </View>
         <View style={styles.userInfoSection}>
           <View style={styles.userInFoContainer}>
             <Icons.MapLocation fill={colors.black} style={styles.icon} />
-            <Text style={{ marginLeft: 20 }}>Dong Nai, Viet Nam</Text>
+            <Text style={{ marginLeft: 20 }}>{profile?.address}</Text>
           </View>
           <View style={styles.userInFoContainer}>
             <Icons.Phone fill={colors.black} style={styles.icon} />
-            <Text style={{ marginLeft: 20 }}>0971066236</Text>
+            <Text style={{ marginLeft: 20 }}>{profile?.phone}</Text>
           </View>
           <View style={styles.userInFoContainer}>
             <Icons.Email fill={colors.black} style={styles.icon} />
-            <Text style={{ marginLeft: 20 }}>pmdang2699@gmail.com</Text>
+            <Text style={{ marginLeft: 20 }}>{profile?.email}</Text>
           </View>
         </View>
 
@@ -96,7 +109,7 @@ const ProfilePage = () => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
