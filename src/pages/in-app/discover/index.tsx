@@ -81,9 +81,9 @@ const DiscoverPage: React.FC = memo(() => {
                     {item.author}
                   </Text>
                   <View style={styles.bookReview}>
-                    <Star numberOfStar={item.star} />
+                    <Star numberOfStar={item.numOfStar} />
                     <Text style={styles.numberReview}>
-                      &#40;{item.numberReview}&#41;
+                      &#40;{item.numOfReview}&#41;
                     </Text>
                   </View>
                   <Text style={styles.bookPrice}>&#36;{item.price}</Text>
