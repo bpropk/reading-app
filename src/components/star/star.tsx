@@ -8,11 +8,12 @@ interface StarProps {
 
 const Star: React.FC<StarProps> = ({ numberOfStar }) => {
   const displayStar = (star: number) => {
+    const numberStar = Math.round(star);
     return Array.from(Array(5).keys()).map((value) => {
       return (
         <Icons.Star
           key={value}
-          fill={star > value ? colors.vividYellow : colors.grey}
+          fill={numberStar > value ? colors.vividYellow : colors.grey}
           style={styles.icon}
         />
       );

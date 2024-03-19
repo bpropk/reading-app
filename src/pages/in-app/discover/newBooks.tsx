@@ -24,33 +24,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { memo } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
-const fakeData = [
-  {
-    name: "Teisha",
-    title: "Not a perfect book, but at good 1",
-    comment:
-      "All together they were the best books I've read in a while. Separately, they were not perfect but I'm okay with that. I read alot and tend to dislike books that show no character growth",
-    numberOfStart: 4,
-    numberOfLike: 2,
-  },
-  {
-    name: "Teisha",
-    title: "Not a perfect book, but at good 1",
-    comment:
-      "All together they were the best books I've read in a while. Separately, they were not perfect but I'm okay with that. I read alot and tend to dislike books that show no character growth",
-    numberOfStart: 4,
-    numberOfLike: 2,
-  },
-  {
-    name: "Teisha",
-    title: "Not a perfect book, but at good 1",
-    comment:
-      "All together they were the best books I've read in a while. Separately, they were not perfect but I'm okay with that. I read alot and tend to dislike books that show no character growth",
-    numberOfStart: 4,
-    numberOfLike: 2,
-  },
-];
-
 const NewBookPage: React.FC = memo(() => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [data, setData] = useState<any>();
@@ -153,7 +126,9 @@ const NewBookPage: React.FC = memo(() => {
                 <Text style={styles.bookingTitle}>{data.title}</Text>
                 <Text style={styles.bookingAuthor}>{data.author}</Text>
                 <View style={styles.bookingRate}>
-                  <Star numberOfStar={data.star} />
+                  <Text style={{ paddingRight: 5 }}>{data.numOfStar | 0}</Text>
+                  <Star numberOfStar={data.numOfStar} />
+                  <Text style={{ paddingLeft: 5 }}>{data.numOfReview | 0}</Text>
                 </View>
                 <Text style={styles.bookingPrice}>{`$ ${data.price}`}</Text>
               </View>
@@ -268,6 +243,8 @@ const styles = StyleSheet.create({
   bookingRate: {
     paddingTop: 5,
     ...Typography.h4,
+    flexDirection: "row",
+    alignItems: "center",
   },
   bookingPrice: {
     paddingTop: 10,
