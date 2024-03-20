@@ -103,12 +103,14 @@ const MorePage: React.FC = memo(() => {
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
         <SettingCard
+          onPress={() => {}}
           content="Phone Number"
           icon={<Icons.Phone fill={colors.black} style={styles.icon} />}
         />
         <LineBreak customStyle={{ marginHorizontal: -10 }} />
 
         <SettingCard
+          onPress={() => {}}
           content="Email"
           icon={<Icons.Email fill={colors.black} style={styles.icon} />}
         />
