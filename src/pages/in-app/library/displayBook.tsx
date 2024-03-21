@@ -36,7 +36,7 @@ function Inner() {
   const [totalLocation, setTotalLocation] = useState(0);
   const [src, setSrc] = useState<any>("");
 
-  const { goNext, goPrevious } = useReader();
+  const { goNext, goPrevious, goToLocation } = useReader();
 
   const route =
     useRoute<RouteProp<RootStackParamList, RootStackElements.DISPLAY_BOOK>>();
@@ -54,17 +54,28 @@ function Inner() {
     setHeightBtn(height);
   };
 
+  const handleNavigateMenu = () => {
+    goToLocation("bk01-toc.xhtml");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Pressable style={styles.wrapperIcon} onPress={handleBack}>
-        <Icons.ChevronLeft fill={colors.black} style={styles.icon} />
-      </Pressable>
+      <View style={styles.iconsContainer}>
+        <Pressable onPress={handleBack}>
+          <Icons.ChevronLeft fill={colors.black} style={styles.icon} />
+        </Pressable>
+        <Pressable onPress={handleNavigateMenu}>
+          <Icons.MorePage fill={colors.black} style={styles.icon} />
+        </Pressable>
+      </View>
+
       <View style={{ height: "100%" }} onLayout={getLayout}>
         <Reader
           src={src}
           width={width}
           height={heightBtn}
           fileSystem={useFileSystem}
+          enableSelection={true}
           onLocationChange={(
             totalLocations: number,
             currentLocation: Location,
@@ -72,15 +83,6 @@ function Inner() {
           ) => {
             setTotalLocation(totalLocations);
             setCurrentLocation(currentLocation.end.location);
-          }}
-          onDisplayError={(reason) => {
-            console.log("reason", reason);
-          }}
-          onStarted={() => {
-            console.log("start");
-          }}
-          onReady={() => {
-            console.log("ready");
           }}
         />
       </View>
@@ -129,10 +131,15 @@ export const styles = StyleSheet.create({
   currentFormat: {
     textAlign: "center",
   },
-  wrapperIcon: {
+  iconsContainer: {
     position: "absolute",
-    left: 10,
+    top: 10,
     zIndex: 10,
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: 10,
   },
   icon: {
     height: 20,
