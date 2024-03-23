@@ -26,6 +26,7 @@ import {
   RootStackParamList,
 } from "@src/navigations/rootStack";
 import CustomButton from "@src/components/button/button";
+import { GenerateAuditAPI, getAuditAPI } from "@src/api/audit";
 
 function Inner() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -36,12 +37,13 @@ function Inner() {
   const [totalLocation, setTotalLocation] = useState(0);
   const [src, setSrc] = useState<any>("");
 
-  const { goNext, goPrevious, goToLocation } = useReader();
+  const { goNext, goPrevious, goToLocation, getCurrentLocation } = useReader();
 
   const route =
     useRoute<RouteProp<RootStackParamList, RootStackElements.DISPLAY_BOOK>>();
 
   const handleBack = () => {
+    generateAudit();
     navigation.goBack();
   };
 
@@ -52,6 +54,26 @@ function Inner() {
   const getLayout = (event: any) => {
     const { height } = event.nativeEvent.layout;
     setHeightBtn(height);
+  };
+
+  const generateAudit = async () => {
+    const location = getCurrentLocation();
+    await GenerateAuditAPI({
+      location: location?.start.cfi,
+      bookId: route?.params?._id,
+    });
+  };
+
+  const getLocation = async () => {
+    await getAuditAPI(route?.params?._id)
+      .then((result) => {
+        if (result.data.location) {
+          goToLocation(result.data.location);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleNavigateMenu = () => {
@@ -83,6 +105,9 @@ function Inner() {
           ) => {
             setTotalLocation(totalLocations);
             setCurrentLocation(currentLocation.end.location);
+          }}
+          onReady={() => {
+            getLocation();
           }}
         />
       </View>
